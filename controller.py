@@ -19,3 +19,17 @@
 # 	*ex: Who will handle exit critera
 # 	*what class will handle parsing/conversion
 # 
+from view import RecipeView
+class RecipeController:
+        system = ""
+        recipeText = ""
+        scaling = ""
+        def __init__(self,system,recipeText,scaling):
+                self.system = system
+                self.recipeText = recipeText
+                self.scaling = scaling
+                return
+
+        def getOutput(self):
+                v = RecipeView()
+                return v.getOutput(self.system, self.recipeText)
