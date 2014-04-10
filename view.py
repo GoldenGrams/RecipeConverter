@@ -1,6 +1,6 @@
 
 class RecipeView:
-        def getDocument(self, measurementSystem, recipeText):
+	def getDocument(self, measurementSystem, recipeText):
 		text = """
 <html>
 <head>
@@ -49,7 +49,7 @@ class RecipeView:
 		text = text.replace("%recipetext%",recipeText)
 		text = text.replace("%imperialchecked%","checked" if measurementSystem=="imperial" else "")
 		text = text.replace("%metricchecked%","checked" if measurementSystem=="metric" else "")
-                return text
+		return text
 
 
 
