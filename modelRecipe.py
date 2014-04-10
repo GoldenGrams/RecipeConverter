@@ -67,7 +67,11 @@ class ModelRecipe(object):
     def finalizeRecipe (self):
         workingstring=""
         if self.getConvertCheck():
-            #workingstring = reassembled string
+            workingstring=self.getParsedRecipe
+            counter=0
+            while len(listCE) > counter:
+                #replace denoter with listCE(counter)
+            
             self.setFinalRecipe(workingstring)
     
                 
