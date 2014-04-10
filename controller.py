@@ -1,24 +1,50 @@
-# begin
-# Instantiate instant variable of other classes
-# Call ViewWindow to create a window
-# while TRUE
-# 	Created a view ViewUserInput to promp for user input
-# 	Retrieve recipe input from user
-# 	Use uploadRecipe method with user input
-# 	Retrieve chosen conversion choice from user
-# 	Retrieve serving size from user
-# 	Send information over to ModelRecipe for parsing and converstion
-# 	Retrieve new Rececipe
-# 	Display with View Output
-# End while
-# 	
-# 
-# 	
-# **Unsure how to prompt for changes or where prompting for changes occurs
-# **Also unsure what classes will specifically handle what job
-# 	*ex: Who will handle exit critera
-# 	*what class will handle parsing/conversion
-# 
+#####################
+#####Variables#######
+#-orgRecipe - string
+#-parsedRecipe
+#-NewRecipe - string
+#-desiredUnits - string 
+#-scale - double
+#####################
+# Controller Class:
+# Class begins with calling view to ask for user input
+# After recieving user input, Controller would create a recipie object.
+# TBC
+#
+#####################
+#pass string that will state either imperial or metric
+#Call upon view to create view prompting user for input
+#Recieve user inputs from view
+#create a Recipe object
+#ModelRecipe.parseRecipe
+#ModelRecipe.convertRecipe(desiredUnit, scale)
+#ModelRecipe.getFinalRecipe()
+#Calls upon the OutputView and display the recipe
+
+#######################
+#Controller gain user input from view.
+#Call display view and return 
+#How view passes on inputs is still undecided
+#
+#######################
+# Food for thought.
+# FInd a way to exit the program.
+#
+#
+#
+######################
+
+
+#####
+#get output 
+#
+#setmethod for variable
+#######
+#Write a constructor that handles scaling, recipe, and desired units
+#
+#
+#######
+
 from view import RecipeView
 class RecipeController:
         system = ""
