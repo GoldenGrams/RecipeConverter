@@ -1,22 +1,80 @@
-#PARSER
- 
-//recipe is stored in the variable recipe
-  Recipe = recipe string object
-//pattern object is created for all possible convertible elements that will be found in a recipe
-  unitRegularExpression = re.compile(‘(\d+) (unit?)’)
-//Recipe is analyzed.
-  An array is created containing all substrings/convertible elements matching the regex.
-  array = findall(unitRegularExpression, recipe)
-  for convertible element in array:
-      call convertible element constructor 
-      element gets converted and placed back into array
-//iterate through array
-  for converted element in list:
-      setElement() //replaces unconverted element with converted element    
+﻿#ModelRecipe.py
+class ModelRecipe(object):
+    #constructor (set privacy?)
+    def __init__ (self, givenrecipe):
+        self.origRecipe=givenrecipe
+        self.parsedRecipe=""
+        self.finalRecipe=""
+        self.scale=1
+        self.didParse=FALSE
+        self.didConvert=FALSE
+        self.listCE=[]
+        
+        
+    #accessor methods (privacy?)
+    def getOrigRecipe (self):
+        return self.origRecipe
+    def getParsedRecipe (self):
+        return self.parsedRecipe
+    def getScale (self):
+        return self.scale
+    def getParseCheck (self):
+        return self.didParse
+    def getConvertCheck (self):
+        return self.didConvert
+    def getCE (self, index):
+        return self.listCE[index]
+    #public
+    def getFinalRecipe (self):
+        return self.finalRecipe
     
-//creates another recipe object. will contain new recipe with tagged elements
-  taggedrecipe = recipe
-  for item in list:
-      each convertible element in recipe will be replaced with convertible
-      element in btwn angle brackets(ex. 1ml  will be <1ml>)
+    #mutator methods (privacy?)
+    def setOrigRecipe (self, givenstring):
+        self.origRecipe=givenstring
+    def setParsedRecipe (self, givenstring):
+        self.parsedRecipe=givenstring
+    def setFinalRecipe (self, givenstring):
+        self.finalRecipe=givenstring
+    def setScale (self, givenscale):
+        self.scale=givenscale
+    def setParseCheck (self, givenboolean):
+        self.didParse=givenboolean
+    def setConvertCheck (self, givenboolean):
+        self.didConver=givenboolean
+    def setCElistElement (self, givenCE, index):
+        self.listCE[index]=givenCE
+
+    #public methods
+        
+    def parseRecipe (self):
+        workingString=""
+        workingString = self.getOrigRecipe(self)
+        # pass workingString to parser (josie's method)
+        # set result of parsing to workingString
+        self.setParsedRecipe(workingString)
+        self.setParseCheck(TRUE)
+        
+    def convertRecipe (desiredsystem, scaling):
+        workingCE=null
+        if self.getParseCheck():
+            counter = 0
+            while len(listCE) > counter:
+                workingCE=getConvertibleElement(counter)
+                workingCE.convertElement(desiredsystem, scaling)
+                counter = counter + 1
+        self.setConvertCheck(TRUE)
+        
+    def finalizeRecipe (self):
+        workingstring=""
+        if self.getConvertCheck():
+            workingstring=self.getParsedRecipe
+            counter=0
+            while len(listCE) > counter:
+                #replace denoter with listCE(counter)
+            
+            self.setFinalRecipe(workingstring)
     
+                
+                
+        
+            
