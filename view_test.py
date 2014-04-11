@@ -1,4 +1,7 @@
 from view import RecipeView
 
 v = RecipeView()
-print (v.getOutput("imperial", "sample recipe text", "1"))
+v.setMeasurementSystem("imperial")
+v.setRecipeText("sample recipe text")
+v.setScaling("1")
+print (v.getOutput())

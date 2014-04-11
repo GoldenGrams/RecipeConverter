@@ -1,7 +1,14 @@
 import os 
 
 class RecipeView:
+
+	# instance variables
+	measurementSystem = ""
+	scaling = ""
+	recipeText = ""
+
 	def getDocument(self, measurementSystem, recipeText, scaling):
+		# construct a path to the template file
 		template = os.path.dirname(__file__) + "/view.tpl"
 		with open (template, "r") as myfile:
     			text=myfile.read()
@@ -13,10 +20,17 @@ class RecipeView:
 		text = text.replace("%scaling%",scaling)
 		return text
 
+	def setMeasurementSystem(self,measurementSystem):
+		self.measurementSystem = measurementSystem
+
+	def setScaling(self,scaling):
+		self.scaling = scaling
+
+	def setRecipeText(self,recipeText):
+		self.recipeText = recipeText
 
 
 
 
-
-	def getOutput(self,measurementSystem,recipeText,scaling):
-		return self.getDocument(measurementSystem,recipeText,scaling)
+	def getOutput(self):
+		return self.getDocument(self.measurementSystem,self.recipeText,self.scaling)
