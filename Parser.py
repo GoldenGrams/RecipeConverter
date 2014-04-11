@@ -1,4 +1,5 @@
 import re
+#testable string
 recipe = '4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce'
 
 def parseRecipe(recipe):
