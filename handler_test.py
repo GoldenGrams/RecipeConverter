@@ -43,3 +43,4 @@ def test():
 	print (application(formdata)[0])
 
 test()
+input("press enter to exit")
