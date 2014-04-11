@@ -63,7 +63,7 @@ class RecipeController:
 
         #Error Message method
         #Return an error message based upon a situation
-        def errorOutput(errorNum):
+        def errorOutput(self, errorNum):
                 if errorNum == 1:
                         x = "Not a valid scale value"
                 elif errorNum == 2:
