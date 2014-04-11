@@ -31,6 +31,7 @@ class RecipeController:
         
         #Method to call the view
         def getOutput(self):
+                v = RecipeView()
                 if self.errorFlag == False:
                         #finalRecipe = self.processRecipe()
                         finalRecipe = self.recipeText
@@ -45,7 +46,7 @@ class RecipeController:
                         #the view with info for user to enter again.
                         #reset errorFlag before recussion   
                       
-                v = RecipeView()
+                
                 v.setSystem(self.system)
                 v.setRecipeText(self.recipeText)
                 v.setScaling(self.strScale)
