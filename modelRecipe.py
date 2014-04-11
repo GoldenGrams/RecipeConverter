@@ -6,8 +6,8 @@ class ModelRecipe(object):
         self.parsedRecipe=""
         self.finalRecipe=""
         self.scale=1
-        self.didParse=FALSE
-        self.didConvert=FALSE
+        self.didParse=False
+        self.didConvert=False
         self.listCE=[]
         
         
@@ -24,9 +24,12 @@ class ModelRecipe(object):
         return self.didConvert
     def getCE (self, index):
         return self.listCE[index]
-    #public
     def getFinalRecipe (self):
         return self.finalRecipe
+	
+
+#    def getFinalRecipe (self):
+#	return self.finalRecipe
     
     #mutator methods (privacy?)
     def setOrigRecipe (self, givenstring):
@@ -52,7 +55,7 @@ class ModelRecipe(object):
         # pass workingString to parser (josie's method)
         # set result of parsing to workingString
         self.setParsedRecipe(workingString)
-        self.setParseCheck(TRUE)
+        self.setParseCheck(True)
         
     def convertRecipe (desiredsystem, scaling):
         workingCE=null
@@ -62,7 +65,7 @@ class ModelRecipe(object):
                 workingCE=getConvertibleElement(counter)
                 workingCE.convertElement(desiredsystem, scaling)
                 counter = counter + 1
-        self.setConvertCheck(TRUE)
+        self.setConvertCheck(True)
         
     def finalizeRecipe (self):
         workingstring=""
@@ -72,7 +75,10 @@ class ModelRecipe(object):
             while len(listCE) > counter:
                 #replace denoter with listCE(counter)
             
-            self.setFinalRecipe(workingstring)
+            #self.setFinalRecipe(workingstring)
+                pass
+            pass
+        pass
     
                 
                 
