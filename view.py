@@ -60,5 +60,5 @@ class RecipeView:
 
 
 
-	def getOutput(self,measurementSystem,recipeText):
-		return self.getDocument(measurementSystem,recipeText)
+	def getOutput(self,measurementSystem,recipeText,scaling):
+		return self.getDocument(measurementSystem,recipeText,scaling)
