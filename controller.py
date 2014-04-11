@@ -71,6 +71,8 @@ class RecipeController:
                         self.x = "No recipe found"
                 elif errorNum == 3:
                         self.x = "Invalid serving size"
+                elif errorNum == 4:
+                        self.x = "Empty field found"
                         return 
         
 #break down inputCheck
@@ -78,6 +80,9 @@ class RecipeController:
         def setSystem(self, system):
                 if system.lower() in ['metric', 'imperial']:
                         self.system = system
+                elif not system:
+                        self.errorOutput(4)
+                        self.errorFlag = True
                 else:
                         #insert some sor of way to handle
                         #empty recipe input or other imputs
@@ -91,7 +96,11 @@ class RecipeController:
                         else:
                                 self.errorOutput(3)
                                 self.errorFlag = True
-                elif (strScale):
+                elif not strScale:
+                        self.errorOutput(4)
+                        self.errorFlag = True
+                        
+                else:
                         #insert error input
                         #for none double and
                         #input other than
@@ -102,6 +111,10 @@ class RecipeController:
         def setRecipeText (self, recipeText):
                 if(recipeText):
                         self.recipeText = recipeText
+                        
+                elif not recipeText:
+                        self.errorOutput(4)
+                        self.errorFlag = True        
                 else:
                         #insert some sort way to handle
                         #empty recipe input
