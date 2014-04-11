@@ -12,7 +12,7 @@ def parseRecipe(recipe):
                     + 'fahrenheit|f))', re.IGNORECASE)
     #creates a list of all substrings matching regex
     celist = re.findall(unitEx, recipe)    
-    print(celist)
+   
     #regex to match first occurence of appropriate alphabetic character
     Ex = re.compile('[oplcmgkif]', re.IGNORECASE)
     #each string element in celist gets converted into
