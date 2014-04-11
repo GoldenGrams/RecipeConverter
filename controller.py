@@ -1,5 +1,5 @@
 #####################
-#
+#controller.py
 #####################
 #pass string that will state either imperial or metric
 #Call upon view to create view prompting user for input
@@ -62,7 +62,7 @@ class RecipeController:
                 return self.finalRecipe
 
         #Error Message method
-        #Display an error message for the view
+        #Return an error message based upon a situation
         def errorOutput(errorNum):
                 if errorNum == 1:
                         x = "Not a valid scale value"
