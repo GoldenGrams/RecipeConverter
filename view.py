@@ -1,6 +1,6 @@
 
 class RecipeView:
-	def getDocument(self, measurementSystem, recipeText):
+	def getDocument(self, measurementSystem, recipeText, scaling):
 		text = """
 <html>
 <head>
@@ -25,9 +25,9 @@ class RecipeView:
 <div class="container">
 <p>System</p>
 <form method="POST" action=".">
-<input type="radio" name="system" value="imperial" %imperialchecked%>
+<input type="radio" name="system" value="imperial" id="imperial" %imperialchecked%>
 <label for="imperial">Imperial</label>
-<input type="radio" name="system" value="metric" %metricchecked%>
+<input type="radio" name="system" value="metric" id="metric" %metricchecked%>
 <label for="metric">Metric</label>
 </div>
 
@@ -36,7 +36,10 @@ class RecipeView:
 <p>RecipeText</p>
 <textarea id="recipetextinput" name="recipeText">%recipetext%</textarea>
 </div>
-
+<div class="container">
+<label for="scaling">Scaling</label>
+<input id="scaling" type="text" name="scaling" value="%scaling%">
+</div>
 
 <br>
 <input type = "submit">
@@ -49,6 +52,7 @@ class RecipeView:
 		text = text.replace("%recipetext%",recipeText)
 		text = text.replace("%imperialchecked%","checked" if measurementSystem=="imperial" else "")
 		text = text.replace("%metricchecked%","checked" if measurementSystem=="metric" else "")
+		text = text.replace("%scaling%",scaling)
 		return text
 
 
