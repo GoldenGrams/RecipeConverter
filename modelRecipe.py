@@ -1,4 +1,5 @@
 ﻿#ModelRecipe.py
+
 class ModelRecipe(object):
     #constructor (set privacy?)
     def __init__ (self, givenrecipe):
@@ -40,7 +41,7 @@ class ModelRecipe(object):
     def setParseCheck (self, givenboolean):
         self.didParse=givenboolean
     def setConvertCheck (self, givenboolean):
-        self.didConver=givenboolean
+        self.didConvert=givenboolean
     def setCElistElement (self, givenCE):
         self.listCE.append(givenCE)
 
@@ -68,17 +69,24 @@ class ModelRecipe(object):
     def finalizeRecipe (self):
         workingstring=""
         if self.getConvertCheck():
-            workingstring=self.getParsedRecipe
+            workingstring=self.getParsedRecipe()
+            
+            
             counter=0
-            while len(listCE) > counter:
+            while len(self.listCE) > counter:
                 #replace denoter with listCE(counter)
-                counter = counter + 1
-                workingstring.replace("<"+counter+">",type(listCE[counter]))
+                denoter="<0>"
+
                 
-            # self.setFinalRecipe(workingstring)
-                pass
-            pass
-        pass
+                workingstring=str(workingstring.find("is"))
+                #workingstring.replace(denoter, "wort wort wort")
+                
+                counter = counter + 1
+                
+            self.setFinalRecipe(workingstring)
+                   
+            
+        
     
                 
                 
