@@ -1,28 +1,40 @@
+import sys
+import os
+import platform
+import urllib.parse
+sys.path.append(os.path.dirname(__file__))
 from controller import RecipeController
 
-def safeGetFormdata( formdata, fieldname ):
-        try:
-                field = formdata[fieldname]
-        except:
-                field = ""
-        return field
 
 
+#def application(environ, start_response):
+def application(post_input):
+        status = '200 OK'
 
-def handler():
+        #post_input = urllib.parse.parse_qs(environ['wsgi.input'].readline().decode(),True)
 
-	formdata = {}
+        recipeText = post_input.get('recipeText',[''])[0]
+        system = post_input.get('system',[''])[0]
+        scaling = post_input.get('scaling',[''])[0]
 
-	formdata["system"] = "imperial"
-	formdata["recipeText"] = "sample recipe text"
-	formdata["scaling"] = "1"
-	
-	system = safeGetFormdata( formdata, "system" )
-	recipeText = safeGetFormdata( formdata, "recipeText" )
-	scaling = safeGetFormdata( formdata, "scaling" )
-	controller = RecipeController( system,recipeText,scaling )
-	print controller.getOutput()
+        controller = RecipeController( system,recipeText,scaling )
+        output  = controller.getOutput()
+        output  = output + "<!-- python-version: " + platform.python_version() + "-->"
 
-	return 0
+        response_headers = [('Content-type', 'text/html'),
+                ('Content-Length', str(len(output)))]
+        #start_response(status, response_headers)
+        return [output]
 
-handler()
+
+def test():
+	system = "imperial"
+	scaling = "1"
+	recipeText = "sample recipe text"
+
+	formdata = {'recipeText':{0:recipeText}, 'system':{0:system}, 'scaling':{0:scaling} }
+	#formdata = {}
+
+	print (application(formdata)[0])
+
+test()
