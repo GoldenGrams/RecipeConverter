@@ -66,11 +66,11 @@ class RecipeController:
         #Return an error message based upon a situation
         def errorOutput(self, errorNum):
                 if errorNum == 1:
-                        x = "Not a valid scale value"
+                        self.x = "Not a valid scale value"
                 elif errorNum == 2:
-                        x = "No recipe found"
+                        self.x = "No recipe found"
                 elif errorNum == 3:
-                        x = "Invlid serving size"
+                        self.x = "Invlid serving size"
                         return 
         
 #break down inputCheck
