@@ -1,5 +1,5 @@
 #####################
-#
+#controller.py
 #####################
 #pass string that will state either imperial or metric
 #Call upon view to create view prompting user for input
@@ -11,12 +11,8 @@
 #Calls upon the OutputView and display the recipe
 #######################
 #Controller gain user input from view.
-#Call display view and return: <- still working on
-#
-# Food for thought.
-# FInd a way to exit the program.
-#
-#
+#Call display view and return converted recipe <- still working on
+#Will recusively call itself if recieve no variable or incorrect input
 #
 ######################
 
@@ -30,28 +26,31 @@ class RecipeController:
         strScale = ""
         scaling = 1
         errorFlag = False
+        x = "Invalid input found"
         
-        
-        #Constructor
-        #check for empty string
-        #check for imperial and metric inputs
-        def __init__(self,system,recipeText,strScale):
-                self.inputCheck(system, recipeText, strScale)
-                if self.errorFlag == False:
-                        #finalRecipe = self.processRecipe()
-                        print (self.system, self.scaling, self.recipeText)
-                        #display final recipe for user
-                        #convert scaling back to string
-                        #before sending to user
-                else:
-                        #return error message and pull up
-                        #the view with info for user to enter again.
-                        return
         
         #Method to call the view
         def getOutput(self):
                 v = RecipeView()
-                return v.getOutput(self.system, self.recipeText, self.strScale)
+                if self.errorFlag == False:
+                        #finalRecipe = self.processRecipe()
+                        finalRecipe = self.recipeText
+                        #display final recipe for user
+                        #convert scaling back to string
+                        #actually don't need to do that
+                        #before sending to user
+                else:
+                        v.setErrorText(self.x)
+                        errorFlag = False
+                        #return error message and pull up
+                        #the view with info for user to enter again.
+                        #reset errorFlag before recussion   
+                      
+                
+                v.setSystem(self.system)
+                v.setRecipeText(self.recipeText)
+                v.setScaling(self.strScale)
+                return v.getOutput()
 
         #Step through the process of converting the recipe
         #Return the altered recipe
@@ -64,40 +63,62 @@ class RecipeController:
                 return self.finalRecipe
 
         #Error Message method
-        #Display an error message for the view
-        def errorOutput(errorNum):
+        #Return an error message based upon a situation
+        def errorOutput(self, errorNum):
                 if errorNum == 1:
-                        x = "Not a valid scale value"
+                        self.x = "Not a valid scale value"
                 elif errorNum == 2:
-                        x = "No recipe found"
+                        self.x = "No recipe found"
                 elif errorNum == 3:
-                        x = "Invlid serving size"
-                        return x
-                        
-        #check input for empty or error strings
-        def inputCheck(self, system, recipeText, strScale):
+                        self.x = "Invalid serving size"
+                elif errorNum == 4:
+                        self.x = "Empty field found"
+                        return 
+        
+#break down inputCheck
+#mutators for inputs
+        def setSystem(self, system):
                 if system.lower() in ['metric', 'imperial']:
                         self.system = system
+                elif not system:
+                        self.errorOutput(4)
+                        self.errorFlag = True
                 else:
                         #insert some sor of way to handle
                         #empty recipe input or other imputs
+                        self.errorOutput(1)
                         self.errorFlag = True
-                if(recipeText):
-                        self.recipeText = recipeText
-                else:
-                        #insert some sort way to handle
-                        #empty recipe input
-                        self.errorFlag  = True
+
+        def setScaling(self, strScale):
                 if strScale.isdecimal():
                         if Decimal(strScale) > 0 : 
                                 self.scaling = Decimal(strScale)
                         else:
+                                self.errorOutput(3)
                                 self.errorFlag = True
-                elif (strScale):
+                elif not strScale:
+                        self.errorOutput(4)
+                        self.errorFlag = True
+                        
+                else:
                         #insert error input
                         #for none double and
                         #input other than
                         #empty string
+                        self.errorOutput(3)
                         self.errorFlag = True
-                return
+                        
+        def setRecipeText (self, recipeText):
+                if(recipeText):
+                        self.recipeText = recipeText
+                        
+                elif not recipeText:
+                        self.errorOutput(4)
+                        self.errorFlag = True        
+                else:
+                        #insert some sort way to handle
+                        #empty recipe input
+                        self.errorOutput(2)
+                        self.errorFlag  = True
+                
                 

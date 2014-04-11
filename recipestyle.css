@@ -1,20 +1,27 @@
 body {background-color:#DDEEFF}
 
+#maincontent{
+border:none;
+margin: 0 auto;
+width: 80em;
+
+}
+
 #recipebox{
 float:left;
+margin:10px;
 border:2px solid;
 background-color:white;
-margin:5px;
-width:60%;
+width:50em;
 height:80%;
 }
 
 #controlsbox{
 float:left;
+margin:10px;
 border:2px solid;
 background-color:white;
-margin:5px;
-width:30%;
+width:20em;
 height:80%;
 }
 
@@ -32,4 +39,9 @@ margin:2%;
 .container{
 border: 1px solid #AAA;
 margin: 10px;
+}
+
+.errortext{
+color: red;
+font-weight: bold;
 }
