@@ -1,5 +1,7 @@
 ﻿#ModelRecipe.py
 
+import re
+
 class ModelRecipe(object):
     #constructor (set privacy?)
     def __init__ (self, givenrecipe):
@@ -62,6 +64,7 @@ class ModelRecipe(object):
             counter = 0
             while len(listCE) > counter:
                 workingCE=getConvertibleElement(counter)
+                #andrew's method
                 workingCE.convertElement(desiredsystem, scaling)
                 counter = counter + 1
         self.setConvertCheck(True)
@@ -70,17 +73,12 @@ class ModelRecipe(object):
         workingstring=""
         if self.getConvertCheck():
             workingstring=self.getParsedRecipe()
-            
-            
+                        
             counter=0
             while len(self.listCE) > counter:
-                #replace denoter with listCE(counter)
-                denoter="<0>"
-
-                
-                workingstring=str(workingstring.find("is"))
-                #workingstring.replace(denoter, "wort wort wort")
-                
+                #find marker, replace with data from appropriate CE: value+" "+units
+                workingstring=re.sub("<"+str(counter)+">", str(self.listCE[counter].getValue())+" "+str(self.listCE[counter].getUnit()), workingstring)
+                           
                 counter = counter + 1
                 
             self.setFinalRecipe(workingstring)
