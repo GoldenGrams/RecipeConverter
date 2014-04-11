@@ -16,7 +16,13 @@ def application(environ, start_response):
 	system = post_input.get('system',[''])[0]
 	scaling = post_input.get('scaling',[''])[0]
 
-	controller = RecipeController( system,recipeText,scaling )
+	#controller = RecipeController( system,recipeText,scaling )
+
+	controller = RecipeController()
+	controller.setSystem( system )
+	controller.setRecipeText( recipeText )
+	controller.setScaling( scaling )
+
 	output  = controller.getOutput()
 	output  = output + "<!-- python-version: " + platform.python_version() + "-->"
 
