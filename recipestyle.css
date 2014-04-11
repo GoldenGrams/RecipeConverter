@@ -40,3 +40,8 @@ margin:2%;
 border: 1px solid #AAA;
 margin: 10px;
 }
+
+.errortext{
+color: red;
+font-weight: bold;
+}

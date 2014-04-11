@@ -41,6 +41,7 @@
 <br>
 <input type = "submit">
 </form>
+<p class="errortext">%errortext%</p>
 </div><!-- end controlsbox-->
 </div><!-- end maincontent-->
 </body>
