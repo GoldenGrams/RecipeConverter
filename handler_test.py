@@ -21,7 +21,7 @@ def handler():
 	recipeText = safeGetFormdata( formdata, "recipeText" )
 	scaling = safeGetFormdata( formdata, "scaling" )
 	controller = RecipeController( system,recipeText,scaling )
-	print controller.getOutput()
+	print (controller.getOutput())
 
 	return 0
 
