@@ -20,7 +20,7 @@ class RecipeView:
 		text = text.replace("%scaling%",scaling)
 		return text
 
-	def setMeasurementSystem(self,measurementSystem):
+	def setSystem(self,measurementSystem):
 		self.measurementSystem = measurementSystem
 
 	def setScaling(self,scaling):
