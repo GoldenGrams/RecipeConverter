@@ -9,7 +9,7 @@ testobject = ModelRecipe(testrecipe)
 
 print (testobject.getOrigRecipe())
 
-testobject.setParsedRecipe("<0> is a <1>")
+testobject.setParsedRecipe("Use <0> of leather and <1> of string")
 
 print(testobject.getParsedRecipe())
 
