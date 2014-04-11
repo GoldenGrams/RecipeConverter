@@ -80,7 +80,7 @@ class RecipeController:
                 else:
                         #insert some sor of way to handle
                         #empty recipe input or other imputs
-                        self.errorNum(1)
+                        self.errorOutput(1)
                         self.errorFlag = True
 
         def setScaling(self, strScale):
@@ -88,14 +88,14 @@ class RecipeController:
                         if Decimal(strScale) > 0 : 
                                 self.scaling = Decimal(strScale)
                         else:
-                                self.errorNum(3)
+                                self.errorOutput(3)
                                 self.errorFlag = True
                 elif (strScale):
                         #insert error input
                         #for none double and
                         #input other than
                         #empty string
-                        self.errorNum(3)
+                        self.errorOutput(3)
                         self.errorFlag = True
                         
         def setRecipeText (self, recipeText):
@@ -104,7 +104,7 @@ class RecipeController:
                 else:
                         #insert some sort way to handle
                         #empty recipe input
-                        self.error(2)
+                        self.errorOutput(2)
                         self.errorFlag  = True
                 
                 
