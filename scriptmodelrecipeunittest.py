@@ -6,4 +6,4 @@ testrecipe = "This is a derpy little test recipe"
 
 testobject = ModelRecipe(testrecipe)
 
-print (testobject)
+print (testobject.getOrigRecipe())

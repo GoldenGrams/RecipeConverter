@@ -28,9 +28,6 @@ class ModelRecipe(object):
         return self.finalRecipe
 	
 
-#    def getFinalRecipe (self):
-#	return self.finalRecipe
-    
     #mutator methods (privacy?)
     def setOrigRecipe (self, givenstring):
         self.origRecipe=givenstring
@@ -44,8 +41,8 @@ class ModelRecipe(object):
         self.didParse=givenboolean
     def setConvertCheck (self, givenboolean):
         self.didConver=givenboolean
-    def setCElistElement (self, givenCE, index):
-        self.listCE[index]=givenCE
+    def setCElistElement (self, givenCE):
+        self.listCE.append(givenCE)
 
     #public methods
         
@@ -54,6 +51,7 @@ class ModelRecipe(object):
         workingString = self.getOrigRecipe(self)
         # pass workingString to parser (josie's method)
         # set result of parsing to workingString
+        workingString.parse(workingString)
         self.setParsedRecipe(workingString)
         self.setParseCheck(True)
         
@@ -74,8 +72,10 @@ class ModelRecipe(object):
             counter=0
             while len(listCE) > counter:
                 #replace denoter with listCE(counter)
-            
-            #self.setFinalRecipe(workingstring)
+                counter = counter + 1
+                workingstring.replace("<"+counter+">",type(listCE[counter]))
+                
+            # self.setFinalRecipe(workingstring)
                 pass
             pass
         pass
