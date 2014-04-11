@@ -1,5 +1,8 @@
 #ConvertibleElement.py
-class ConvertibleElement(object):
+
+from convertElement import *
+
+class ConvertibleElement:
         
     #constructor
     def __init__ (self, givenvalue, givenunit):

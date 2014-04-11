@@ -13,14 +13,14 @@ testobject.setParsedRecipe("Use <0> of leather and <1> of string")
 
 print(testobject.getParsedRecipe())
 
-firstCE=ConvertibleElement(3, "feet")
+firstCE=ConvertibleElement(3, "cm")
 testobject.setCElistElement(firstCE)
 
-secondCE=ConvertibleElement(4, "meters")
+secondCE=ConvertibleElement(4, "inches")
 testobject.setCElistElement(secondCE)
 
+#testobject.convertRecipe("Imperial", 1)
 
-testobject.setConvertCheck(True)
 testobject.finalizeRecipe()
 
 

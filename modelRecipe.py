@@ -58,8 +58,8 @@ class ModelRecipe(object):
         self.setParsedRecipe(workingString)
         self.setParseCheck(True)
         
-    def convertRecipe (desiredsystem, scaling):
-        workingCE=null
+    def convertRecipe (self, desiredsystem, scaling):
+        #workingCE=Null
         if self.getParseCheck():
             counter = 0
             while len(listCE) > counter:
