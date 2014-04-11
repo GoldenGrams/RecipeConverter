@@ -11,12 +11,8 @@
 #Calls upon the OutputView and display the recipe
 #######################
 #Controller gain user input from view.
-#Call display view and return: <- still working on
-#
-# Food for thought.
-# FInd a way to exit the program.
-#
-#
+#Call display view and return converted recipe <- still working on
+#Will recusively call itself if recieve no variable or incorrect input
 #
 ######################
 
@@ -46,6 +42,8 @@ class RecipeController:
                 else:
                         #return error message and pull up
                         #the view with info for user to enter again.
+                        #reset errorFlag before recussion       
+                        errorFlag = True
                         return
         
         #Method to call the view
