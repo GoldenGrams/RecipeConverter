@@ -28,28 +28,25 @@ class RecipeController:
         errorFlag = False
         
         
-        #Constructor
-        #check for empty string
-        #check for imperial and metric inputs
-        def __init__(self,system,recipeText,strScale):
-                self.inputCheck(system, recipeText, strScale)
+        #Method to call the view
+        def getOutput(self):
                 if self.errorFlag == False:
                         #finalRecipe = self.processRecipe()
-                        print (self.system, self.scaling, self.recipeText)
+                        finalRecipe = self.recipeText
                         #display final recipe for user
                         #convert scaling back to string
                         #before sending to user
                 else:
+                        errorFlag = False
                         #return error message and pull up
                         #the view with info for user to enter again.
-                        #reset errorFlag before recussion       
-                        errorFlag = True
-                        return
-        
-        #Method to call the view
-        def getOutput(self):
+                        #reset errorFlag before recussion   
+                      
                 v = RecipeView()
-                return v.getOutput(self.system, self.recipeText, self.strScale)
+                v.setSystem(self.system)
+                v.setRecipeText(self.recipeText)
+                v.setScaling(self.strScale)
+                return v.getOutput()
 
         #Step through the process of converting the recipe
         #Return the altered recipe
@@ -71,21 +68,18 @@ class RecipeController:
                 elif errorNum == 3:
                         x = "Invlid serving size"
                         return x
-                        
-        #check input for empty or error strings
-        def inputCheck(self, system, recipeText, strScale):
+        
+#break down inputCheck
+#mutators for inputs
+        def setSystem(self, system):
                 if system.lower() in ['metric', 'imperial']:
                         self.system = system
                 else:
                         #insert some sor of way to handle
                         #empty recipe input or other imputs
                         self.errorFlag = True
-                if(recipeText):
-                        self.recipeText = recipeText
-                else:
-                        #insert some sort way to handle
-                        #empty recipe input
-                        self.errorFlag  = True
+
+        def setScaling(self, strScale):
                 if strScale.isdecimal():
                         if Decimal(strScale) > 0 : 
                                 self.scaling = Decimal(strScale)
@@ -97,5 +91,13 @@ class RecipeController:
                         #input other than
                         #empty string
                         self.errorFlag = True
-                return
+                        
+        def setRecipeText (self, recipeText):
+                if(recipeText):
+                        self.recipeText = recipeText
+                else:
+                        #insert some sort way to handle
+                        #empty recipe input
+                        self.errorFlag  = True
+                
                 
