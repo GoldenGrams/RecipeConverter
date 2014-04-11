@@ -70,7 +70,7 @@ class RecipeController:
                 elif errorNum == 2:
                         self.x = "No recipe found"
                 elif errorNum == 3:
-                        self.x = "Invlid serving size"
+                        self.x = "Invalid serving size"
                         return 
         
 #break down inputCheck
