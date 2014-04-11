@@ -9,7 +9,7 @@ class RecipeView:
 
 	def getDocument(self, measurementSystem, recipeText, scaling):
 		# construct a path to the template file
-		template = os.path.dirname(__file__) + "/view.tpl"
+		template = os.path.dirname(__file__) + os.sep + "view.tpl"
 		with open (template, "r") as myfile:
     			text=myfile.read()
 
