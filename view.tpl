@@ -6,6 +6,7 @@
 <body>
 
 <h1>RecipeConverter</h1>
+<div id="maincontent">
 <div id="recipebox">
         <div id="recipecontent">
 		<html>
@@ -40,6 +41,7 @@
 <br>
 <input type = "submit">
 </form>
-</div>
+</div><!-- end controlsbox-->
+</div><!-- end maincontent-->
 </body>
 </html>
