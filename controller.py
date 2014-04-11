@@ -40,7 +40,7 @@ class RecipeController:
                         #actually don't need to do that
                         #before sending to user
                 else:
-                        v.setErrorText(x)
+                        v.setErrorText(self.x)
                         errorFlag = False
                         #return error message and pull up
                         #the view with info for user to enter again.
