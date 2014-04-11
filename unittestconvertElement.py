@@ -1,15 +1,41 @@
-import unittest
+﻿#unit test script for ModelRecipe class
 
-class unitTestConvertElement(unittest.TestCase):
-    def setUp(self):
-        pass
-    
-    def test_getValue(self):
-        self.assertEqual((ConvertibleElement.getValue()), convertElement.initValue())
-    def test_getUnit(self):
-        self.assertEqual((ConvertibleElement.getUnit()), convertElement.initUnit())
-    def test_getSystem(self):
-        self.assertEqual(convertElement.desiredUnitsSystem(), "Metric" or "Imperial")
+from modelRecipe import *
+from convertibleElement import *
+from convertElement import *
 
-if __name__ == '__main__':
-    unittest.main()
+#testrecipe = "This is a derpy little test recipe"
+#cElem1 = "3 inches"
+#cElem2 = "10 cm"
+#cElem3 = "2 cups"
+#testobject = ModelRecipe(testrecipe)
+cETest1 = ConvertibleElement(3,"inches")
+cETest2 = ConvertibleElement(10, "cm")
+cETest3 = ConvertibleElement(2, "cups")
+#print (testobject.getOrigRecipe())
+print (cETest1.getValue())
+print (cETest1.getUnit())
+print (cETest2.getValue())
+print (cETest2.getUnit())
+print (cETest3.getValue())
+print (cETest3.getUnit())
+
+#testobject.setParsedRecipe("Use <0> of leather and <1> of string")
+cETest1.convertElement("Metric",1)
+#print(testobject.getParsedRecipe())
+print (cETest1.finalvalue)
+print (cETest1.getFinalUnit())
+
+#firstCE=ConvertibleElement(3, "feet")
+#testobject.setCElistElement(firstCE)
+
+#secondCE=ConvertibleElement(4, "meters")
+#testobject.setCElistElement(secondCE)
+
+
+#testobject.setConvertCheck(True)
+#testobject.finalizeRecipe()
+
+
+#print(testobject.getFinalRecipe())
+
