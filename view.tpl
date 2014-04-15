@@ -12,12 +12,7 @@
 <div id="maincontent">
 <div id="recipebox">
         <div id="recipecontent">
-		<html>
-			<body>
-			<p>System: %measurementsystem%</p>
-			<p>RecipeText: %recipetext%</p>
-			</body>
-		</html>
+		%recipetext%
         </div>
 </div>
 
