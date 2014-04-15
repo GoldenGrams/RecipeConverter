@@ -1,4 +1,25 @@
-body {background-color:#DDEEFF}
+body {
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(top left, #F5FCFF 0%, #95ABCC 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top left, #F5FCFF 0%, #95ABCC 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top left, #F5FCFF 0%, #95ABCC 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #F5FCFF), color-stop(1, #95ABCC));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top left, #F5FCFF 0%, #95ABCC 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to bottom right, #F5FCFF 0%, #95ABCC 100%);
+
+
+font-family:Arial, Helvetica, sans-serif
+}
 
 #maincontent{
 border:none;
@@ -39,6 +60,7 @@ margin:2%;
 .container{
 border: 1px solid #AAA;
 margin: 10px;
+padding: 5px;
 }
 
 .errortext{
