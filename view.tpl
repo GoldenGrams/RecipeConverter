@@ -1,11 +1,14 @@
 <html>
 <head>
 <title>RecipeConverter</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="recipestyle.css">
 </head>
 <body>
 
-<h1>RecipeConverter</h1>
+<h1>Recipe Converter</h1>
 <div id="maincontent">
 <div id="recipebox">
         <div id="recipecontent">
@@ -35,8 +38,23 @@
 </div>
 <div class="container">
 <label for="scaling">Scaling</label>
+
 <input id="scaling" type="text" name="scaling" value="%scaling%">
-</div>
+<div id="defaultslide"></div>
+
+<script type="text/javascript">
+$(function(){
+  $('#defaultslide').slider({ 
+    max: 10,
+    min: .125,
+    value: %scaling%,
+    step: .125,
+    slide: function(e,ui) {
+      document.forms[0].scaling.value = ui.value;
+    }
+  });
+});
+</script>
 
 <br>
 <input type = "submit">
