@@ -1,7 +1,5 @@
 #ConvertibleElement.py
 
-from convertElement import *
-
 class ConvertibleElement:
         
     #constructor
@@ -23,12 +21,10 @@ class ConvertibleElement:
 
     def convertElement (self, desiredUnitsSystem, scale):
         #this is andrew's method
-        #return converted element
-        
+        #changes values inside converted element        
 
         initValue = self.getValue()
         initUnit = self.getUnit()
-        # test comment
 
         
         if (desiredUnitsSystem.lower() == "metric"):
@@ -55,7 +51,7 @@ class ConvertibleElement:
                 finalUnit= "g"
                 self.setUnit(finalUnit)
 
-            elif (intUnit=="oz" or initUnit=="ounces" or initUnit=="ounce"):
+            elif (initUnit=="oz" or initUnit=="ounces" or initUnit=="ounce"):
                 finalValue = (initValue*28.3495)*scale
                 self.setValue(finalValue)
                 finalUnit = "g"
