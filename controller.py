@@ -79,23 +79,24 @@ class RecipeController:
 
         def setScaling(self, strScale):
                 self.strScale = strScale
-                if strScale.isdecimal():
+                try:
                         if Decimal(strScale) > 0 : 
                                 self.scaling = Decimal(strScale)
                         else:
                                 self.errorOutput(3)
                                 self.errorFlag = True
-                elif not strScale:
-                        self.errorOutput(4)
-                        self.errorFlag = True
+                except:
+                        if not strScale:
+                                self.errorOutput(4)
+                                self.errorFlag = True
                         
-                else:
-                        #insert error input
-                        #for none double and
-                        #input other than
-                        #empty string
-                        self.errorOutput(3)
-                        self.errorFlag = True
+                        else:
+                                #insert error input
+                                #for none double and
+                                #input other than
+                                #empty string
+                                self.errorOutput(3)
+                                self.errorFlag = True
                         
         def setRecipeText (self, recipeText):
                 if(recipeText):
