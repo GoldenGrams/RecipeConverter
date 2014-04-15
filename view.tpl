@@ -40,7 +40,7 @@
 <label for="scaling">Scaling</label>
 
 <input id="scaling" type="text" name="scaling" value="%scaling%">
-<div id="defaultslide"></div>
+<div class="container"><div id="defaultslide"></div></div>
 
 <script type="text/javascript">
 $(function(){
