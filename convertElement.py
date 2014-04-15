@@ -1,10 +1,10 @@
 def convertElement(desiredUnitsSystem, scale):
     givenValue = self.getValue()
-    givenUnit = self.getUnit(self)
+    givenUnit = self.getUnit()
 
-    if (desiredUnitsSystem == "Metric"):
+    if (desiredUnitsSystem.lower() == "metric"):
         #length
-        if (initUnit=="in" or initUnit=="inches"):
+        if (initUnit=="in" or initUnit=="inches" or initUnit=="inch"):
             finalValue = (initValue*2.54)*scale
             self.setValue(finalValue)
             #print (finalValue)
@@ -16,17 +16,17 @@ def convertElement(desiredUnitsSystem, scale):
         elif (initUnit=="degrees F" or initUnit=="degrees Fahrenheit"):
             finalValue = ((initValue-32.0)/9.0)*5.0
             self.setValue(finalValue)
-            finalUnit = "Celsius"
+            finalUnit = "degrees Celsius"
             self.setUnit(finalUnit)
 
         #mass
-        elif (initUnit=="lbs" or initUnit=="pounds" or initUnit=="pound"):
+        elif (initUnit=="lbs" or initUnit=="pounds" or initUnit=="lb" or initUnit=="pound"):
             finalValue = (initValue*453.592)*scale
             self.setValue(finalValue)
             finalUnit= "g"
             self.setUnit(finalUnit)
 
-        elif (intUnit=="oz" or initUnit=="ounces"):
+        elif (intUnit=="oz" or initUnit=="ounces" or initUnit=="ounce"):
             finalValue = (initValue*28.3495)*scale
             self.setValue(finalValue)
             finalUnit = "g"
@@ -51,15 +51,15 @@ def convertElement(desiredUnitsSystem, scale):
             finalUnit = "mL"
             self.setUnit(finalUnit)
 
-        elif (initUnit=="oz" or initUnit=="ounces"):
+        elif (initUnit=="fl oz" or initUnit=="fluid ounces"):
             finalValue = (initValue*29.5735)*scale
             self.setValue(finalValue)
             finalUnit = "mL"
             self.setUnit(finalUnit)
 
-    if (desiredUnitsSystem == "Imperial"):
+    if (desiredUnitsSystem.lower() == "imperial"):
         #length
-        if (initUnit=="cm" or initUnit=="centitmeters" or initUnit=="centimetres"):
+        if (initUnit=="cm" or initUnit=="centimeters" or initUnit=="centimetres"):
             finalValue = (initvalue*0.39)*scale
             self.setValue(finalValue)
             finalUnit = "in"
@@ -69,7 +69,7 @@ def convertElement(desiredUnitsSystem, scale):
         elif (initUnit=="degrees C" or initUnit=="degrees Celsius"):
             finalValue = ((initValue*9.0)/5.0)+32
             self.setValue(finalValue)
-            finalUnit = "Fahrenheit"
+            finalUnit = "degrees Fahrenheit"
             self.setUnit(finalUnit)
 
         #mass
@@ -79,7 +79,7 @@ def convertElement(desiredUnitsSystem, scale):
             finalUnit = "lbs"
             self.setUnit(finalUnit)
 
-        elif (initUnit=="g" or initUnit=="grams"):
+        elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram"):
             finalValue = (initValue*0.035274)*scale
             self.setValue(finalValue)
             finalUnit = "oz"
