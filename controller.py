@@ -11,7 +11,7 @@ from decimal import *
 class RecipeController:
         system = ""
         recipeText = ""
-        strScale = ""
+        strScale = "1"
         scaling = 1
         errorFlag = False
         x = "Invalid input found"
