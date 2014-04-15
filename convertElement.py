@@ -1,17 +1,20 @@
 def convertElement(desiredUnitsSystem, scale):
+    print("testprint")
+
     givenValue = self.getValue()
     givenUnit = self.getUnit()
     # test comment
 
+    
     if (desiredUnitsSystem.lower() == "metric"):
         #length
         if (initUnit=="in" or initUnit=="inches" or initUnit=="inch"):
             finalValue = (initValue*2.54)*scale
             self.setValue(finalValue)
-            #print (finalValue)
+            print (finalValue)
             finalUnit = "cm"
             self.setUnit(finalUnit)
-            #print(finalUnit)
+            print(finalUnit)
 
         #temperature
         elif (initUnit=="degrees F" or initUnit=="degrees Fahrenheit"):
