@@ -1,18 +1,6 @@
 #####################
 #controller.py
 #####################
-#pass string that will state either imperial or metric
-#Call upon view to create view prompting user for input
-#Recieve user inputs from view
-#create a Recipe object
-#ModelRecipe.parseRecipe
-#ModelRecipe.convertRecipe(desiredUnit, scale)
-#ModelRecipe.getFinalRecipe()
-#Calls upon the OutputView and display the recipe
-#######################
-#Controller gain user input from view.
-#Call display view and return converted recipe <- still working on
-#Will recusively call itself if recieve no variable or incorrect input
 #
 ######################
 
@@ -75,8 +63,8 @@ class RecipeController:
                         self.x = "Empty field found"
                         return 
         
-#break down inputCheck
-#mutators for inputs
+        #break down inputCheck
+        #mutators for inputs
         def setSystem(self, system):
                 if system.lower() in ['metric', 'imperial']:
                         self.system = system
@@ -84,12 +72,13 @@ class RecipeController:
                         self.errorOutput(4)
                         self.errorFlag = True
                 else:
-                        #insert some sor of way to handle
+                        #insert some sort of way to handle
                         #empty recipe input or other imputs
                         self.errorOutput(1)
                         self.errorFlag = True
 
         def setScaling(self, strScale):
+                self.strScale = strScale
                 if strScale.isdecimal():
                         if Decimal(strScale) > 0 : 
                                 self.scaling = Decimal(strScale)
