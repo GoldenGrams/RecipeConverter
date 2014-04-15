@@ -1,20 +1,21 @@
 import re
 #testable string
-recipe = '4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce'
+recipe = '1/2 cup 4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce 5.5 liters'
 def parseRecipe(recipe):
     #regex for value and unit of measurement
-    unitEx = re.compile('(?:(?:\d+(?:\|/|.)?\d+)\s*(?:ounces?|oz|pounds?|lbs?|' 
-                    + 'milligrams?|mg|grams?|g|kilograms?|kg|'
-                    + 'milliliters?|ml|liters?|inches|inch|in|' 
-                    + 'millimeters?|mm|centimeters?|cm))|(?:(?:\d+)\s*(?:celsius|c|' 
-                    + 'fahrenheit|f))', re.IGNORECASE)
+    unitEx = re.compile( '''(?:(?:\d+(?:\|/|.)?\d*)\s*(?:ounces?|oz|pounds?|lbs?
+                          |fluid\s*ounces?|milligrams?|mg|grams?|g|kilograms?|kg 
+                          |fl\s*oz|milliliters?|ml|liters?|l|inches|inch|in|pints?
+                          |millimeters?|mm|centimeters?|quarts?|qt|cm|cups?))|
+                          (?:(?:\d+)\s*(?:celsius|ºc|c|fahrenheit|ºf|c))''', re.IGNORECASE | re.VERBOSE)
+    
     #creates a list of all substrings matching regex
     celist = re.findall(unitEx, recipe)    
     print(celist)
     #regex to match first occurence of appropriate alphabetic character
     Ex = re.compile('[oplcmgkif]', re.IGNORECASE)
     createConEl(celist,Ex)
-    addTags(celist,recipe)
+    addTags(celist, recipe)
     
 #each string element in celist gets converted into
 #convertible elements(calls convertible element constructor)
