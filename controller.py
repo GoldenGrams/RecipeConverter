@@ -86,6 +86,7 @@ class RecipeController:
                                 self.errorOutput(3)
                                 self.errorFlag = True
                 except:
+                        self.strScale = "1"
                         if not strScale:
                                 self.errorOutput(4)
                                 self.errorFlag = True
