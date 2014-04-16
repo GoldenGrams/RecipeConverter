@@ -1,20 +1,20 @@
 import re
 #testable string
-recipe = '500 18/6 cups 4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce'
+recipe = '500 18/6 cups 5 ºf 22 c 4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce'
 def parseRecipe(recipe):
     #regex for value and unit of measurement
     unitEx = re.compile( '''(?:(?:\d*\s*\d+(?:/|.)?\d*)\s*(?:ounces?|oz|pounds?|lbs?
                           |fluid\s*ounces?|milligrams?|mg|grams?|g|kilograms?|kg 
                           |fl\s*oz|milliliters?|ml|liters?|l|inches|inch|in|pints?
                           |millimeters?|mm|centimeters?|quarts?|qt|cm|cups?))|
-                          (?:(?:\d+)\s*(?:celsius|ºc|c|fahrenheit|ºf|c))''', re.IGNORECASE | re.VERBOSE)
+                          (?:(?:\d+)\s*(?:celsius|ºc|c|fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)
     
     #creates a list of all substrings matching regex
     celist = re.findall(unitEx, recipe)    
     print(celist)
     #regex to match first occurence of appropriate alphabetic character
-    Ex = re.compile('[oplcmgkifº]', re.IGNORECASE)
-    createConEl(celist,Ex)
+    splitEx = re.compile('[oplcmgkifº]', re.IGNORECASE)
+    createConEl(celist,splitEx)
     addTags(celist, recipe)
     
 #each string element in celist gets converted into
@@ -26,20 +26,19 @@ def createConEl(list, regex):
         start= m.start()
         end = ce.__len__()
         strvalue = ce[0:start]# takes double part of string and assigns it to value
-        print(strvalue)
-        double = convertValue(strvalue)
-        print(double)                
+        double = convertValue(strvalue)                
         unit = ce[start:end]#takes measurement unit part of string and assigns it to unit                      
-        if (unit == 'fahrenheit' or'ºf'or'f'):
+        #changes degree unit to degrees f or degrees c
+        if ((unit == 'fahrenheit') or (unit == 'ºf') or (unit == 'f')):
             unit = 'degrees f'
-            print(unit)
-        elif (unit == 'celsius' or 'ºc' or 'c'):
+        elif ((unit == 'celsius') or (unit == 'ºc') or (unit == 'c')):
             unit = 'degrees c'
-            print(unit)
         else:
-            print(unit)
-##        conEl = ConvertibleElement(value,unit)
-##        self.setCElistElement(conEl)
+            unit = unit
+        print(double)
+        print(unit)
+##        conEl = ConvertibleElement(double,unit)
+##        self.setElistElement(conEl)
 
 #Converts string into double. Returns double   
 def convertValue(strvalue):
