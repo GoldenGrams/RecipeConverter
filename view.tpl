@@ -52,7 +52,7 @@ $(function(){
 </script>
 
 <br>
-<input type = "submit">
+<input type="submit" name="submit" value="submit">
 </form>
 <p class="errortext">%errortext%</p>
 </div><!-- end controlsbox-->
