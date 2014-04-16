@@ -15,6 +15,7 @@ class RecipeController:
         scaling = 1
         errorFlag = False
         x = "Invalid input found"
+        submitted = False
         
         
         #Method to call the view
@@ -27,7 +28,7 @@ class RecipeController:
                         #convert scaling back to string
                         #actually don't need to do that
                         #before sending to user
-                else:
+                elif self.submitted == True:
                         v.setErrorText(self.x)
                         errorFlag = False
                         #return error message and pull up
@@ -112,4 +113,6 @@ class RecipeController:
                         self.errorOutput(2)
                         self.errorFlag  = True
                 
-                
+
+        def setSubmit (self, submit):
+                self.submitted = True if submit=="submit" else False                

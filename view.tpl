@@ -12,7 +12,7 @@
 <div id="maincontent">
 <div id="recipebox">
         <div id="recipecontent"><div id="recipecontentinner"><pre>
-		%recipetext%
+%recipetext%
         </pre></div></div>
 </div>
 
@@ -52,7 +52,7 @@ $(function(){
 </script>
 
 <br>
-<input type = "submit">
+<input type="submit" name="submit" value="submit">
 </form>
 <p class="errortext">%errortext%</p>
 </div><!-- end controlsbox-->

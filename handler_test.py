@@ -16,6 +16,8 @@ def application(post_input):
         recipeText = post_input.get('recipeText',[''])[0]
         system = post_input.get('system',[''])[0]
         scaling = post_input.get('scaling',[''])[0]
+        submit = post_input.get('submit',[''])[0]
+
 
 #        controller = RecipeController( system,recipeText,scaling )
 
@@ -23,6 +25,7 @@ def application(post_input):
         controller.setSystem( system )
         controller.setRecipeText( recipeText )
         controller.setScaling( scaling )
+        controller.setSubmit( submit )
         output  = controller.getOutput()
         output  = output + "<!-- python-version: " + platform.python_version() + "-->"
 
@@ -36,8 +39,9 @@ def test():
 	system = "imperial"
 	scaling = "1"
 	recipeText = "sample recipe text"
+	submit = "submit"
 
-	formdata = {'recipeText':{0:recipeText}, 'system':{0:system}, 'scaling':{0:scaling} }
+	formdata = {'recipeText':{0:recipeText}, 'system':{0:system}, 'scaling':{0:scaling}, 'submit':{0:submit}}
 	#formdata = {}
 
 	print (application(formdata)[0])
