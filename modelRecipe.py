@@ -20,7 +20,7 @@ class ModelRecipe(object):
         self.scale
         self.didParse
         self.didConvert
-        self.listCE
+        self.listCE=[]
         
         
     #accessor methods (privacy?)
@@ -34,6 +34,8 @@ class ModelRecipe(object):
         return self.didParse
     def getConvertCheck (self):
         return self.didConvert
+    def getList (self):
+        return self.listCE
     def getCE (self, index):
         return self.listCE[index]
     def getFinalRecipe (self):
@@ -115,6 +117,8 @@ class ModelRecipe(object):
         #print(recipe)
         return recipe
 
+
+    #!!!!!!!!!!!!!!!
     #public methods        
     def parseRecipe (self):
         recipe=""
@@ -144,13 +148,15 @@ class ModelRecipe(object):
 
         
     def convertRecipe (self, desiredsystem, scaling):
-        #workingCE=Null
+        workingCE = None
         if self.getParseCheck():
             counter = 0
-            while len(listCE) > counter:
-                workingCE=getConvertibleElement(counter)
+            while len(self.getList()) > counter:
+                workingCE=self.getCE(counter)
+                
                 #andrew's method
                 workingCE.convertElement(desiredsystem, scaling)
+
                 counter = counter + 1
         self.setConvertCheck(True)
         
@@ -160,9 +166,9 @@ class ModelRecipe(object):
             workingstring=self.getParsedRecipe()
                         
             counter=0
-            while len(self.listCE) > counter:
+            while len(self.getList()) > counter:
                 #find marker, replace with data from appropriate CE: value+" "+units
-                workingstring=re.sub("<"+str(counter)+">", str(self.listCE[counter].getValue())+" "+str(self.listCE[counter].getUnit()), workingstring)
+                workingstring=re.sub("<"+str(counter)+">", " "+ str(self.listCE[counter].getValue())+" "+str(self.listCE[counter].getUnit())+" ", workingstring)
                            
                 counter = counter + 1
                 

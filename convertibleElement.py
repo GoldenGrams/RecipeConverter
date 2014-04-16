@@ -26,6 +26,7 @@ class ConvertibleElement:
 
         initValue = self.getValue()
         initUnit = self.getUnit()
+        initUnit = initUnit.lower()
 
         
         if (desiredUnitsSystem.lower() == "metric"):
@@ -39,7 +40,7 @@ class ConvertibleElement:
                 #print(finalUnit)
 
             #temperature
-            elif (initUnit=="degrees F" or initUnit=="degrees Fahrenheit"):
+            elif (initUnit=="degrees f" or initUnit=="degrees F" or initUnit=="degrees Fahrenheit"):
                 finalValue = ((initValue-32.0)/9.0)*5.0
                 self.setValue(finalValue)
                 finalUnit = "degrees Celsius"
@@ -92,7 +93,7 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #temperature
-            elif (initUnit=="degrees C" or initUnit=="degrees Celsius"):
+            elif (initUnit=="degrees c" or initUnit=="degrees C" or initUnit=="degrees Celsius"):
                 finalValue = ((initValue*9.0)/5.0)+32
                 self.setValue(finalValue)
                 finalUnit = "degrees Fahrenheit"
