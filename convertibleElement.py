@@ -113,13 +113,13 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #Volume
-            elif (initUnit=="L" or initUnit=="liter" or initUnit=="liters"):
+            elif (initUnit=="l" or initUnit=="liter" or initUnit=="liters"):
                 finalValue = (initValue*4.22675)*scale
                 self.setValue(finalValue)
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
 
-            elif (initUnit=="mL" or initUnit=="milliliter" or initUnit=="milliliters"):
+            elif (initUnit=="ml" or initUnit=="milliliter" or initUnit=="milliliters"):
                 finalValue = (initValue*0.00422675)*scale
                 self.setValue(finalValue)
                 finalUnit = "cups"

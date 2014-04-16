@@ -167,8 +167,10 @@ class ModelRecipe(object):
                         
             counter=0
             while len(self.getList()) > counter:
+                x=self.listCE[counter].getValue()
+                x="%.3f" % x
                 #find marker, replace with data from appropriate CE: value+" "+units
-                workingstring=re.sub("<"+str(counter)+">", " "+ str(self.listCE[counter].getValue())+" "+str(self.listCE[counter].getUnit())+" ", workingstring)
+                workingstring=re.sub("<"+str(counter)+">", " "+ str(x)+" "+str(self.listCE[counter].getUnit())+" ", workingstring)
                            
                 counter = counter + 1
                 
