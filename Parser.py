@@ -1,9 +1,9 @@
 import re
 
 #testable string
-recipe = '4 1/2 cups5 ºf 22 c 4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce'
+#recipe = '4 1/2 cups5 ºf 22 c 4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce'
 
-def parseRecipe(recipe):
+def parseTheRecipe(recipe):
     #regex for value and unit of measurement
     unitEx = re.compile( '''(?:(?:\d*\s*\d+(?:/|.)?\d*)\s*(?:ounces?|oz|pounds?|lbs?
                           |fluid\s*ounces?|milligrams?|mg|grams?|g|kilograms?|kg 
@@ -16,7 +16,7 @@ def parseRecipe(recipe):
     #regex to match first occurence of appropriate alphabetic character
     splitEx = re.compile('[oplcmgkifº]', re.IGNORECASE)
     createConEl(celist,splitEx)
-    addTags(celist, recipe)
+    return addTags(celist, recipe)
     
 #each string element in celist gets converted into
 #convertible elements(calls convertible element constructor)

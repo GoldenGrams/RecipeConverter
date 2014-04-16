@@ -3,21 +3,23 @@
 from modelRecipe import *
 from convertibleElement import *
 
-testrecipe = "This is a derpy little test recipe"
+testrecipe = "4 1/2 cups5 ºf 22 c 4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce"
 
 testobject = ModelRecipe(testrecipe)
 
 print (testobject.getOrigRecipe())
 
-testobject.setParsedRecipe("Use <0> of leather and <1> of string")
+testobject.parseRecipe()
 
 print(testobject.getParsedRecipe())
 
-firstCE=ConvertibleElement(3, "cm")
-testobject.setCElistElement(firstCE)
+print(testobject.getCE(0))
 
-secondCE=ConvertibleElement(4, "inches")
-testobject.setCElistElement(secondCE)
+#firstCE=ConvertibleElement(3, "cm")
+#testobject.setCElistElement(firstCE)
+
+#secondCE=ConvertibleElement(4, "inches")
+#testobject.setCElistElement(secondCE)
 
 #testobject.convertRecipe("Imperial", 1)
 

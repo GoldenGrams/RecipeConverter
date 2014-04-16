@@ -1,7 +1,8 @@
 #ConvertibleElement.py
 
 class ConvertibleElement:
-        
+    value=0
+    unit=""
     #constructor
     def __init__ (self, givenvalue, givenunit):
         self.value=givenvalue
