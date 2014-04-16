@@ -12,7 +12,7 @@ def parseRecipe(recipe):
                           (?:(?:\d+)\s*(?:celsius|ºc|c|fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
     #creates a list of all substrings matching regex
     celist = re.findall(unitEx, recipe)    
-    print(celist)
+    #print(celist)
     #regex to match first occurence of appropriate alphabetic character
     splitEx = re.compile('[oplcmgkifº]', re.IGNORECASE)
     createConEl(celist,splitEx)
@@ -36,30 +36,26 @@ def createConEl(list, regex):
             unit = 'degrees c'
         else:
             unit = unit
-        print(double)
-        print(unit)
+        #print(double)
+        #print(unit)
 ##        conEl = ConvertibleElement(double,unit)
 ##        self.setElistElement(conEl)
 
 #Converts string into double. Returns double   
 def convertValue(strvalue):
     #if string contains whole number or decimal. gets converted to double easily
-    print(strvalue)
     if(strvalue.find('/')==-1):
-        print('whole or decimal')
         value = float(strvalue)
     #converts string containing fraction into double
     else:
         #if string does not contain white space, only deal with fraction
         if(strvalue.find(' ')==-1):
-            print('fraction')
             numden = strvalue.split('/')#holding numerator/denominator
             num = float(numden.pop(0))
             den = float(numden.pop(0))
             value = (num/den)
         #if string contains white space, deal with whole number and fraction
         else:
-            print('whole and fraction')
             white = strvalue.find(' ')
             fnum = strvalue[0:white]
             newstr = strvalue[white:strvalue.__len__()]
@@ -75,6 +71,7 @@ def addTags(list,recipe):
     for ce in list:
         recipe = recipe.replace(ce, '<'+ str(num) + '>',1)
         num = num + 1
+    #print(recipe)
     return recipe
-    print(recipe)
+    
   
