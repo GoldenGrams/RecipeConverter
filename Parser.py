@@ -1,14 +1,15 @@
 import re
+
 #testable string
-recipe = '500 18/6 cups 5 ºf 22 c 4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce'
+recipe = '4 1/2 cups5 ºf 22 c 4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce'
+
 def parseRecipe(recipe):
     #regex for value and unit of measurement
     unitEx = re.compile( '''(?:(?:\d*\s*\d+(?:/|.)?\d*)\s*(?:ounces?|oz|pounds?|lbs?
                           |fluid\s*ounces?|milligrams?|mg|grams?|g|kilograms?|kg 
                           |fl\s*oz|milliliters?|ml|liters?|l|inches|inch|in|pints?
                           |millimeters?|mm|centimeters?|quarts?|qt|cm|cups?))|
-                          (?:(?:\d+)\s*(?:celsius|ºc|c|fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)
-    
+                          (?:(?:\d+)\s*(?:celsius|ºc|c|fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
     #creates a list of all substrings matching regex
     celist = re.findall(unitEx, recipe)    
     print(celist)
@@ -22,10 +23,10 @@ def parseRecipe(recipe):
 #and gets modified element and places it in list    
 def createConEl(list, regex):
     for ce in list:
-        m = re.search(regex,ce)#recognizes where the original string should split
-        start= m.start()
+        splitCe = re.search(regex,ce)#recognizes where the original string should split
+        start = splitCe.start()
         end = ce.__len__()
-        strvalue = ce[0:start]# takes double part of string and assigns it to value
+        strvalue = ce[0:start].strip()# takes double part of string and assigns it to value
         double = convertValue(strvalue)                
         unit = ce[start:end]#takes measurement unit part of string and assigns it to unit                      
         #changes degree unit to degrees f or degrees c
@@ -42,19 +43,23 @@ def createConEl(list, regex):
 
 #Converts string into double. Returns double   
 def convertValue(strvalue):
-    #if string contains whole number or decimal. gets converted easily
+    #if string contains whole number or decimal. gets converted to double easily
+    print(strvalue)
     if(strvalue.find('/')==-1):
-           value = float(strvalue)
+        print('whole or decimal')
+        value = float(strvalue)
     #converts string containing fraction into double
     else:
         #if string does not contain white space, only deal with fraction
         if(strvalue.find(' ')==-1):
+            print('fraction')
             numden = strvalue.split('/')#holding numerator/denominator
             num = float(numden.pop(0))
             den = float(numden.pop(0))
             value = (num/den)
         #if string contains white space, deal with whole number and fraction
         else:
+            print('whole and fraction')
             white = strvalue.find(' ')
             fnum = strvalue[0:white]
             newstr = strvalue[white:strvalue.__len__()]
