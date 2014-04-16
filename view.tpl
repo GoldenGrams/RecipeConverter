@@ -12,7 +12,7 @@
 <div id="maincontent">
 <div id="recipebox">
         <div id="recipecontent"><div id="recipecontentinner"><pre>
-		%recipetext%
+%recipetext%
         </pre></div></div>
 </div>
 
