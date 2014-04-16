@@ -11,9 +11,9 @@
 <h1>Recipe Converter</h1>
 <div id="maincontent">
 <div id="recipebox">
-        <div id="recipecontent">
+        <div id="recipecontent"><div id="recipecontentinner"><pre>
 		%recipetext%
-        </div>
+        </pre></div></div>
 </div>
 
 <div id="controlsbox">
