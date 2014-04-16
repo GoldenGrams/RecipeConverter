@@ -84,8 +84,8 @@ class ConvertibleElement:
 
         if (desiredUnitsSystem.lower() == "imperial"):
             #length
-            if (initUnit=="cm" or initUnit=="centimeters" or initUnit=="centimetres"):
-                finalValue = (initvalue*0.39)*scale
+            if (initUnit=="cm" or initUnit=="centimeters" or initUnit=="centimeter"):
+                finalValue = (initValue*0.39)*scale
                 self.setValue(finalValue)
                 finalUnit = "in"
                 self.setUnit(finalUnit)
@@ -98,7 +98,7 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #mass
-            elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kgs"):
+            elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram"):
                 finalValue = (initValue*2.2046)*scale
                 self.setValue(finalValue)
                 finalUnit = "lbs"
