@@ -3,23 +3,28 @@
 class ConvertibleElement:
     value=0.000
     unit=""
+#    ingredient=""
     #constructor
     def __init__ (self, givenvalue, givenunit):
         self.value=givenvalue
         self.unit=givenunit
+#       self.ingredient=giveningredient        
 
     #accessor methods
     def getValue (self):
         return self.value
     def getUnit (self):
         return self.unit
+#    def getIngredient (self):
+#        return self.ingredient
 
     #mutator methods
     def setValue (self, givenvalue):
         self.value=givenvalue
     def setUnit (self, givenunit):
         self.unit=givenunit
-
+#   def setIngredient (self, giveningredient):
+#        self.unit=givenunit
 
     #!!!!!!!!!!!!!
     # if converting from metric to metric or imperial to imperial, scaling doesnt happen
@@ -44,7 +49,7 @@ class ConvertibleElement:
                 #print(finalUnit)
 
             #temperature
-            elif (initUnit=="degrees f" or initUnit=="degrees F" or initUnit=="degrees Fahrenheit"):
+            elif (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit"):
                 finalValue = ((initValue-32.0)/9.0)*5.0
                 self.setValue(finalValue)
                 finalUnit = "degrees Celsius"
@@ -57,20 +62,20 @@ class ConvertibleElement:
                 finalUnit= "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit=="oz" or initUnit=="ounces" or initUnit=="ounce"):
+            elif (initUnit=="oz" or initUnit=="ounces" or initUnit=="ounce" or initUnit=="ozs"):
                 finalValue = (initValue*28.3495)*scale
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             #volume
-            elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts"):
+            elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts"):
                 finalValue = (initValue*0.946353)*scale
                 self.setValue(finalValue)
                 finalUnit = "L"
                 self.setUnit(finalUnit)
 
-            elif (initUnit=="pt" or initUnit=="pint" or initUnit=="pints"):
+            elif (initUnit=="pt" or initUnit=="pint" or initUnit=="pints" or initUnit=="pts" ):
                 finalValue = (initValue*473.176)*scale
                 self.setValue(finalValue)
                 finalUnit = "mL"
@@ -97,14 +102,14 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #temperature
-            elif (initUnit=="degrees c" or initUnit=="degrees C" or initUnit=="degrees Celsius"):
+            elif (initUnit=="degrees c" or initUnit=="degrees celsius" or initUnit=="c" or initUnit=="celsius"):
                 finalValue = ((initValue*9.0)/5.0)+32
                 self.setValue(finalValue)
                 finalUnit = "degrees Fahrenheit"
                 self.setUnit(finalUnit)
 
             #mass
-            elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram"):
+            elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs"):
                 finalValue = (initValue*2.2046)*scale
                 self.setValue(finalValue)
                 finalUnit = "lbs"
