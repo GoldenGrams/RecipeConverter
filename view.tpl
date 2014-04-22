@@ -38,8 +38,8 @@ function showOriginal() {
 <div id="maincontent">
 
 <div>
-	<a href="#" id="original" class="button" onclick="javascript:showConverted();">Original</a>
-	<a href="#" id="converted" class="button" onclick="javascript:showOriginal();">Converted</a>
+	<a href="#" id="original" class="button" onclick="javascript:showOriginal();">Original</a>
+	<a href="#" id="converted" class="button" onclick="javascript:showConverted();">Converted</a>
 </div>
 
 <div id="recipebox">
