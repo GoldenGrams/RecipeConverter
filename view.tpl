@@ -29,6 +29,12 @@
 
 <div class="container">
 <p>RecipeText</p>
+<input type="radio" name="uploadtype" id="pasted" value="pasted">
+<label for="pasted">Pasted</label>
+<input type="radio" name="uploadtype" id="fileupload" value="fileupload">
+<label for="fileupload">File Upload</label>
+<input type="radio" name="uploadtype" id="webpage" value="webpage">
+<label for="webpage">Webpage</label>
 <textarea id="recipetextinput" name="recipeText">%recipetext%</textarea>
 </div>
 <div class="container">
