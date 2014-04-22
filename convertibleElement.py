@@ -49,7 +49,7 @@ class ConvertibleElement:
                 #print(finalUnit)
 
             #temperature
-            elif (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit="fahrenheit"):
+            elif (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit"):
                 finalValue = ((initValue-32.0)/9.0)*5.0
                 self.setValue(finalValue)
                 finalUnit = "degrees Celsius"
