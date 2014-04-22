@@ -1,7 +1,7 @@
 #ConvertibleElement.py
 
 class ConvertibleElement:
-    value=0
+    value=0.000
     unit=""
     #constructor
     def __init__ (self, givenvalue, givenunit):
@@ -20,6 +20,9 @@ class ConvertibleElement:
     def setUnit (self, givenunit):
         self.unit=givenunit
 
+
+    #!!!!!!!!!!!!!
+    # if converting from metric to metric or imperial to imperial, scaling doesnt happen
     def convertElement (self, desiredUnitsSystem, scale):
         #this is andrew's method
         #changes values inside converted element        

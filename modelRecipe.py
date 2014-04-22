@@ -8,7 +8,7 @@ class ModelRecipe(object):
     origRecipe=""
     parsedRecipe=""
     finalRecipe=""
-    scale=1
+    scale=1.0
     didParse=False
     didConvert=False
     listCE=[]
