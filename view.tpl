@@ -20,6 +20,15 @@ function showUrlUpload() {
         document.getElementById('recipetextinput').style.display = "none";
         document.getElementById('urluploadinput').style.display = "block";
 }
+function showConverted() {
+	document.getElementById('originalrecipecontentinner').style.display = "none";
+	document.getElementById('convertedrecipecontentinner').style.display = "block";
+}
+function showOriginal() {
+        document.getElementById('convertedrecipecontentinner').style.display = "none";
+        document.getElementById('originalrecipecontentinner').style.display = "block";
+}
+
 </script>
 <link rel="stylesheet" type="text/css" href="recipestyle.css">
 </head>
@@ -27,11 +36,21 @@ function showUrlUpload() {
 
 <h1>Recipe Converter</h1>
 <div id="maincontent">
-<div><a href="#" id="original" class="button">Original</a><a href="#" id="converted" class="button">Converted</a></div>
+
+<div>
+	<a href="#" id="original" class="button" onclick="javascript:showConverted();">Original</a>
+	<a href="#" id="converted" class="button" onclick="javascript:showOriginal();">Converted</a>
+</div>
+
 <div id="recipebox">
-        <div id="recipecontent"><div id="recipecontentinner"><pre>
-%recipetext%
-        </pre></div></div>
+        <div id="recipecontent">
+		<div id="originalrecipecontentinner">
+			<pre>%recipetext%</pre>
+        	</div>
+		<div id="convertedrecipecontentinner" style="display:none;">
+			test converted
+		</div>
+	</div>
 </div>
 
 <div id="controlsbox">
