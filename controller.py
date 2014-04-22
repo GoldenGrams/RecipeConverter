@@ -21,9 +21,9 @@ class RecipeController:
         #Method to call the view
         def getOutput(self):
                 v = RecipeView()
+                recipeText = ""
                 if self.errorFlag == False:
-                        #finalRecipe = self.processRecipe()
-                        finalRecipe = self.recipeText
+                        recipeText = self.processRecipe()
                         #display final recipe for user
                         #convert scaling back to string
                         #actually don't need to do that
@@ -31,13 +31,14 @@ class RecipeController:
                 elif self.submitted == True:
                         v.setErrorText(self.x)
                         errorFlag = False
+                        recipeText = self.recipeText
                         #return error message and pull up
                         #the view with info for user to enter again.
                         #reset errorFlag before recussion   
                       
                 
                 v.setSystem(self.system)
-                v.setRecipeText(self.recipeText)
+                v.setRecipeText(recipeText)
                 v.setScaling(self.strScale)
                 return v.getOutput()
 
@@ -47,9 +48,9 @@ class RecipeController:
                 recipeMod = ModelRecipe(self.recipeText)
                 recipeMod.parseRecipe()
                 recipeMod.convertRecipe(self.system, self.scaling)
-                recipeMod.finalizedRecipe()
+                recipeMod.finalizeRecipe()
                 finalRecipe = recipeMod.getFinalRecipe()
-                return self.finalRecipe
+                return finalRecipe
 
         #Error Message method
         #Return an error message based upon a situation

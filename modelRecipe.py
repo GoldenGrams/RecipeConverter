@@ -129,12 +129,12 @@ class ModelRecipe(object):
                               |fluid\s*ounces?|milligrams?|mg|grams?|g|kilograms?|kg 
                               |fl\s*oz|milliliters?|ml|liters?|l|inches|inch|in|pints?
                               |millimeters?|mm|centimeters?|quarts?|qt|cm|cups?))|
-                              (?:(?:\d+)\s*(?:celsius|ºc|c|fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
+                              (?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:fahrenheit|f|celsius|c)|fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
         #creates a list of all substrings matching regex
         celist = re.findall(unitEx, recipe)    
         #print(celist)
         #regex to match first occurence of appropriate alphabetic character
-        splitEx = re.compile('[oplcmgkifº]', re.IGNORECASE)
+        splitEx = re.compile('[opldcmgkifº]', re.IGNORECASE)
         self.createConEl(celist,splitEx)
         recipe = self.addTags(celist, recipe)
                 

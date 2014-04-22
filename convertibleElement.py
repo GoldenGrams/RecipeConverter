@@ -30,6 +30,7 @@ class ConvertibleElement:
         initValue = self.getValue()
         initUnit = self.getUnit()
         initUnit = initUnit.lower()
+        scale = float(scale)
 
         
         if (desiredUnitsSystem.lower() == "metric"):

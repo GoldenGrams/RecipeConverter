@@ -1,7 +1,7 @@
 import re
 
 #testable string
-#recipe = '4 1/2 cups5 ºf 22 c 4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce'
+recipe = '350 c 350 f 350 fahrenheit 350 degrees f 350degreescelsius 5 ºf 22 ºc 4.0 sm Acorn squash 0.0 Salt 118.3mlButter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce'
 
 def parseTheRecipe(recipe):
     #regex for value and unit of measurement
@@ -9,12 +9,13 @@ def parseTheRecipe(recipe):
                           |fluid\s*ounces?|milligrams?|mg|grams?|g|kilograms?|kg 
                           |fl\s*oz|milliliters?|ml|liters?|l|inches|inch|in|pints?
                           |millimeters?|mm|centimeters?|quarts?|qt|cm|cups?))|
-                          (?:(?:\d+)\s*(?:celsius|ºc|c|fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
+                          (?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:celsius|fahrenheit|c|f)|
+                          fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
     #creates a list of all substrings matching regex
     celist = re.findall(unitEx, recipe)    
-    #print(celist)
+    print(celist)
     #regex to match first occurence of appropriate alphabetic character
-    splitEx = re.compile('[oplcmgkifº]', re.IGNORECASE)
+    splitEx = re.compile('[oplcdmgkifº]', re.IGNORECASE)
     createConEl(celist,splitEx)
     return addTags(celist, recipe)
     
