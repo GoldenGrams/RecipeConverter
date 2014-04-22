@@ -3,23 +3,28 @@
 class ConvertibleElement:
     value=0.000
     unit=""
+#    ingredient=""
     #constructor
     def __init__ (self, givenvalue, givenunit):
         self.value=givenvalue
         self.unit=givenunit
+#       self.ingredient=giveningredient        
 
     #accessor methods
     def getValue (self):
         return self.value
     def getUnit (self):
         return self.unit
+#    def getIngredient (self):
+#        return self.ingredient
 
     #mutator methods
     def setValue (self, givenvalue):
         self.value=givenvalue
     def setUnit (self, givenunit):
         self.unit=givenunit
-
+#   def setIngredient (self, giveningredient):
+        self.unit=givenunit
 
     #!!!!!!!!!!!!!
     # if converting from metric to metric or imperial to imperial, scaling doesnt happen
