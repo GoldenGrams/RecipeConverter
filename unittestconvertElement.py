@@ -11,6 +11,18 @@ from convertElement import *
 #testobject = ModelRecipe(testrecipe)
 
 #Testing "Metric"
+
+#cETest001 = ConvertibleElement(4 1/2, "cups")
+#cETest002 = ConvertibleElement(5, "ºf")
+cETest003 = ConvertibleElement(22, "degrees C")
+'''
+                               4.0 sm Acorn squash
+                               0.0 Salt
+                               118.3mlButter or margarine
+                               118.3 ml Honey
+                               453.6 g Whole-berry cranberry sauce
+'''
+'''
 cETest1 = ConvertibleElement(3,"inches")
 cETest2 = ConvertibleElement(1, "in")
 cETest3 = ConvertibleElement(2, "inch")
@@ -55,6 +67,7 @@ cETest39 = ConvertibleElement(33.8, "degrees Fahrenheit")
 cETest40 = ConvertibleElement(1.5, "cups")
 cETest41 = ConvertibleElement(0.5, "L")
 '''
+'''
 cETest5 = ConvertibleElement(1, "pound")
 cETest5 = ConvertibleElement(1, "pound")
 cETest5 = ConvertibleElement(1, "pound")
@@ -88,6 +101,8 @@ cETest5 = ConvertibleElement(1, "pound")
 
 
 #print(testobject.getFinalRecipe())
+
+'''
 
 print (str(cETest1.getValue()) + cETest1.getUnit())
 cETest1.convertElement("Metric",2)
@@ -252,3 +267,8 @@ print (str(cETest40.getValue()) + cETest40.getUnit())
 print (str(cETest41.getValue()) + cETest41.getUnit())
 cETest41.convertElement("Imperial", 1)
 print (str(cETest41.getValue()) + cETest41.getUnit())
+'''
+
+print (str(cETest003.getValue()) + cETest003.getUnit())
+cETest003.convertElement("Imperial", 1)
+print (str(cETest003.getValue()) + cETest003.getUnit())
