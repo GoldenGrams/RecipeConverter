@@ -1,7 +1,7 @@
 #ConvertibleElement.py
 
 class ConvertibleElement:
-    value=0.000
+    value=0
     unit=""
 #    ingredient=""
     #constructor
