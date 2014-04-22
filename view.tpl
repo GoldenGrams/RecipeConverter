@@ -27,6 +27,7 @@ function showUrlUpload() {
 
 <h1>Recipe Converter</h1>
 <div id="maincontent">
+<div><a href="#" id="original" class="button">Original</a><a href="#" id="converted" class="button">Converted</a></div>
 <div id="recipebox">
         <div id="recipecontent"><div id="recipecontentinner"><pre>
 %recipetext%
