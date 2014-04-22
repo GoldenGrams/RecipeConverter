@@ -50,8 +50,8 @@ function showUrlUpload() {
 <label for="pasted">Pasted</label>
 <input type="radio" name="uploadtype" id="fileupload" value="fileupload" onclick="javascript:showFileUpload();">
 <label for="fileupload">File Upload</label>
-<input type="radio" name="uploadtype" id="webpage" value="webpage" onclick="javascript:showUrlUpload();">
-<label for="webpage">Webpage</label>
+<input type="radio" name="uploadtype" id="url" value="url" onclick="javascript:showUrlUpload();">
+<label for="url">Url</label>
 <textarea id="recipetextinput" name="recipeText">%recipetext%</textarea>
 <input type="file" name="fileuploadinput" id="fileuploadinput" style="display:none;">
 <input type="text" name="urluploadinput" id="urluploadinput" style="display:none;">
