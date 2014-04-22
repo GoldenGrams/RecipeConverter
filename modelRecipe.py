@@ -88,7 +88,7 @@ class ModelRecipe(object):
     def convertValue(self, strvalue):
         #if string contains whole number or decimal. gets converted to double easily
         if(strvalue.find('/')==-1):
-            value = float(strvalue)
+            value = int(float(strvalue))
         #converts string containing fraction into double
         else:
             #if string does not contain white space, only deal with fraction
@@ -167,10 +167,9 @@ class ModelRecipe(object):
                         
             counter=0
             while len(self.getList()) > counter:
-                x=self.listCE[counter].getValue()
-                x="%.3f" % x
+     
                 #find marker, replace with data from appropriate CE: value+" "+units
-                workingstring=re.sub("<"+str(counter)+">", str(x)+" "+str(self.listCE[counter].getUnit()), workingstring)
+                workingstring=re.sub("<"+str(counter)+">", str(self.listCE[counter].getValue())+" "+str(self.listCE[counter].getUnit()), workingstring)
                            
                 counter = counter + 1
                 
