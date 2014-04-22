@@ -4,6 +4,23 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script type="text/javascript">
+function showPasted() {
+        document.getElementById('fileuploadinput').style.display = "none";
+        document.getElementById('urluploadinput').style.display = "none";
+        document.getElementById('recipetextinput').style.display = "block";
+}
+function showFileUpload() {
+        document.getElementById('recipetextinput').style.display = "none";
+        document.getElementById('urluploadinput').style.display = "none";
+        document.getElementById('fileuploadinput').style.display = "block";
+}
+function showUrlUpload() {
+        document.getElementById('fileuploadinput').style.display = "none";
+        document.getElementById('recipetextinput').style.display = "none";
+        document.getElementById('urluploadinput').style.display = "block";
+}
+</script>
 <link rel="stylesheet" type="text/css" href="recipestyle.css">
 </head>
 <body>
@@ -28,14 +45,16 @@
 
 
 <div class="container">
-<p>RecipeText</p>
-<input type="radio" name="uploadtype" id="pasted" value="pasted">
+<p>Recipe Text</p>
+<input type="radio" name="uploadtype" id="pasted" value="pasted" checked onclick="javascript:showPasted();">
 <label for="pasted">Pasted</label>
-<input type="radio" name="uploadtype" id="fileupload" value="fileupload">
+<input type="radio" name="uploadtype" id="fileupload" value="fileupload" onclick="javascript:showFileUpload();">
 <label for="fileupload">File Upload</label>
-<input type="radio" name="uploadtype" id="webpage" value="webpage">
+<input type="radio" name="uploadtype" id="webpage" value="webpage" onclick="javascript:showUrlUpload();">
 <label for="webpage">Webpage</label>
 <textarea id="recipetextinput" name="recipeText">%recipetext%</textarea>
+<input type="file" name="fileuploadinput" id="fileuploadinput" style="display:none;">
+<input type="text" name="urluploadinput" id="urluploadinput" style="display:none;">
 </div>
 <div class="container">
 <label for="scaling">Scaling</label>
