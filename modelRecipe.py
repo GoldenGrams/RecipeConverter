@@ -80,6 +80,7 @@ class ModelRecipe(object):
         #print(celist)
         #regex to match first occurence of appropriate alphabetic character
         splitEx = re.compile('[opldcmgkiftº]', re.IGNORECASE)
+        #regex to find specific ingredients
         ingEx = re.compile('''butter|margarine|all\s*purpose\s*flour|
                           (?:(?:(?:light|dark)?\s*brown)?|
                           (?:granulated)?\s*sugar)''', re.IGNORECASE | re.VERBOSE) ##change
@@ -100,8 +101,9 @@ class ModelRecipe(object):
             end = ce.__len__()
             strvalue = ce[0:start].strip()# takes double part of string and assigns it to value
             double = self.convertValue(strvalue)
-            unitingred = ce[start:end]#takes measurement unit part of string and assigns it to unit                      
-            splitStr = re.search(r2,unitingred)
+            unitingred = ce[start:end]#takes string part of the convertible strin and assigns it to unitingred                      
+            splitStr = re.search(r2,unitingred)#finds ingredient for the purpose to split unit and ingredient
+            #if no ingredient was found, nofbs is assign to ingred
             if(splitStr == None):
                 unit = unitingred
                 ingred = 'nofbs'
@@ -112,6 +114,7 @@ class ModelRecipe(object):
                     unit = 'degrees c'
                 else:
                     unit = unit
+            #if ingredient is found the original string is split
             else:
                 splitStr = splitStr
                 begin = splitStr.start()
