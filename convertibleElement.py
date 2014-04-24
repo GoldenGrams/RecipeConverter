@@ -102,15 +102,19 @@ class ConvertibleElement:
                 finalUnit = "mL"
                 self.setUnit(finalUnit)
 
-            #elif (initUnit=="tablespoons" or initUnit=="Tablespoons" or initUnit=="Tbsp" or initUnit=="tbsp"):
-            #    finalValue = (initValue*14.3)*scale
-            #    finalValue = "%.0f" % finalValue
-            #    self.setValue(finalValue)
-            #    finalUnit = "g"
-            #    self.setUnit(finalUnit)
+            elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp") & (givenIngredient=="butter" or givenIngredient == "sugar"):
+                finalValue = (initValue*14.3)*scale
+                finalValue = "%.0f" % finalValue
+                self.setValue(finalValue)
+                finalUnit = "g"
+                self.setUnit(finalUnit)
 
-            #elif (initUnit=="teaspoons"):
-                  #
+            elif (initUnit=="teaspoons"):
+                finalValue = (initValue*4.77)*scale
+                finalValue = "%.0f" % finalValue
+                self.setValue(finalValue)
+                finalUnit = "mL"
+                self.setUnit(finalUnit)
 
 
         if (desiredUnitsSystem.lower() == "imperial"):
