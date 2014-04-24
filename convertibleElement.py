@@ -3,28 +3,28 @@
 class ConvertibleElement:
     value=0
     unit=""
-#    ingredient=""
+    ingredient=""
     #constructor
-    def __init__ (self, givenvalue, givenunit):
+    def __init__ (self, givenvalue, givenunit, giveningredient):
         self.value=givenvalue
         self.unit=givenunit
-#       self.ingredient=giveningredient        
+        self.ingredient=giveningredient        
 
     #accessor methods
     def getValue (self):
         return self.value
     def getUnit (self):
         return self.unit
-#    def getIngredient (self):
-#        return self.ingredient
+    def getIngredient (self):
+        return self.ingredient
 
     #mutator methods
     def setValue (self, givenvalue):
         self.value=givenvalue
     def setUnit (self, givenunit):
         self.unit=givenunit
-#   def setIngredient (self, giveningredient):
-#        self.unit=givenunit
+    def setIngredient (self, giveningredient):
+        self.unit=givenunit
 
     #!!!!!!!!!!!!!
     # if converting from metric to metric or imperial to imperial, scaling doesnt happen
@@ -35,13 +35,21 @@ class ConvertibleElement:
         initValue = self.getValue()
         initUnit = self.getUnit()
         initUnit = initUnit.lower()
+        self.setIngredient(self.getIngredient().lower())
         scale = float(scale)
 
         
         if (desiredUnitsSystem.lower() == "metric"):
+
+            #density adjustments
+            density=1.0
+            if (self.getIngredient()=="butter")
+                density = # go look up density of butter
+
+            
             #length
             if (initUnit=="in" or initUnit=="inches" or initUnit=="inch"):
-                finalValue = (initValue*2.54)*scale
+                finalValue = (initValue*2.54)*scale*density
                 #x="%.3f" % x
                 finalValue = "%.2f" % finalValue
                 self.setValue(finalValue)
@@ -74,6 +82,8 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #volume
+        
+                
             elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts"):
                 finalValue = (initValue*0.946353)*scale
                 finalValue = "%.3f" % finalValue
@@ -102,19 +112,27 @@ class ConvertibleElement:
                 finalUnit = "mL"
                 self.setUnit(finalUnit)
 
-            elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp") & (givenIngredient=="butter" or givenIngredient == "sugar"):
-                finalValue = (initValue*14.3)*scale
+            elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="sugar" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="flour"):
+                finalValue = (initValue*14.7868)*scale
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit=="teaspoons"):
-                finalValue = (initValue*4.77)*scale
+            elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="sugar" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="flour"):
+                finalValue = (initValue*4.92892)*scale
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
-                finalUnit = "mL"
+                finalUnit = "g"
                 self.setUnit(finalUnit)
+
+            elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="sugar" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="flour"):
+                finalValue = (initValue*4.92892)*scale
+                finalValue = "%.0f" % finalValue
+                self.setValue(finalValue)
+                finalUnit = "g"
+                self.setUnit(finalUnit)
+
 
 
         if (desiredUnitsSystem.lower() == "imperial"):
