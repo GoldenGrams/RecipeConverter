@@ -5,7 +5,8 @@ class RecipeView:
 	# instance variables
 	measurementSystem = ""
 	scaling = ""
-	recipeText = ""
+	originalRecipeText = ""
+	convertedRecipeText = ""
 	errorText = ""
 
 	def getDocument(self):
@@ -15,7 +16,8 @@ class RecipeView:
     			text=myfile.read()
 
 		text = text.replace("%measurementsystem%",self.measurementSystem)
-		text = text.replace("%recipetext%",self.recipeText)
+		text = text.replace("%originalrecipetext%",self.originalRecipeText)
+		text = text.replace("%convertedrecipetext%",self.convertedRecipeText)
 		text = text.replace("%errortext%",self.errorText)
 		text = text.replace("%imperialchecked%","checked" if self.measurementSystem=="imperial" else "")
 		text = text.replace("%metricchecked%","checked" if self.measurementSystem=="metric" else "")
@@ -28,8 +30,11 @@ class RecipeView:
 	def setScaling(self,scaling):
 		self.scaling = scaling
 
-	def setRecipeText(self,recipeText):
-		self.recipeText = recipeText
+	def setOriginalRecipeText(self,originalRecipeText):
+		self.originalRecipeText = originalRecipeText
+
+	def setConvertedRecipeText(self,convertedRecipeText):
+		self.convertedRecipeText = convertedRecipeText
 
 	def setErrorText(self,errorText):
 		self.errorText = errorText
