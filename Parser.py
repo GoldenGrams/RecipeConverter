@@ -1,27 +1,30 @@
 import re
 
 #testable string
-recipe = '''1 tbs dark brown sugar, 4 tablespoon 30 x 23 cm
-            1/8 lbs7.5cm 5 ºf 22 ºc 4.0 sm Acorn squash 0.0 Salt
-            118.3ml Butter or margarine 118.3 ml Honey
-            453.6 g Whole-berry cranberry sauce'''
-
+##recipe = '''9 9/5 grams1 tbs dark brown sugar, 4 tablespoon 30 x 23 cm
+##            1/8 lbs7.5cm 5 ºf 22 ºc 4.0 sm Acorn squash 0.0 Salt
+##            118.3ml Butter or margarine 118.3 ml Honey
+##            453.6 g Whole-berry cranberry sauce'''
+recipe = '20 x 30 cm'
 def parseTheRecipe(recipe):
-    #regex for value and unit of measurement
-    unitEx = re.compile( '''(?:(?:\d*\s*\d+\s*(?:x|/|.)?\s*\d*)\s*(?:ounces?|oz|pounds?|lbs?
-                          |tablespoons?|teaspoons?|tbs|tsp
+    #regex for value and unit of measurement    
+    unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*(?:/|.)?\s*\d*)\s*
+                            (?:x\s*\d*\s*\d+\s*(?:/|.)?\s*\d*)?\s*)
+                           (?:ounces?|oz|pounds?|lbs?
+                          |tablespoons?|teaspoons?|tbsp?|tsp
                           |fluid\s*ounces?|milligrams?|mg|grams?|g|kilograms?|kg 
-                          |fl\s*oz|milliliters?|ml|liters?|l|inches|inch|in|pints?
+                          |fl?\s*oz|milliliters?|ml|liters?|l|inches|inch|in|pints?
                           |millimeters?|mm|centimeters?|quarts?|qt|cm|cups?)\s*                          
                           (?:butter|margarine|all\s*purpose\s*flour
                           |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar)?)                          
                           |(?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:celsius|fahrenheit|c|f)|
-                          fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
+                          fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)
     #creates a list of all substrings matching regex
     celist = re.findall(unitEx, recipe)    
     print(celist)
     #regex to match first occurence of appropriate alphabetic character
     splitEx = re.compile('[oplcdmgkiftº]', re.IGNORECASE)
+    #regex to find specific ingredients
     ingEx = re.compile('''butter|margarine|all\s*purpose\s*flour|
                           (?:(?:(?:light|dark)?\s*brown)?|
                           (?:granulated)?\s*sugar)''', re.IGNORECASE | re.VERBOSE) 
@@ -37,7 +40,7 @@ def createConEl(list, r1, r2):
         start = splitCe.start()
         end = ce.__len__()
         strvalue = ce[0:start].strip()# takes double part of string and assigns it to value
-        double = convertValue(strvalue)
+               
         unitingred = ce[start:end]#takes measurement unit part of string and assigns it to unit      
         splitStr = re.search(r2,unitingred)
         if(splitStr == None):
@@ -55,7 +58,26 @@ def createConEl(list, r1, r2):
             begin = splitStr.start()
             unit = unitingred[0:begin]
             ingred = unitingred[begin:end]
-        print(str(double) + unit + ingred)
+
+        xpos = strvalue.find('x')
+        if(xpos != -1):
+            strval1 = strvalue[0:xpos-1].strip()
+            print(strval1 + ' s1')
+            strval2 = strvalue[xpos+1:strvalue.__len__()].strip()
+            print(strval2 + ' s2')
+            double1 = convertValue(strval1)
+            print(double1)
+            double2 = convertValue(strval2)
+            print(double2)
+##            conEl1 = ConvertibleElement(double1,unit,ingred)
+##            conEl2 = ConvertibleElement(double2,unit,ingred)
+##            self.setElistElement(conEl1)
+##            self.setElistElement(conEl2)
+        else:
+            double1 = convertValue(strvalue)
+            print(double1)
+##            conEl1 = ConvertibleElement(double1, unit, ingred)
+##            self.setElistElement(conEl1)
                    
 ##        conEl = ConvertibleElement(double,unit,ingred) 
 ##        self.setElistElement(conEl)
@@ -90,8 +112,18 @@ def convertValue(strvalue):
 def addTags(list,recipe): 
     num = 0
     for ce in list:
-        recipe = recipe.replace(ce, '<'+ str(num) + '>',1)
-        num = num + 1
+        if(ce.find('x') != -1):
+            dimension = [] ##change
+            dimension = ce.split('x')
+            firdim = dimension[0]
+            recipe = recipe.replace(firdim, '<' + str(num) + '>',1)
+            num = num + 1
+            secdim = dimension[1]
+            recipe = recipe.replace(secdim, '<' + str(num) + '>',1)
+            num = num + 1
+        else:        
+            recipe = recipe.replace(ce, '<'+ str(num) + '>',1)
+            num = num + 1
     #print(recipe)
     return recipe
     

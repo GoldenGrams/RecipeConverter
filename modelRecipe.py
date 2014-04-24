@@ -66,15 +66,17 @@ class ModelRecipe(object):
         recipe = self.getOrigRecipe()
 
         #regex for value and unit of measurement
-        unitEx = re.compile( '''(?:(?:\d*\s*\d+\s*(?:x|/|.)?\s*\d*)\s*(?:ounces?|oz|pounds?|lbs?
-                          |tablespoons?|teaspoons?|tbs|tsp
-                          |fluid\s*ounces?|milligrams?|mg|grams?|g|kilograms?|kg 
-                          |fl\s*oz|milliliters?|ml|liters?|l|inches|inch|in|pints?
-                          |millimeters?|mm|centimeters?|quarts?|qt|cm|cups?)\s*                          
-                          (?:butter|margarine|all\s*purpose\s*flour
-                          |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar)?)                          
-                          |(?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:celsius|fahrenheit|c|f)|
-                          fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
+        unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*(?:/|.)?\s*\d*)\s*
+                            (?:x\s*\d*\s*\d+\s*(?:/|.)?\s*\d*)?\s*)
+                           (?:ounces?|oz|pounds?|lbs?|tablespoons?|teaspoons?
+                           |tbsp?|tsp|fluid\s*ounces?|milligrams?|mg|grams?|g
+                           |kilograms?|kg|fl?\s*oz|milliliters?|ml|liters?|l
+                           |inches|inch|in|pints?|millimeters?|mm|centimeters?
+                           |quarts?|qt|cm|cups?)\s*                          
+                           (?:butter|margarine|all\s*purpose\s*flour
+                           |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar)?)                          
+                           |(?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:celsius|fahrenheit|c|f)|
+                           fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
         #creates a list of all substrings matching regex
         celist = re.findall(unitEx, recipe)    
         #print(celist)
@@ -100,7 +102,7 @@ class ModelRecipe(object):
             start = splitCe.start()
             end = ce.__len__()
             strvalue = ce[0:start].strip()# takes double part of string and assigns it to value
-            double = self.convertValue(strvalue)
+            
             unitingred = ce[start:end]#takes string part of the convertible strin and assigns it to unitingred                      
             splitStr = re.search(r2,unitingred)#finds ingredient for the purpose to split unit and ingredient
             #if no ingredient was found, nofbs is assign to ingred
@@ -120,10 +122,28 @@ class ModelRecipe(object):
                 begin = splitStr.start()
                 unit = unitingred[0:begin]
                 ingred = unitingred[begin:end]
-            #print(str(double) + unit + ingred
-
-            conEl = ConvertibleElement(double,unit,ingred)
-            self.setCElistElement(conEl)
+            xpos = strvalue.find('x')
+            if(xpos != -1):
+                strval1 = strvalue[0:xpos-1].strip()
+                print(strval1)
+                strval2 = strvalue[xpos+1:strvalue.__len__()].strip()
+                print(strval2)
+                double1 = self.convertValue(strval1)
+                print(double1)
+                double2 = self.convertValue(strval2)
+                print(double2)
+                conEl1 = ConvertibleElement(double1, unit, ingred)
+                conEl2 = ConvertibleElement(double2, unit, ingred)
+                self.setElistElement(conEl1)
+                self.setElistElement(conEl2)
+            else:
+                double1 = self.convertValue(strvalue)
+                print(double1)
+                conEl1 = ConvertibleElement(double1, unit, ingred)
+                self.setElistElement(conEl1)
+                
+##            conEl = ConvertibleElement(double,unit,ingred)
+##            self.setCElistElement(conEl)
 
     #Converts string into double. Returns double   
     def convertValue(self, strvalue):
@@ -153,8 +173,18 @@ class ModelRecipe(object):
     def addTags(self,list,recipe): 
         num = 0
         for ce in list:
-            recipe = recipe.replace(ce, '<'+ str(num) + '>',1)
-            num = num + 1
+            if(ce.find('x') != -1):
+                dimension = [] ##change
+                dimension = ce.split('x')
+                firdim = dimension[0]
+                recipe = recipe.replace(firdim, '<' + str(num) + '>',1)
+                num = num + 1
+                secdim = dimension[1]
+                recipe = recipe.replace(secdim, '<' + str(num) + '>',1)
+                num = num + 1
+            else:        
+                recipe = recipe.replace(ce, '<'+ str(num) + '>',1)
+                num = num + 1
         #print(recipe)
         return recipe
 
