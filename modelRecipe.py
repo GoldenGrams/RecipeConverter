@@ -67,14 +67,17 @@ class ModelRecipe(object):
 
         #regex for value and unit of measurement
         unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*(?:/|.)?\s*\d*)\s*
-                            (?:x\s*\d*\s*\d+\s*(?:/|.)?\s*\d*)?\s*)
+                            (?:x\s*\d*\s*\d+\s*(?:/|.)?\s*\d*)?)\s*
+                            
                            (?:ounces?|oz|pounds?|lbs?|tablespoons?|teaspoons?
                            |tbsp?|tsp|fluid\s*ounces?|milligrams?|mg|grams?|g
                            |kilograms?|kg|fl?\s*oz|milliliters?|ml|liters?|l
                            |inches|inch|in|pints?|millimeters?|mm|centimeters?
-                           |quarts?|qt|cm|cups?)\s*                          
-                           (?:butter|margarine|all\s*purpose\s*flour
-                           |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar)?)                          
+                           |quarts?|qt|cm|cups?)\s*
+                           
+                           (?:butter|margarine|all\s*-?\s*purpose\s*-\s*flour|flour
+                           |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar)?)
+                           
                            |(?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:celsius|fahrenheit|c|f)|
                            fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
         #creates a list of all substrings matching regex
@@ -83,7 +86,7 @@ class ModelRecipe(object):
         #regex to match first occurence of appropriate alphabetic character
         splitEx = re.compile('[opldcmgkiftº]', re.IGNORECASE)
         #regex to find specific ingredients
-        ingEx = re.compile('''butter|margarine|all\s*purpose\s*flour|
+        ingEx = re.compile('''butter|margarine|all\s*purpose\s*flour|flour
                           (?:(?:(?:light|dark)?\s*brown)?|
                           (?:granulated)?\s*sugar)''', re.IGNORECASE | re.VERBOSE) ##change
         self.createConEl(celist,splitEx,ingEx)
@@ -109,16 +112,8 @@ class ModelRecipe(object):
             if(splitStr == None):
                 unit = unitingred
                 ingred = 'nofbs'
-                #changes degree unit to degrees f or degrees c
-                if ((unit == 'fahrenheit') or (unit == 'ºf') or (unit == 'f')):
-                    unit = 'degrees f'
-                elif ((unit == 'celsius') or (unit == 'ºc') or (unit == 'c')):
-                    unit = 'degrees c'
-                else:
-                    unit = unit
             #if ingredient is found the original string is split
             else:
-                splitStr = splitStr
                 begin = splitStr.start()
                 unit = unitingred[0:begin]
                 ingred = unitingred[begin:end]
@@ -134,13 +129,13 @@ class ModelRecipe(object):
                 print(double2)
                 conEl1 = ConvertibleElement(double1, unit, ingred)
                 conEl2 = ConvertibleElement(double2, unit, ingred)
-                self.setElistElement(conEl1)
-                self.setElistElement(conEl2)
+                self.setCElistElement(conEl1)
+                self.setCElistElement(conEl2)
             else:
                 double1 = self.convertValue(strvalue)
                 print(double1)
                 conEl1 = ConvertibleElement(double1, unit, ingred)
-                self.setElistElement(conEl1)
+                self.setCElistElement(conEl1)
                 
 ##            conEl = ConvertibleElement(double,unit,ingred)
 ##            self.setCElistElement(conEl)
@@ -174,7 +169,7 @@ class ModelRecipe(object):
         num = 0
         for ce in list:
             if(ce.find('x') != -1):
-                dimension = [] ##change
+                dimension = [] 
                 dimension = ce.split('x')
                 firdim = dimension[0]
                 recipe = recipe.replace(firdim, '<' + str(num) + '>',1)
