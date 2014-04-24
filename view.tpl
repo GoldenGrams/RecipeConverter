@@ -38,17 +38,17 @@ function showOriginal() {
 <div id="maincontent">
 
 <div>
-	<a href="#" id="original" class="button" onclick="javascript:showConverted();">Original</a>
-	<a href="#" id="converted" class="button" onclick="javascript:showOriginal();">Converted</a>
+	<a href="#" id="original" class="button" onclick="javascript:showOriginal();">Original</a>
+	<a href="#" id="converted" class="button" onclick="javascript:showConverted();">Converted</a>
 </div>
 
 <div id="recipebox">
         <div id="recipecontent">
 		<div id="originalrecipecontentinner">
-			<pre>%recipetext%</pre>
+			<pre>%originalrecipetext%</pre>
         	</div>
 		<div id="convertedrecipecontentinner" style="display:none;">
-			test converted
+			<pre>%convertedrecipetext%</pre>
 		</div>
 	</div>
 </div>
@@ -72,7 +72,7 @@ function showOriginal() {
 <label for="fileupload">File Upload</label>
 <input type="radio" name="uploadtype" id="url" value="url" onclick="javascript:showUrlUpload();">
 <label for="url">Url</label>
-<textarea id="recipetextinput" name="recipeText">%recipetext%</textarea>
+<textarea id="recipetextinput" name="recipeText">%originalrecipetext%</textarea>
 <input type="file" name="fileuploadinput" id="fileuploadinput" style="display:none;">
 <input type="text" name="urluploadinput" id="urluploadinput" style="display:none;">
 </div>

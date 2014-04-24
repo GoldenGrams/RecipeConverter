@@ -38,7 +38,8 @@ class RecipeController:
                       
                 
                 v.setSystem(self.system)
-                v.setRecipeText(recipeText)
+                v.setOriginalRecipeText(recipeText)
+                v.setConvertedRecipeText(recipeText)
                 v.setScaling(self.strScale)
                 return v.getOutput()
 
