@@ -23,10 +23,14 @@ function showUrlUpload() {
 function showConverted() {
 	document.getElementById('originalrecipecontentinner').style.display = "none";
 	document.getElementById('convertedrecipecontentinner').style.display = "block";
+	document.getElementById('original').style.fontWeight = "normal";
+	document.getElementById('converted').style.fontWeight = "bold";
 }
 function showOriginal() {
         document.getElementById('convertedrecipecontentinner').style.display = "none";
         document.getElementById('originalrecipecontentinner').style.display = "block";
+        document.getElementById('converted').style.fontWeight = "normal";
+        document.getElementById('original').style.fontWeight = "bold";
 }
 
 </script>
@@ -38,16 +42,16 @@ function showOriginal() {
 <div id="maincontent">
 
 <div>
-	<a href="#" id="original" class="button" onclick="javascript:showOriginal();">Original</a>
-	<a href="#" id="converted" class="button" onclick="javascript:showConverted();">Converted</a>
+	<a style="%originalbuttonstyle%" href="#" id="original" class="button" onclick="javascript:showOriginal();">Original</a>
+	<a style="%convertedbuttonstyle%" href="#" id="converted" class="button" onclick="javascript:showConverted();">Converted</a>
 </div>
 
 <div id="recipebox">
         <div id="recipecontent">
-		<div id="originalrecipecontentinner">
+		<div id="originalrecipecontentinner" style="display:%originalrecipecontentinnerstyledisplay%">
 			<pre>%originalrecipetext%</pre>
         	</div>
-		<div id="convertedrecipecontentinner" style="display:none;">
+		<div id="convertedrecipecontentinner" style="display:%convertedrecipecontentinnerstyledisplay%">
 			<pre>%convertedrecipetext%</pre>
 		</div>
 	</div>

@@ -97,4 +97,8 @@ background-color:grey;
 border:1px solid black;
 padding:2px;
 margin:2px;
+width:6em;
+display:inline-block;
+clear:none;
+text-align:center
 }
