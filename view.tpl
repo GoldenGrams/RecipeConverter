@@ -40,6 +40,7 @@ function showOriginal() {
 
 <h1>Recipe Converter</h1>
 <div id="maincontent">
+<form method="POST" action=".">
 
 <div>
 	<a style="%originalbuttonstyle%" href="#" id="original" class="button" onclick="javascript:showOriginal();">Original</a>
@@ -49,7 +50,7 @@ function showOriginal() {
 <div id="recipebox">
         <div id="recipecontent">
 		<div id="originalrecipecontentinner" style="display:%originalrecipecontentinnerstyledisplay%">
-			<pre>%originalrecipetext%</pre>
+			<textarea id="recipetextinput" name="recipeText">%originalrecipetext%</textarea>
         	</div>
 		<div id="convertedrecipecontentinner" style="display:%convertedrecipecontentinnerstyledisplay%">
 			<pre>%convertedrecipetext%</pre>
@@ -60,7 +61,6 @@ function showOriginal() {
 <div id="controlsbox">
 <div class="container">
 <p>System</p>
-<form method="POST" action=".">
 <input type="radio" name="system" value="imperial" id="imperial" %imperialchecked%>
 <label for="imperial">Imperial</label>
 <input type="radio" name="system" value="metric" id="metric" %metricchecked%>
@@ -76,7 +76,6 @@ function showOriginal() {
 <label for="fileupload">File Upload</label>
 <input type="radio" name="uploadtype" id="url" value="url" onclick="javascript:showUrlUpload();">
 <label for="url">Url</label>
-<textarea id="recipetextinput" name="recipeText">%originalrecipetext%</textarea>
 <input type="file" name="fileuploadinput" id="fileuploadinput" style="display:none;">
 <input type="text" name="urluploadinput" id="urluploadinput" style="display:none;">
 </div>
@@ -102,9 +101,9 @@ $(function(){
 
 <br>
 <input type="submit" name="submit" value="submit">
-</form>
 <p class="errortext">%errortext%</p>
 </div><!-- end controlsbox-->
+</form>
 </div><!-- end maincontent-->
 </body>
 </html>
