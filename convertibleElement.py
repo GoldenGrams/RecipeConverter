@@ -5,7 +5,7 @@ class ConvertibleElement:
     unit=""
     ingredient=""
     #constructor
-    def __init__ (self, givenvalue, givenunit):
+    def __init__ (self, givenvalue, givenunit, giveningredient):
         self.value=givenvalue
         self.unit=givenunit
         self.ingredient=giveningredient        
@@ -35,13 +35,21 @@ class ConvertibleElement:
         initValue = self.getValue()
         initUnit = self.getUnit()
         initUnit = initUnit.lower()
+        self.setIngredient(self.getIngredient().lower())
         scale = float(scale)
 
         
         if (desiredUnitsSystem.lower() == "metric"):
+
+            #density adjustments
+            density=1.0
+            if (self.getIngredient()=="butter")
+                density = # go look up density of butter
+
+            
             #length
             if (initUnit=="in" or initUnit=="inches" or initUnit=="inch"):
-                finalValue = (initValue*2.54)*scale
+                finalValue = (initValue*2.54)*scale*density
                 #x="%.3f" % x
                 finalValue = "%.2f" % finalValue
                 self.setValue(finalValue)
@@ -74,6 +82,8 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #volume
+        
+                
             elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts"):
                 finalValue = (initValue*0.946353)*scale
                 finalValue = "%.3f" % finalValue
