@@ -18,6 +18,13 @@ class RecipeView:
 		text = text.replace("%measurementsystem%",self.measurementSystem)
 		text = text.replace("%originalrecipetext%",self.originalRecipeText)
 		text = text.replace("%convertedrecipetext%",self.convertedRecipeText)
+
+		# set converted recipe to display if it exists, otherwise display the original for input
+		text = text.replace("%originalrecipecontentinnerstyledisplay%","block" if self.convertedRecipeText == "" else "none")
+		text = text.replace("%convertedrecipecontentinnerstyledisplay%","none" if self.convertedRecipeText == "" else "block")
+		text = text.replace("%originalbuttonstyle%","font-weight:bold" if self.convertedRecipeText == "" else "font-weight:none")
+		text = text.replace("%convertedbuttonstyle%","font-weight:normal" if self.convertedRecipeText == "" else "font-weight:bold")
+
 		text = text.replace("%errortext%",self.errorText)
 		text = text.replace("%imperialchecked%","checked" if self.measurementSystem=="imperial" else "")
 		text = text.replace("%metricchecked%","checked" if self.measurementSystem=="metric" else "")
