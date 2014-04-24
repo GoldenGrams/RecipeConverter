@@ -58,31 +58,92 @@ class ModelRecipe(object):
     def setCElistElement (self, givenCE):
         self.listCE.append(givenCE)
 
-    #helper methods
+
+    #!!!!!!!!!!!!!!!
+    #public methods        
+    def parseRecipe (self):
+        recipe=""
+        recipe = self.getOrigRecipe()
+
+        #regex for value and unit of measurement
+        unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*(?:/|.)?\s*\d*)\s*
+                            (?:x\s*\d*\s*\d+\s*(?:/|.)?\s*\d*)?\s*)
+                           (?:ounces?|oz|pounds?|lbs?|tablespoons?|teaspoons?
+                           |tbsp?|tsp|fluid\s*ounces?|milligrams?|mg|grams?|g
+                           |kilograms?|kg|fl?\s*oz|milliliters?|ml|liters?|l
+                           |inches|inch|in|pints?|millimeters?|mm|centimeters?
+                           |quarts?|qt|cm|cups?)\s*                          
+                           (?:butter|margarine|all\s*purpose\s*flour
+                           |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar)?)                          
+                           |(?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:celsius|fahrenheit|c|f)|
+                           fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
+        #creates a list of all substrings matching regex
+        celist = re.findall(unitEx, recipe)    
+        #print(celist)
+        #regex to match first occurence of appropriate alphabetic character
+        splitEx = re.compile('[opldcmgkiftº]', re.IGNORECASE)
+        #regex to find specific ingredients
+        ingEx = re.compile('''butter|margarine|all\s*purpose\s*flour|
+                          (?:(?:(?:light|dark)?\s*brown)?|
+                          (?:granulated)?\s*sugar)''', re.IGNORECASE | re.VERBOSE) ##change
+        self.createConEl(celist,splitEx,ingEx)
+        recipe = self.addTags(celist, recipe)
+                    
+        self.setParsedRecipe(recipe)
+        self.setParseCheck(True)
+
+            #helper methods 
     #each string element in celist gets converted into
     #convertible elements(calls convertible element constructor)
     #and gets modified element and places it in list    
-    def createConEl(self, list, regex):
+    def createConEl(self, list, r1,r2):
         for ce in list:
-            splitCe = re.search(regex,ce)#recognizes where the original string should split
+            splitCe = re.search(r1,ce)#recognizes where the original string should split
             start = splitCe.start()
             end = ce.__len__()
             strvalue = ce[0:start].strip()# takes double part of string and assigns it to value
-            double = self.convertValue(strvalue)                
-            unit = ce[start:end]#takes measurement unit part of string and assigns it to unit                      
-            #changes degree unit to degrees f or degrees c
-            if ((unit == 'fahrenheit') or (unit == 'ºf') or (unit == 'f')):
-                unit = 'degrees f'
-            elif ((unit == 'celsius') or (unit == 'ºc') or (unit == 'c')):
-                unit = 'degrees c'
+            
+            unitingred = ce[start:end]#takes string part of the convertible strin and assigns it to unitingred                      
+            splitStr = re.search(r2,unitingred)#finds ingredient for the purpose to split unit and ingredient
+            #if no ingredient was found, nofbs is assign to ingred
+            if(splitStr == None):
+                unit = unitingred
+                ingred = 'nofbs'
+                #changes degree unit to degrees f or degrees c
+                if ((unit == 'fahrenheit') or (unit == 'ºf') or (unit == 'f')):
+                    unit = 'degrees f'
+                elif ((unit == 'celsius') or (unit == 'ºc') or (unit == 'c')):
+                    unit = 'degrees c'
+                else:
+                    unit = unit
+            #if ingredient is found the original string is split
             else:
-                unit = unit
-            #print(double)
-            #print(unit)
-            conEl = ConvertibleElement(double,unit)
-            self.setCElistElement(conEl)
-            
-            
+                splitStr = splitStr
+                begin = splitStr.start()
+                unit = unitingred[0:begin]
+                ingred = unitingred[begin:end]
+            xpos = strvalue.find('x')
+            if(xpos != -1):
+                strval1 = strvalue[0:xpos-1].strip()
+                print(strval1)
+                strval2 = strvalue[xpos+1:strvalue.__len__()].strip()
+                print(strval2)
+                double1 = self.convertValue(strval1)
+                print(double1)
+                double2 = self.convertValue(strval2)
+                print(double2)
+                conEl1 = ConvertibleElement(double1, unit, ingred)
+                conEl2 = ConvertibleElement(double2, unit, ingred)
+                self.setElistElement(conEl1)
+                self.setElistElement(conEl2)
+            else:
+                double1 = self.convertValue(strvalue)
+                print(double1)
+                conEl1 = ConvertibleElement(double1, unit, ingred)
+                self.setElistElement(conEl1)
+                
+##            conEl = ConvertibleElement(double,unit,ingred)
+##            self.setCElistElement(conEl)
 
     #Converts string into double. Returns double   
     def convertValue(self, strvalue):
@@ -112,35 +173,20 @@ class ModelRecipe(object):
     def addTags(self,list,recipe): 
         num = 0
         for ce in list:
-            recipe = recipe.replace(ce, '<'+ str(num) + '>',1)
-            num = num + 1
+            if(ce.find('x') != -1):
+                dimension = [] ##change
+                dimension = ce.split('x')
+                firdim = dimension[0]
+                recipe = recipe.replace(firdim, '<' + str(num) + '>',1)
+                num = num + 1
+                secdim = dimension[1]
+                recipe = recipe.replace(secdim, '<' + str(num) + '>',1)
+                num = num + 1
+            else:        
+                recipe = recipe.replace(ce, '<'+ str(num) + '>',1)
+                num = num + 1
         #print(recipe)
         return recipe
-
-
-    #!!!!!!!!!!!!!!!
-    #public methods        
-    def parseRecipe (self):
-        recipe=""
-        recipe = self.getOrigRecipe()
-
-        #regex for value and unit of measurement
-        unitEx = re.compile( '''(?:(?:\d*\s*\d+(?:/|.)?\d*)\s*(?:ounces?|oz|pounds?|lbs?
-                              |fluid\s*ounces?|milligrams?|mg|grams?|g|kilograms?|kg 
-                              |fl\s*oz|milliliters?|ml|liters?|l|inches|inch|in|pints?
-                              |millimeters?|mm|centimeters?|quarts?|qt|cm|cups?))|
-                              (?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:fahrenheit|f|celsius|c)|fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)   
-        #creates a list of all substrings matching regex
-        celist = re.findall(unitEx, recipe)    
-        #print(celist)
-        #regex to match first occurence of appropriate alphabetic character
-        splitEx = re.compile('[opldcmgkifº]', re.IGNORECASE)
-        self.createConEl(celist,splitEx)
-        recipe = self.addTags(celist, recipe)
-                
-    
-        self.setParsedRecipe(recipe)
-        self.setParseCheck(True)
 
         # pass workingString to parser (josie's method)
         # set result of parsing to workingString
