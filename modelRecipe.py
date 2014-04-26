@@ -66,16 +66,17 @@ class ModelRecipe(object):
         recipe = self.getOrigRecipe()
 
         #regex for value and unit of measurement
-        unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*(?:/|.)?\s*\d*)\s*
-                            (?:x\s*\d*\s*\d+\s*(?:/|.)?\s*\d*)?)\s*
+        unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*[/.]?\s*\d*)\s*
+                            (?:x\s*\d*\s*\d+\s*[/.]?\s*\d*)?)\s*
                             
-                           (?:ounces?|oz|pounds?|lbs?|tablespoons?|teaspoons?
-                           |tbsp?|tsp|fluid\s*ounces?|milligrams?|mg|grams?|g
-                           |kilograms?|kg|fl?\s*oz|milliliters?|ml|liters?|l
-                           |inches|inch|in|pints?|millimeters?|mm|centimeters?
-                           |quarts?|qt|cm|cups?)\s*
+                           (?:ounces?|ozs?|pounds?|lbs?|tablespoons?|teaspoons?
+                           |tbsp?|tsp|fluid\s*ounces?|milligrams?|mg
+                           |kilograms?|kgs?|grams?|g|fl?\s*oz|milliliters?|ml|liters?|l
+                           |inches|inch|in|pints?|pts?|millimeters?|mm|centimeters?
+                           |quarts?|qts?|cm|cups?)\s*
                            
-                           (?:butter|margarine|all\s*-?\s*purpose\s*-\s*flour|flour
+                           (?:(?:(?:un)?\s*-?\s*salted)?\s*butter|margarine
+                           |all\s*-?\s*purpose\s*-\s*flour|flour
                            |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar)?)
                            
                            |(?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:celsius|fahrenheit|c|f)|
@@ -86,9 +87,9 @@ class ModelRecipe(object):
         #regex to match first occurence of appropriate alphabetic character
         splitEx = re.compile('[opldcmgkiftº]', re.IGNORECASE)
         #regex to find specific ingredients
-        ingEx = re.compile('''butter|margarine|all\s*purpose\s*flour|flour
-                          (?:(?:(?:light|dark)?\s*brown)?|
-                          (?:granulated)?\s*sugar)''', re.IGNORECASE | re.VERBOSE) ##change
+        ingEx = re.compile('''(?:(?:un)?\s*-?\s*salted)?\s*butter|margarine
+                          |all\s*-?\s*purpose\s*-?\s*flour
+                          |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar''', re.IGNORECASE | re.VERBOSE) ##change
         self.createConEl(celist,splitEx,ingEx)
         recipe = self.addTags(celist, recipe)
                     
@@ -117,28 +118,22 @@ class ModelRecipe(object):
                 begin = splitStr.start()
                 unit = unitingred[0:begin]
                 ingred = unitingred[begin:end]
+            #Deals with numerical part of string
             xpos = strvalue.find('x')
             if(xpos != -1):
                 strval1 = strvalue[0:xpos-1].strip()
-                print(strval1)
                 strval2 = strvalue[xpos+1:strvalue.__len__()].strip()
-                print(strval2)
                 double1 = self.convertValue(strval1)
-                print(double1)
                 double2 = self.convertValue(strval2)
-                print(double2)
                 conEl1 = ConvertibleElement(double1, unit, ingred)
                 conEl2 = ConvertibleElement(double2, unit, ingred)
                 self.setCElistElement(conEl1)
                 self.setCElistElement(conEl2)
             else:
                 double1 = self.convertValue(strvalue)
-                print(double1)
                 conEl1 = ConvertibleElement(double1, unit, ingred)
                 self.setCElistElement(conEl1)
                 
-##            conEl = ConvertibleElement(double,unit,ingred)
-##            self.setCElistElement(conEl)
 
     #Converts string into double. Returns double   
     def convertValue(self, strvalue):
