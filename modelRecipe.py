@@ -66,8 +66,8 @@ class ModelRecipe(object):
         recipe = self.getOrigRecipe()
 
         #regex for value and unit of measurement
-        unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*[/.]?\s*\d*)\s*
-                            (?:x\s*\d*\s*\d+\s*[/.]?\s*\d*)?)\s*
+        unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*(?:[/.]\s*\d*)?)\s*
+                            (?:x\s*\d*\s*\d+\s*(?:[/.]\s*\d*)?)?)\s*
                             
                            (?:ounces?|ozs?|pounds?|lbs?|tablespoons?|teaspoons?
                            |tbsp?|tsp|fluid\s*ounces?|milligrams?|mg
@@ -120,6 +120,7 @@ class ModelRecipe(object):
                 ingred = unitingred[begin:end]
             #Deals with numerical part of string
             xpos = strvalue.find('x')
+            #if x is found btwn two numerical values, call convertible element constructor for each value
             if(xpos != -1):
                 strval1 = strvalue[0:xpos-1].strip()
                 strval2 = strvalue[xpos+1:strvalue.__len__()].strip()
@@ -129,6 +130,7 @@ class ModelRecipe(object):
                 conEl2 = ConvertibleElement(double2, unit, ingred)
                 self.setCElistElement(conEl1)
                 self.setCElistElement(conEl2)
+            #if no x is found, convertible element constructor is called once
             else:
                 double1 = self.convertValue(strvalue)
                 conEl1 = ConvertibleElement(double1, unit, ingred)
