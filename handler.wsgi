@@ -2,6 +2,8 @@ import sys
 import os
 import platform
 import cgi
+import urllib.request
+
 sys.path.append(os.path.dirname(__file__))
 from controller import RecipeController
 
@@ -36,6 +38,12 @@ def application(environ, start_response):
 	try:
 		if( post_input['fileuploadinput'].value ):
 			recipeText =  post_input['fileuploadinput'].file.read().decode("utf-8")
+	except:
+		pass
+
+	try:
+		if( post_input['urluploadinput'].value):
+			recipeText = urllib.request.urlopen(post_input['urluploadinput'].value).read().decode("utf-8")
 	except:
 		pass
 
