@@ -1,7 +1,7 @@
 import sys
 import os
 import platform
-import urllib.parse
+import cgi
 sys.path.append(os.path.dirname(__file__))
 from controller import RecipeController
 
@@ -10,20 +10,45 @@ from controller import RecipeController
 def application(environ, start_response):
 	status = '200 OK'
 	
-	post_input = urllib.parse.parse_qs(environ['wsgi.input'].readline().decode(),True)
+	post_input = cgi.FieldStorage(fp=environ['wsgi.input'], environ=environ, keep_blank_values=True)
 
-	recipeText = post_input.get('recipeText',[''])[0]
-	system = post_input.get('system',[''])[0]
-	scaling = post_input.get('scaling',[''])[0]
-	submit = post_input.get('submit',[''])[0]
+	try:
+		recipeText = post_input['recipeText'].value
+	except:
+		recipeText = ""
 
-	#controller = RecipeController( system,recipeText,scaling )
+	try:
+		system=post_input['system'].value
+	except:
+		system=''
+
+	try:
+		scaling=post_input['scaling'].value
+	except:
+		scaling=''
+
+	try:
+		submit=post_input['submit'].value
+	except:
+		submit=''
+
+
+	try:
+		if( post_input['fileuploadinput'].value ):
+			recipeText =  post_input['fileuploadinput'].file.read().decode("utf-8")
+	except:
+		pass
+
+
+
 
 	controller = RecipeController()
 	controller.setSystem( system )
 	controller.setRecipeText( recipeText )
 	controller.setScaling( scaling )
 	controller.setSubmit( submit )
+
+
 
 	output  = controller.getOutput()
 	output  = output + "<!-- python-version: " + platform.python_version() + "-->"

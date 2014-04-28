@@ -40,7 +40,7 @@ function showOriginal() {
 
 <h1>Recipe Converter</h1>
 <div id="maincontent">
-<form method="POST" action=".">
+<form enctype="multipart/form-data" method="POST" action=".">
 
 <div>
 	<a style="%originalbuttonstyle%" href="#" id="original" class="button" onclick="javascript:showOriginal();">Original</a>
