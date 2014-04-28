@@ -19,6 +19,9 @@ function showUrlUpload() {
         document.getElementById('fileuploadinput').style.display = "none";
         document.getElementById('recipetextinput').style.display = "none";
         document.getElementById('urluploadinput').style.display = "block";
+	document.getElementById('urluploadinput').focus();
+	// move cursor to end of field
+	document.getElementById('urluploadinput').selectionStart = document.getElementById('urluploadinput').selectionEnd = document.getElementById('urluploadinput').value.length;
 }
 function showConverted() {
 	document.getElementById('originalrecipecontentinner').style.display = "none";
@@ -77,7 +80,7 @@ function showOriginal() {
 <input type="radio" name="uploadtype" id="url" value="url" onclick="javascript:showUrlUpload();">
 <label for="url">Url</label>
 <input type="file" name="fileuploadinput" id="fileuploadinput" style="display:none;">
-<input type="text" name="urluploadinput" id="urluploadinput" style="display:none;">
+<input type="text" name="urluploadinput" id="urluploadinput" style="display:none;" value="http://">
 </div>
 <div class="container">
 <label for="scaling">Scaling</label>
