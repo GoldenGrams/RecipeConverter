@@ -14,7 +14,7 @@ from convertElement import *
 
 #cETest001 = ConvertibleElement(4 1/2, "cups")
 #cETest002 = ConvertibleElement(5, "ºf")
-cETest003 = ConvertibleElement(22, "degrees C")
+cETest003 = ConvertibleElement(22, "degrees C", "")
 '''
                                4.0 sm Acorn squash
                                0.0 Salt

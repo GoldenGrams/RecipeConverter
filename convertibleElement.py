@@ -163,14 +163,14 @@ class ConvertibleElement:
                 finalUnit = "mL"
                 self.setUnit(finalUnit)
 
-             elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp"):
+            elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp"):
                 finalValue = (initValue*14.7868)
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp")
+            elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp"):
                 finalValue = (initValue*4.92892)
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
@@ -181,7 +181,7 @@ class ConvertibleElement:
 
 
             #temperature
-            elif (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit" or initUnit=="ºf"):
+            if (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit" or initUnit=="ºf"):
                 finalValue = ((initValue-32.0)/9.0)*5.0
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
@@ -267,7 +267,7 @@ class ConvertibleElement:
             finalValue=finalValue*scale
 
             #temperature
-            elif (initUnit=="degrees c" or initUnit=="degrees celsius" or initUnit=="c" or initUnit=="celsius" or initUnit=="ºc"):
+            if (initUnit=="degrees c" or initUnit=="degrees celsius" or initUnit=="c" or initUnit=="celsius" or initUnit=="ºc"):
                 finalValue = ((initValue*9.0)/5.0)+32
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
