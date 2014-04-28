@@ -10,7 +10,7 @@ from decimal import *
 
 class RecipeController:
         system = ""
-        recipeText = ""
+        originalRecipeText = ""
         strScale = "1"
         scaling = 1
         errorFlag = False
@@ -21,9 +21,9 @@ class RecipeController:
         #Method to call the view
         def getOutput(self):
                 v = RecipeView()
-                recipeText = ""
+                convertedRecipeText = ""
                 if self.errorFlag == False:
-                        recipeText = self.processRecipe()
+                        convertedRecipeText = self.processRecipe()
                         #display final recipe for user
                         #convert scaling back to string
                         #actually don't need to do that
@@ -31,22 +31,21 @@ class RecipeController:
                 elif self.submitted == True:
                         v.setErrorText(self.x)
                         errorFlag = False
-                        recipeText = self.recipeText
                         #return error message and pull up
                         #the view with info for user to enter again.
                         #reset errorFlag before recussion   
                       
                 
                 v.setSystem(self.system)
-                v.setOriginalRecipeText(recipeText)
-                v.setConvertedRecipeText(recipeText)
+                v.setOriginalRecipeText(self.originalRecipeText)
+                v.setConvertedRecipeText(convertedRecipeText)
                 v.setScaling(self.strScale)
                 return v.getOutput()
 
         #Step through the process of converting the recipe
         #Return the altered recipe
         def processRecipe(self):
-                recipeMod = ModelRecipe(self.recipeText)
+                recipeMod = ModelRecipe(self.originalRecipeText)
                 recipeMod.parseRecipe()
                 recipeMod.convertRecipe(self.system, self.scaling)
                 recipeMod.finalizeRecipe()
@@ -104,7 +103,7 @@ class RecipeController:
                         
         def setRecipeText (self, recipeText):
                 if(recipeText):
-                        self.recipeText = recipeText
+                        self.originalRecipeText = recipeText
                         
                 elif not recipeText:
                         self.errorOutput(4)
