@@ -66,7 +66,7 @@ class ModelRecipe(object):
         recipe = self.getOrigRecipe()
 
         #regex for value and unit of measurement
-        unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*(?:[/.]\s*\d*)?)\s*
+        unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*(?:[/.]\s*\d+)?)\s*
                             (?:x\s*\d*\s*\d+\s*(?:[/.]\s*\d*)?)?)\s*
                             
                            (?:ounces?|ozs?|pounds?|lbs?|tablespoons?|teaspoons?
