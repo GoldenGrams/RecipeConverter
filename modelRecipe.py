@@ -76,7 +76,7 @@ class ModelRecipe(object):
                            |quarts?|qts?|cm|cups?)\s*
                            
                            (?:(?:(?:un)?\s*-?\s*salted)?\s*butter|margarine
-                           |all\s*-?\s*purpose\s*-\s*flour|flour
+                           |all\s*-?\s*purpose\s*flour|flour
                            |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar)?)
                            
                            |(?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:celsius|fahrenheit|c|f)|
