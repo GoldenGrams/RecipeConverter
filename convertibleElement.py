@@ -1,7 +1,7 @@
 #ConvertibleElement.py
 
 class ConvertibleElement:
-    value=0
+    value=0.0
     unit=""
     ingredient=""
     
@@ -34,8 +34,7 @@ class ConvertibleElement:
         #changes values inside converted element        
 
         initValue = self.getValue()
-        initUnit = self.getUnit()
-        initUnit = initUnit.lower()
+        initUnit = self.getUnit().lower()
         self.setIngredient(self.getIngredient().lower()) #assuming ingredient name is not removed from overall string of recipe
         scale = float(scale)
         finalValue=initValue
@@ -181,6 +180,7 @@ class ConvertibleElement:
 
             finalValue=finalValue*scale
            # finalValue=formatting.format(finalValue)
+           #set final value after scaling
 
 
             #temperature
@@ -269,6 +269,8 @@ class ConvertibleElement:
 
             finalValue=finalValue*scale
       #      finalValue=formatting.format(finalValue)
+      #set final value again after scaling
+    
 
             #temperature
             if (initUnit=="degrees c" or initUnit=="degrees celsius" or initUnit=="c" or initUnit=="celsius" or initUnit=="ºc"):

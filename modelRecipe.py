@@ -118,7 +118,8 @@ class ModelRecipe(object):
                 begin = splitStr.start()
                 unit = unitingred[0:begin]
                 ingred = unitingred[begin:end]
-            #Deals with numerical part of string
+                
+            #pan size
             xpos = strvalue.find('x')
             #if x is found btwn two numerical values, call convertible element constructor for each value
             if(xpos != -1):
@@ -200,15 +201,20 @@ class ModelRecipe(object):
         
     def finalizeRecipe (self):
         workingstring=""
+        workingingredient=""
         if self.getConvertCheck():
             workingstring=self.getParsedRecipe()
                         
             counter=0
             while len(self.getList()) > counter:
-     
-                #find marker, replace with data from appropriate CE: value+" "+units
-                workingstring=re.sub("<"+str(counter)+">", str(self.listCE[counter].getValue())+" "+str(self.listCE[counter].getUnit()), workingstring)
-                           
+                workingingredient=self.listCE[counter].getIngredient()
+                
+                if workingingredient=="nofbs":
+                    #find marker, replace with data from appropriate CE: value+" "+units
+                    workingstring=re.sub("<"+str(counter)+">", str(self.listCE[counter].getValue())+" "+str(self.listCE[counter].getUnit()), workingstring)
+                else:
+                    workingstring=re.sub("<"+str(counter)+">", str(self.listCE[counter].getValue())+" "+str(self.listCE[counter].getUnit())+" "+str(self.listCE[counter].getIngredient()), workingstring)
+                                         
                 counter = counter + 1
                 
             self.setFinalRecipe(workingstring)
