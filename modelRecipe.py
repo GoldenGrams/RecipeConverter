@@ -207,18 +207,20 @@ class ModelRecipe(object):
     def finalizeRecipe (self):
         workingstring=""
         workingingredient=""
+        workingvalue=0.0
         if self.getConvertCheck():
             workingstring=self.getParsedRecipe()
                         
             counter=0
             while len(self.getList()) > counter:
                 workingingredient=self.listCE[counter].getIngredient()
-                
+                workingvalue=self.listCE[counter].getValue()
+                workingvalue="{0:.2f}".format(workingvalue)
                 if workingingredient=="nofbs":
                     #find marker, replace with data from appropriate CE: value+" "+units
-                    workingstring=re.sub("<"+str(counter)+">", str(self.listCE[counter].getValue())+" "+str(self.listCE[counter].getUnit()), workingstring)
+                    workingstring=re.sub("<"+str(counter)+">", workingvalue +" "+str(self.listCE[counter].getUnit()), workingstring)
                 else:
-                    workingstring=re.sub("<"+str(counter)+">", str(self.listCE[counter].getValue())+" "+str(self.listCE[counter].getUnit())+" "+str(self.listCE[counter].getIngredient()), workingstring)
+                    workingstring=re.sub("<"+str(counter)+">", workingvalue+" "+str(self.listCE[counter].getUnit())+" "+str(self.listCE[counter].getIngredient()), workingstring)
                                          
                 counter = counter + 1
                 
