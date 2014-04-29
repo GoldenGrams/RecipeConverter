@@ -1,33 +1,34 @@
 import re
 
-#testable string
-##recipe = '''9 9/5 grams1 tbs dark brown sugar, 4 tablespoon 30 x 23 cm
-##            1/8 lbs7.5cm 5 ºf 22 ºc 4.0 sm Acorn squash 0.0 Salt
-##            118.3ml Butter or margarine 118.3 ml Honey
-##            453.6 g Whole-berry cranberry sauce'''
-recipe = '20 x 30 cm'
 def parseTheRecipe(recipe):
     #regex for value and unit of measurement    
-    unitEx = re.compile( '''(?:(?:(?:\d*\s*\d+\s*(?:/|.)?\s*\d*)\s*
-                            (?:x\s*\d*\s*\d+\s*(?:/|.)?\s*\d*)?\s*)
-                           (?:ounces?|oz|pounds?|lbs?
-                          |tablespoons?|teaspoons?|tbsp?|tsp
-                          |fluid\s*ounces?|milligrams?|mg|grams?|g|kilograms?|kg 
-                          |fl?\s*oz|milliliters?|ml|liters?|l|inches|inch|in|pints?
-                          |millimeters?|mm|centimeters?|quarts?|qt|cm|cups?)\s*                          
-                          (?:butter|margarine|all\s*purpose\s*flour
-                          |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar)?)                          
-                          |(?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:celsius|fahrenheit|c|f)|
-                          fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)
+    unitEx = re.compile('''(?:(?:(?:\d*\s*\d+\s*(?:[/.]\s*\d+)?)\s*
+
+                            (?:x\s*\d*\s*\d+\s*(?:[/.]\s*\d*)?)?)\s*
+                            
+                           (?:ounces?|ozs?|pounds?|lbs?|tablespoons?|teaspoons?
+                           |tbsp?|tsp|fluid\s*ounces?|milligrams?|mg|grams?|g
+                           |kilograms?|kgs?|fl?\s*oz|milliliters?|ml|liters?|l
+                           |inches|inch|in|pints?|pts?|millimeters?|mm|centimeters?
+                           |quarts?|qt|cm|cups?)\s*
+                           
+                           (?:(?:(?:un)?\s*-?\s*salted)?\s*butter|margarine
+                           |all\s*-?\s*purpose\s*-\s*flour|flour
+                           |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar)?)
+                           
+                           |(?:(?:\d+)\s*(?:celsius|ºc|c|degrees\s*(?:celsius|fahrenheit|c|f)|
+                           fahrenheit|ºf|f))''', re.IGNORECASE | re.VERBOSE)
     #creates a list of all substrings matching regex
     celist = re.findall(unitEx, recipe)    
-    print(celist)
+    #print(celist)
     #regex to match first occurence of appropriate alphabetic character
     splitEx = re.compile('[oplcdmgkiftº]', re.IGNORECASE)
     #regex to find specific ingredients
-    ingEx = re.compile('''butter|margarine|all\s*purpose\s*flour|
-                          (?:(?:(?:light|dark)?\s*brown)?|
-                          (?:granulated)?\s*sugar)''', re.IGNORECASE | re.VERBOSE) 
+    ingEx = re.compile('''(?:(?:un)?\s*-?\s*salted)?\s*butter|margarine
+                          |all\s*-?\s*purpose\s*-?\s*flour
+                          |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar'''
+                           , re.IGNORECASE | re.VERBOSE)
+    print(celist)
     createConEl(celist,splitEx,ingEx)
     return addTags(celist, recipe)
     
@@ -39,53 +40,43 @@ def createConEl(list, r1, r2):
         splitCe = re.search(r1,ce)#recognizes where the original string should split
         start = splitCe.start()
         end = ce.__len__()
-        strvalue = ce[0:start].strip()# takes double part of string and assigns it to value
+        strvalue = ce[0:start].strip()# takes double part of string and assigns it to value/removes white space
                
-        unitingred = ce[start:end]#takes measurement unit part of string and assigns it to unit      
+        unitingred = ce[start:end]#takes measurement unit and ingredient(if exist) part of string and assigns it to unitingre      
         splitStr = re.search(r2,unitingred)
+      
+        #Assigns unitingred to unit if no special ingredient is found
         if(splitStr == None):
             unit = unitingred
             ingred = 'nofbs'
-            #changes degree unit to degrees f or degrees c
-            if ((unit == 'fahrenheit') or (unit == 'ºf') or (unit == 'f')):
-                unit = 'degrees f'
-            elif ((unit == 'celsius') or (unit == 'ºc') or (unit == 'c')):
-                unit = 'degrees c'
-            else:
-                unit = unit
         else:
-            splitStr = splitStr##change
             begin = splitStr.start()
             unit = unitingred[0:begin]
             ingred = unitingred[begin:end]
-
+  
+        #Deals with value numerical part of string
         xpos = strvalue.find('x')
         if(xpos != -1):
             strval1 = strvalue[0:xpos-1].strip()
-            print(strval1 + ' s1')
             strval2 = strvalue[xpos+1:strvalue.__len__()].strip()
-            print(strval2 + ' s2')
             double1 = convertValue(strval1)
-            print(double1)
             double2 = convertValue(strval2)
-            print(double2)
+            print(str(double1) +' unit: '+ unit + ' ing: ' + ingred)
+            print(str(double2) +' unit: '+ unit + ' ing: ' + ingred)
 ##            conEl1 = ConvertibleElement(double1,unit,ingred)
 ##            conEl2 = ConvertibleElement(double2,unit,ingred)
 ##            self.setElistElement(conEl1)
 ##            self.setElistElement(conEl2)
         else:
             double1 = convertValue(strvalue)
-            print(double1)
+            print(str(double1) +' unit: '+ unit + ' ing: ' + ingred)
 ##            conEl1 = ConvertibleElement(double1, unit, ingred)
 ##            self.setElistElement(conEl1)
-                   
-##        conEl = ConvertibleElement(double,unit,ingred) 
-##        self.setElistElement(conEl)
 
 #Converts string into double. Returns double   
 def convertValue(strvalue):
     #if string contains whole number or decimal. gets converted to double easily
-    if(strvalue.find('/')==-1):##change
+    if(strvalue.find('/')==-1): 
         value = float(strvalue)        
     #converts string containing fraction into double
     else:
@@ -99,21 +90,21 @@ def convertValue(strvalue):
         else:
             white = strvalue.find(' ')
             fnum = strvalue[0:white]
+            print(fnum)
             newstr = strvalue[white:strvalue.__len__()]
+            print(newstr)
             numden = newstr.split('/')
             num = float(numden.pop(0))
             den = float(numden.pop(0))
             value = (float(fnum))+(num/den)
     return value
 
-
-
 #Replaces each convertable element with <#>. Returns recipe with tagged elements
 def addTags(list,recipe): 
     num = 0
     for ce in list:
         if(ce.find('x') != -1):
-            dimension = [] ##change
+            dimension = [] 
             dimension = ce.split('x')
             firdim = dimension[0]
             recipe = recipe.replace(firdim, '<' + str(num) + '>',1)
@@ -128,3 +119,5 @@ def addTags(list,recipe):
     return recipe
     
   
+
+
