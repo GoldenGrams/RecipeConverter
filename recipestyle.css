@@ -106,3 +106,7 @@ display:inline-block;
 clear:none;
 text-align:center
 }
+
+#urluploadinput{
+width:100%;
+}
