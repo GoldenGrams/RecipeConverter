@@ -38,7 +38,9 @@ def application(post_input):
 def test():
 	system = "imperial"
 	scaling = "1"
-	recipeText = "4 1/2 cups5 ºf 22 c 4.0 sm Acorn squash 0.0 Salt 118.3ml Butter or margarine 118.3 ml Honey 453.6 g Whole-berry cranberry sauce"
+	recipeText = '''1 inch peices ) 5 tbs un salted butter 5 tbs un-salted butter 1 1/2 x 5 1/2 cm 2 1/2 cups all purpose flour,
+             9 x 9 cm, 5 tbs butter, 5 grams dark brown sugar,
+            3 ml margarine 33 1/2 x 30 1/2 cm'''
 	submit = "submit"
 
 	formdata = {'recipeText':{0:recipeText}, 'system':{0:system}, 'scaling':{0:scaling}, 'submit':{0:submit}}

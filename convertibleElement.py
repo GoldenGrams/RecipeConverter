@@ -47,31 +47,31 @@ class ConvertibleElement:
             #density adjustments
             density=1.0
             if (self.getIngredient()=="salted butter"):
-                density = (1/0.96)
+                density = 0.96
                 specialingredientflag=1
             elif (self.getIngredient()=="unsalted butter" or self.getIngredient()=="butter" or self.getIngredient()=="un salted butter"or self.getIngredient()=="un-salted butter"):
-                density = (1/0.91)
+                density = 0.91
                 specialingredientflag=1
             elif (self.getIngredient()=="margarine"):
-                density = (1/1)
+                density = 1.0
                 specialingredientflag=1
             elif (self.getIngredient()=="all-purpose flour" or self.getIngredient()=="all purpose flour"):
-                density = (1/0.58)
+                density = 0.58
                 specialingredientflag=1
             elif (self.getIngredient()=="flour"):
-                density = (1/0.51)
+                density = 0.51
                 specialingredientflag=1
             elif (self.getIngredient()=="light brown sugar"):
-                density = (1/0.81)
+                density = 0.81
                 specialingredientflag=1
             elif (self.getIngredient()=="dark brown sugar"):
-                density = (1/0.81)
+                density = 0.81
                 specialingredientflag=1
             elif (self.getIngredient()=="brown sugar"):
-                density = (1/0.81)
+                density = 0.81
                 specialingredientflag=1
             elif (self.getIngredient()=="granulated sugar"):
-                density = (1/0.85)
+                density = 0.85
                 specialingredientflag=1
 
             
@@ -208,34 +208,34 @@ class ConvertibleElement:
             #density adjustments
             density=1.0
             if (self.getIngredient()=="salted butter"):
-                density = 0.96
+                density = 1/0.96
                 specialingredientflag=1
             elif (self.getIngredient()=="unsalted butter" or self.getIngredient()=="butter" or self.getIngredient()=="un salted butter"or self.getIngredient()=="un-salted butter"):
-                density = 0.916
+                density = 1/0.916
                 specialingredientflag=1
             elif (self.getIngredient()=="margarine"):
-                density = 1.0
+                density = 1/1.0
                 specialingredientflag=1
             elif (self.getIngredient()=="all-purpose flour" or self.getIngredient()=="all purpose flour"):
-                density = 0.58
+                density = 1/0.58
                 specialingredientflag=1
             elif (self.getIngredient()=="flour"):
-                density = 0.51
+                density = 1/0.51
                 specialingredientflag=1
             elif (self.getIngredient()=="light brown sugar"):
-                density = 0.81
+                density = 1/0.81
                 specialingredientflag=1
             elif (self.getIngredient()=="dark brown sugar"):
-                density = 0.81
+                density = 1/0.81
                 specialingredientflag=1
             elif (self.getIngredient()=="brown sugar"):
-                density = 0.81
+                density = 1/0.81
                 specialingredientflag=1
             elif (self.getIngredient()=="granulated sugar"):
-                density = 0.85
+                density = 1/0.85
                 specialingredientflag=1
             elif (self.getIngredient()=="sugar"):
-                density = 0.85
+                density = 1/0.85
                 specialingredientflag=1
             
             #length
@@ -284,10 +284,10 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             elif (initUnit=="ml" or initUnit=="milliliter" or initUnit=="milliliters"):
-                finalValue = (initValue*0.00422675)
+                finalValue = (initValue*0.2029)
                 formatting = "%.3f"
                 self.setValue(finalValue)
-                finalUnit = "cups"
+                finalUnit = "tsp"
                 self.setUnit(finalUnit)
 
          #   finalValue=finalValue*scale
