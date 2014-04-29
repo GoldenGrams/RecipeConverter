@@ -47,7 +47,7 @@ class ConvertibleElement:
             density=1.0
             if (self.getIngredient()=="salted butter"):
                 density = (1/0.96)
-            elif (self.getIngredient()=="unsalted butter" or self.getIngredient()=="butter"):
+            elif (self.getIngredient()=="unsalted butter" or self.getIngredient()=="butter" or self.getIngredient()=="un salted butter"or self.getIngredient()=="un-salted butter"):
                 density = (1/0.91)
             elif (self.getIngredient()=="margarine"):
                 density = (1/1)
@@ -178,7 +178,7 @@ class ConvertibleElement:
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            finalValue=finalValue*scale
+            #finalValue=finalValue*scale
            # finalValue=formatting.format(finalValue)
            #set final value after scaling
 
@@ -269,7 +269,7 @@ class ConvertibleElement:
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
 
-            finalValue=finalValue*scale
+         #   finalValue=finalValue*scale
       #      finalValue=formatting.format(finalValue)
       #set final value again after scaling
     
