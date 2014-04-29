@@ -1,6 +1,12 @@
 #ConvertibleElement.py
 
+# an instantiation of the ConvertibleElement class is the specific number, unit, and sometimes ingredient
+# that are manipulated by the program
+
+
 class ConvertibleElement:
+
+    #instance variables
     value=0.0
     unit=""
     ingredient=""
@@ -28,13 +34,13 @@ class ConvertibleElement:
         self.ingredient=giveningredient
 
     #!!!!!!!!!!!!!
-    # if converting from metric to metric or imperial to imperial, scaling doesnt happen
+    # if converting from metric to metric or imperial to imperial, scaling doesnt happen?
     def convertElement (self, desiredUnitsSystem, scale):
         #this is andrew's method
         #changes values inside converted element        
-
-        initValue = self.getValue()
-        initUnit = self.getUnit().lower()
+        
+        initValue = self.getValue() #working value for within method
+        initUnit = self.getUnit().lower() #working unit for within method 
         self.setIngredient(self.getIngredient().lower()) #assuming ingredient name is not removed from overall string of recipe
         scale = float(scale)
         finalValue=initValue
@@ -102,7 +108,7 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #volume
-                #& (giveningredient.lower()=="butter" or giveningredient.lower()=="sugar" or giveningredient.lower()=="margarine" or giveningredient.lower()=="flour"):
+               
 
             elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts") and (specialingredientflag==1):
                 finalValue = ((initValue*0.946353)*density)
@@ -189,11 +195,13 @@ class ConvertibleElement:
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            #finalValue=finalValue*scale
-           # finalValue=formatting.format(finalValue)
-           #set final value after scaling
+            finalValue=self.getValue()*scale
+            #finalValue=formatting.format(finalValue)
+            #finalValue=formatting % finalValue
+            self.setValue(finalValue)
 
 
+            
             #temperature
             if (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit" or initUnit=="ºf"):
                 finalValue = ((initValue-32.0)/9.0)*5.0
@@ -241,7 +249,7 @@ class ConvertibleElement:
             #length
             if (initUnit=="cm" or initUnit=="centimeters" or initUnit=="centimeter"):
                 finalValue = (initValue*0.39)
-                formatting = "%.3f"
+                formatting = "{0:.3f}"
                 self.setValue(finalValue)
                 finalUnit = "in"
                 self.setUnit(finalUnit)
@@ -249,28 +257,28 @@ class ConvertibleElement:
             #mass
             elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs") and (specialingredientflag==1):
                 finalValue = ((initValue*2.2046)*density)
-                formatting = "%.3f"
+                formatting = "{0:.3f}"
                 self.setValue(finalValue)
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
                 
             elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram") and (specialingredientflag==1):
                 finalValue = ((initValue*0.035274)*density)
-                formatting = "%.2f"
+                formatting = "{0:.2f}"
                 self.setValue(finalValue)
                 finalUnit = "Tbsp"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs"):
                 finalValue = (initValue*2.2046)*density
-                formatting = "%.3f"
+                formatting = "{0:.3f}"
                 self.setValue(finalValue)
                 finalUnit = "lbs"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram"):
                 finalValue = (initValue*0.035274)*density
-                formatting = "%.2f"
+                formatting = "{0:.2f}"
                 self.setValue(finalValue)
                 finalUnit = "oz"
                 self.setUnit(finalUnit)
@@ -278,21 +286,22 @@ class ConvertibleElement:
             #Volume
             elif (initUnit=="l" or initUnit=="liter" or initUnit=="liters" or initUnit=="litres"):
                 finalValue = (initValue*4.22675)
-                formatting = "%.3f"
+                formatting = "{0:.3f}"
                 self.setValue(finalValue)
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="ml" or initUnit=="milliliter" or initUnit=="milliliters"):
                 finalValue = (initValue*0.2029)
-                formatting = "%.3f"
+                formatting = "{0:.3f}"
                 self.setValue(finalValue)
                 finalUnit = "tsp"
                 self.setUnit(finalUnit)
 
-         #   finalValue=finalValue*scale
-      #      finalValue=formatting.format(finalValue)
-      #set final value again after scaling
+            finalValue=self.getValue()*scale
+            #not working #finalValue=formatting.format(finalValue)
+            # not working #finalValue=formatting % finalValue
+            self.setValue(finalValue)
     
 
             #temperature

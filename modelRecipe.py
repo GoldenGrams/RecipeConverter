@@ -137,7 +137,7 @@ class ModelRecipe(object):
                 conEl1 = ConvertibleElement(double1, unit, ingred)
                 print("conEl1 "+ str(conEl1))
                 print(str(conEl1.getValue()) + str(conEl1.getUnit()) + str(conEl1.getIngredient()))
-                conEl1.convertElement("imperial", 1)
+                conEl1.convertElement("imperial", 2)
                 print(str(conEl1.getValue()) + str(conEl1.getUnit()) + str(conEl1.getIngredient()))
                 
                 self.setCElistElement(conEl1)

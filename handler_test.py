@@ -37,7 +37,7 @@ def application(post_input):
 
 def test():
 	system = "imperial"
-	scaling = "1"
+	scaling = "2"
 	recipeText = '''1 inch peices ) 5 tbs un salted butter 5 tbs un-salted butter 1 1/2 x 5 1/2 cm 2 1/2 cups all purpose flour,
              9 x 9 cm, 5 tbs butter, 5 grams dark brown sugar,
             3 ml margarine 33 1/2 x 30 1/2 cm'''
