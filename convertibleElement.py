@@ -198,7 +198,7 @@ class ConvertibleElement:
             density=1.0
             if (self.getIngredient()=="salted butter"):
                 density = 0.96
-            elif (self.getIngredient()=="unsalted butter" or self.getIngredient()=="butter"):
+            elif (self.getIngredient()=="unsalted butter" or self.getIngredient()=="butter" or self.getIngredient()=="un salted butter"or self.getIngredient()=="un-salted butter"):
                 density = 0.916
             elif (self.getIngredient()=="margarine"):
                 density = 1.0

@@ -135,6 +135,11 @@ class ModelRecipe(object):
             else:
                 double1 = self.convertValue(strvalue)
                 conEl1 = ConvertibleElement(double1, unit, ingred)
+                print("conEl1 "+ str(conEl1))
+                print(str(conEl1.getValue()) + str(conEl1.getUnit()) + str(conEl1.getIngredient()))
+                conEl1.convertElement("imperial", 1)
+                print(str(conEl1.getValue()) + str(conEl1.getUnit()) + str(conEl1.getIngredient()))
+                
                 self.setCElistElement(conEl1)
                 
 
@@ -142,7 +147,7 @@ class ModelRecipe(object):
     def convertValue(self, strvalue):
         #if string contains whole number or decimal. gets converted to double easily
         if(strvalue.find('/')==-1):
-            value = int(float(strvalue))
+            value = float(strvalue)
         #converts string containing fraction into double
         else:
             #if string does not contain white space, only deal with fraction
