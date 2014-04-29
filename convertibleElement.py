@@ -24,7 +24,7 @@ class ConvertibleElement:
     def setUnit (self, givenunit):
         self.unit=givenunit
     def setIngredient (self, giveningredient):
-        self.unit=givenunit
+        self.ingredient=giveningredient
 
     #!!!!!!!!!!!!!
     # if converting from metric to metric or imperial to imperial, scaling doesnt happen
@@ -91,44 +91,44 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #volume
-                #& (givenIngredient.lower()=="butter" or givenIngredient.lower()=="sugar" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="flour"):
+                #& (giveningredient.lower()=="butter" or giveningredient.lower()=="sugar" or giveningredient.lower()=="margarine" or giveningredient.lower()=="flour"):
 
-            elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="unsalted butter" or givenIngredient.lower()=="salted butter" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="all purpose flour" or givenIngredient.lower()=="all-purpose flour" or givenIngredient.lower()=="flour" or givenIngredient.lower()=="light brown sugar" or givenIngredient.lower()=="dark brown sugar" or givenIngredient.lower()=="brown sugar" or givenIngredient.lower()=="granulated sugar"):
+            elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts") & (getIngredient().lower()=="butter" or getIngredient().lower()=="unsalted butter" or getIngredient().lower()=="salted butter" or getIngredient().lower()=="margarine" or getIngredient().lower()=="all purpose flour" or getIngredient().lower()=="all-purpose flour" or getIngredient().lower()=="flour" or getIngredient().lower()=="light brown sugar" or getIngredient().lower()=="dark brown sugar" or getIngredient().lower()=="brown sugar" or getIngredient().lower()=="granulated sugar"):
                 finalValue = ((initValue*0.946353)*density)
                 finalValue = "%.3f" % finalValue
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit=="pt" or initUnit=="pint" or initUnit=="pints" or initUnit=="pts") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="unsalted butter" or givenIngredient.lower()=="salted butter" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="all purpose flour" or givenIngredient.lower()=="all-purpose flour" or givenIngredient.lower()=="flour" or givenIngredient.lower()=="light brown sugar" or givenIngredient.lower()=="dark brown sugar" or givenIngredient.lower()=="brown sugar" or givenIngredient.lower()=="granulated sugar"):
+            elif (initUnit=="pt" or initUnit=="pint" or initUnit=="pints" or initUnit=="pts") & (getIngredient().lower()=="butter" or getIngredient().lower()=="unsalted butter" or getIngredient().lower()=="salted butter" or getIngredient().lower()=="margarine" or getIngredient().lower()=="all purpose flour" or getIngredient().lower()=="all-purpose flour" or getIngredient().lower()=="flour" or getIngredient().lower()=="light brown sugar" or getIngredient().lower()=="dark brown sugar" or getIngredient().lower()=="brown sugar" or getIngredient().lower()=="granulated sugar"):
                 finalValue = ((initValue*473.176)*density)
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit=="cup" or initUnit=="cups") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="unsalted butter" or givenIngredient.lower()=="salted butter" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="all purpose flour" or givenIngredient.lower()=="all-purpose flour" or givenIngredient.lower()=="flour" or givenIngredient.lower()=="light brown sugar" or givenIngredient.lower()=="dark brown sugar" or givenIngredient.lower()=="brown sugar" or givenIngredient.lower()=="granulated sugar"):
+            elif (initUnit=="cup" or initUnit=="cups") & (getIngredient().lower()=="butter" or getIngredient().lower()=="unsalted butter" or getIngredient().lower()=="salted butter" or getIngredient().lower()=="margarine" or getIngredient().lower()=="all purpose flour" or getIngredient().lower()=="all-purpose flour" or getIngredient().lower()=="flour" or getIngredient().lower()=="light brown sugar" or getIngredient().lower()=="dark brown sugar" or getIngredient().lower()=="brown sugar" or getIngredient().lower()=="granulated sugar"):
                 finalValue = ((initValue*236.588)*density)
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit=="fl oz" or initUnit=="fluid ounces") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="unsalted butter" or givenIngredient.lower()=="salted butter" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="all purpose flour" or givenIngredient.lower()=="all-purpose flour" or givenIngredient.lower()=="flour" or givenIngredient.lower()=="light brown sugar" or givenIngredient.lower()=="dark brown sugar" or givenIngredient.lower()=="brown sugar" or givenIngredient.lower()=="granulated sugar"):
+            elif (initUnit=="fl oz" or initUnit=="fluid ounces") & (getIngredient().lower()=="butter" or getIngredient().lower()=="unsalted butter" or getIngredient().lower()=="salted butter" or getIngredient().lower()=="margarine" or getIngredient().lower()=="all purpose flour" or getIngredient().lower()=="all-purpose flour" or getIngredient().lower()=="flour" or getIngredient().lower()=="light brown sugar" or getIngredient().lower()=="dark brown sugar" or getIngredient().lower()=="brown sugar" or getIngredient().lower()=="granulated sugar"):
                 finalValue = ((initValue*29.5735)*density)
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="unsalted butter" or givenIngredient.lower()=="salted butter" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="all purpose flour" or givenIngredient.lower()=="all-purpose flour" or givenIngredient.lower()=="flour" or givenIngredient.lower()=="light brown sugar" or givenIngredient.lower()=="dark brown sugar" or givenIngredient.lower()=="brown sugar" or givenIngredient.lower()=="granulated sugar"):
+            elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp") & (getIngredient().lower()=="butter" or getIngredient().lower()=="unsalted butter" or getIngredient().lower()=="salted butter" or getIngredient().lower()=="margarine" or getIngredient().lower()=="all purpose flour" or getIngredient().lower()=="all-purpose flour" or getIngredient().lower()=="flour" or getIngredient().lower()=="light brown sugar" or getIngredient().lower()=="dark brown sugar" or getIngredient().lower()=="brown sugar" or getIngredient().lower()=="granulated sugar"):
                 finalValue = ((initValue*14.7868)*density)
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="unsalted butter" or givenIngredient.lower()=="salted butter" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="all purpose flour" or givenIngredient.lower()=="all-purpose flour" or givenIngredient.lower()=="flour" or givenIngredient.lower()=="light brown sugar" or givenIngredient.lower()=="dark brown sugar" or givenIngredient.lower()=="brown sugar" or givenIngredient.lower()=="granulated sugar"): 
+            elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp") & (getIngredient().lower()=="butter" or getIngredient().lower()=="unsalted butter" or getIngredient().lower()=="salted butter" or getIngredient().lower()=="margarine" or getIngredient().lower()=="all purpose flour" or getIngredient().lower()=="all-purpose flour" or getIngredient().lower()=="flour" or getIngredient().lower()=="light brown sugar" or getIngredient().lower()=="dark brown sugar" or getIngredient().lower()=="brown sugar" or getIngredient().lower()=="granulated sugar"): 
                 finalValue = ((initValue*4.92892)*density)
                 finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
@@ -221,14 +221,14 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #mass
-            elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="unsalted butter" or givenIngredient.lower()=="salted butter" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="all purpose flour" or givenIngredient.lower()=="all-purpose flour" or givenIngredient.lower()=="flour" or givenIngredient.lower()=="light brown sugar" or givenIngredient.lower()=="dark brown sugar" or givenIngredient.lower()=="brown sugar" or givenIngredient.lower()=="granulated sugar"): 
+            elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs") & (getIngredient().lower()=="butter" or getIngredient().lower()=="unsalted butter" or getIngredient().lower()=="salted butter" or getIngredient().lower()=="margarine" or getIngredient().lower()=="all purpose flour" or getIngredient().lower()=="all-purpose flour" or getIngredient().lower()=="flour" or getIngredient().lower()=="light brown sugar" or getIngredient().lower()=="dark brown sugar" or getIngredient().lower()=="brown sugar" or getIngredient().lower()=="granulated sugar"): 
                 finalValue = ((initValue*2.2046)*density)
                 finalValue = "%.3f" % finalValue
                 self.setValue(finalValue)
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
                 
-            elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram") & (givenIngredient.lower()=="butter" or givenIngredient.lower()=="unsalted butter" or givenIngredient.lower()=="salted butter" or givenIngredient.lower()=="margarine" or givenIngredient.lower()=="all purpose flour" or givenIngredient.lower()=="all-purpose flour" or givenIngredient.lower()=="flour" or givenIngredient.lower()=="light brown sugar" or givenIngredient.lower()=="dark brown sugar" or givenIngredient.lower()=="brown sugar" or givenIngredient.lower()=="granulated sugar"): 
+            elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram") & (getIngredient().lower()=="butter" or getIngredient().lower()=="unsalted butter" or getIngredient().lower()=="salted butter" or getIngredient().lower()=="margarine" or getIngredient().lower()=="all purpose flour" or getIngredient().lower()=="all-purpose flour" or getIngredient().lower()=="flour" or getIngredient().lower()=="light brown sugar" or getIngredient().lower()=="dark brown sugar" or getIngredient().lower()=="brown sugar" or getIngredient().lower()=="granulated sugar"): 
                 finalValue = ((initValue*0.035274)*density)
                 finalValue = "%.2f" % finalValue
                 self.setValue(finalValue)
