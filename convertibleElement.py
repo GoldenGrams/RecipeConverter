@@ -4,6 +4,7 @@ class ConvertibleElement:
     value=0
     unit=""
     ingredient=""
+    
     #constructor
     def __init__ (self, givenvalue, givenunit, giveningredient):
         self.value=givenvalue
@@ -38,6 +39,7 @@ class ConvertibleElement:
         self.setIngredient(self.getIngredient().lower()) #assuming ingredient name is not removed from overall string of recipe
         scale = float(scale)
         finalValue=initValue
+        formatting=""
 
         
         if (desiredUnitsSystem.lower() == "metric"):
@@ -68,7 +70,7 @@ class ConvertibleElement:
             if (initUnit=="in" or initUnit=="inches" or initUnit=="inch"):
                 finalValue = (initValue*2.54)
                 #x="%.3f" % x
-                finalValue = "%.2f" % finalValue
+                formatting = "%.2f"
                 self.setValue(finalValue)
                 #print (finalValue)
                 finalUnit = "cm"
@@ -78,14 +80,14 @@ class ConvertibleElement:
             #mass
             elif (initUnit=="lbs" or initUnit=="pounds" or initUnit=="lb" or initUnit=="pound"):
                 finalValue = (initValue*453.592)
-                finalValue = "%.1f" % finalValue
+                formatting = "%.1f" 
                 self.setValue(finalValue)
                 finalUnit= "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="oz" or initUnit=="ounces" or initUnit=="ounce" or initUnit=="ozs"):
                 finalValue = (initValue*28.3495)
-                finalValue = "%.1f" % finalValue
+                formatting = "%.1f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
@@ -95,89 +97,90 @@ class ConvertibleElement:
 
             elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"):
                 finalValue = ((initValue*0.946353)*density)
-                finalValue = "%.3f" % finalValue
+                formatting = "%.3f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="pt" or initUnit=="pint" or initUnit=="pints" or initUnit=="pts") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"):
                 finalValue = ((initValue*473.176)*density)
-                finalValue = "%.0f" % finalValue
+                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="cup" or initUnit=="cups") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"):
                 finalValue = ((initValue*236.588)*density)
-                finalValue = "%.0f" % finalValue
+                formatting = "%.0f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="fl oz" or initUnit=="fluid ounces") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"):
                 finalValue = ((initValue*29.5735)*density)
-                finalValue = "%.0f" % finalValue
+                formatting = "%.0f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"):
                 finalValue = ((initValue*14.7868)*density)
-                finalValue = "%.0f" % finalValue
+                formatting = "%.0f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"): 
                 finalValue = ((initValue*4.92892)*density)
-                finalValue = "%.0f" % finalValue
+                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
                 
             elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts"):
                 finalValue = (initValue*0.946353)
-                finalValue = "%.3f" % finalValue
+                formatting = "%.3f"
                 self.setValue(finalValue)
                 finalUnit = "L"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="pt" or initUnit=="pint" or initUnit=="pints" or initUnit=="pts" ):
                 finalValue = (initValue*473.176)
-                finalValue = "%.0f" % finalValue
+                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "mL"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="cup" or initUnit=="cups"):
                 finalValue = (initValue*236.588)
-                finalValue = "%.0f" % finalValue
+                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "mL"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="fl oz" or initUnit=="fluid ounces"):
                 finalValue = (initValue*29.5735)
-                finalValue = "%.0f" % finalValue
+                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "mL"
                 self.setUnit(finalUnit)
 
             elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp"):
                 finalValue = (initValue*14.7868)
-                finalValue = "%.0f" % finalValue
+                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp"):
                 finalValue = (initValue*4.92892)
-                finalValue = "%.0f" % finalValue
+                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             finalValue=finalValue*scale
+           # finalValue=formatting.format(finalValue)
 
 
             #temperature
@@ -215,7 +218,7 @@ class ConvertibleElement:
             #length
             if (initUnit=="cm" or initUnit=="centimeters" or initUnit=="centimeter"):
                 finalValue = (initValue*0.39)
-                finalValue = "%.3f" % finalValue
+                formatting = "%.3f"
                 self.setValue(finalValue)
                 finalUnit = "in"
                 self.setUnit(finalUnit)
@@ -223,28 +226,28 @@ class ConvertibleElement:
             #mass
             elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"): 
                 finalValue = ((initValue*2.2046)*density)
-                finalValue = "%.3f" % finalValue
+                formatting = "%.3f"
                 self.setValue(finalValue)
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
                 
             elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"): 
                 finalValue = ((initValue*0.035274)*density)
-                finalValue = "%.2f" % finalValue
+                formatting = "%.2f"
                 self.setValue(finalValue)
                 finalUnit = "Tbsp"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs"):
                 finalValue = (initValue*2.2046)
-                finalValue = "%.3f" % finalValue
+                formatting = "%.3f"
                 self.setValue(finalValue)
                 finalUnit = "lbs"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram"):
                 finalValue = (initValue*0.035274)
-                finalValue = "%.2f" % finalValue
+                formatting = "%.2f"
                 self.setValue(finalValue)
                 finalUnit = "oz"
                 self.setUnit(finalUnit)
@@ -252,19 +255,20 @@ class ConvertibleElement:
             #Volume
             elif (initUnit=="l" or initUnit=="liter" or initUnit=="liters"):
                 finalValue = (initValue*4.22675)
-                finalValue = "%.3f" % finalValue
+                formatting = "%.3f"
                 self.setValue(finalValue)
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="ml" or initUnit=="milliliter" or initUnit=="milliliters"):
                 finalValue = (initValue*0.00422675)
-                finalValue = "%.3f" % finalValue
+                formatting = "%.3f"
                 self.setValue(finalValue)
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
 
             finalValue=finalValue*scale
+      #      finalValue=formatting.format(finalValue)
 
             #temperature
             if (initUnit=="degrees c" or initUnit=="degrees celsius" or initUnit=="c" or initUnit=="celsius" or initUnit=="ºc"):
