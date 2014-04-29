@@ -195,10 +195,16 @@ class ConvertibleElement:
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            finalValue=self.getValue()*scale
+            if (initUnit=="degrees c" or initUnit=="degrees celsius" or initUnit=="c" or initUnit=="celsius" or initUnit=="ºc"):
+                self.setValue(finalValue)
+            else:
+                finalValue=self.getValue()*scale
+                self.setValue(finalValue)
+
+            
             #finalValue=formatting.format(finalValue)
             #finalValue=formatting % finalValue
-            self.setValue(finalValue)
+            
 
 
             
@@ -210,7 +216,7 @@ class ConvertibleElement:
                 finalUnit = "degrees Celsius"
                 self.setUnit(finalUnit)
 
-
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         if (desiredUnitsSystem.lower() == "imperial"):
 
             #density adjustments
@@ -298,10 +304,16 @@ class ConvertibleElement:
                 finalUnit = "tsp"
                 self.setUnit(finalUnit)
 
-            finalValue=self.getValue()*scale
+
+            if (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit" or initUnit=="ºf"):
+                self.setValue(finalValue)
+            else:
+                finalValue=self.getValue()*scale
+                self.setValue(finalValue)
+                
             #not working #finalValue=formatting.format(finalValue)
             # not working #finalValue=formatting % finalValue
-            self.setValue(finalValue)
+            
     
 
             #temperature
