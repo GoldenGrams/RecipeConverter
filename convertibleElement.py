@@ -276,7 +276,7 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #Volume
-            elif (initUnit=="l" or initUnit=="liter" or initUnit=="liters"):
+            elif (initUnit=="l" or initUnit=="liter" or initUnit=="liters" or initUnit=="litres"):
                 finalValue = (initValue*4.22675)
                 formatting = "%.3f"
                 self.setValue(finalValue)

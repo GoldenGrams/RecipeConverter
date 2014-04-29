@@ -111,13 +111,13 @@ class ModelRecipe(object):
             splitStr = re.search(r2,unitingred)#finds ingredient for the purpose to split unit and ingredient
             #if no ingredient was found, nofbs is assign to ingred
             if(splitStr == None):
-                unit = unitingred
+                unit = unitingred.strip()
                 ingred = 'nofbs'
             #if ingredient is found the original string is split
             else:
                 begin = splitStr.start()
-                unit = unitingred[0:begin]
-                ingred = unitingred[begin:end]
+                unit = unitingred[0:begin].strip()
+                ingred = unitingred[begin:end].strip()
                 
             #pan size
             xpos = strvalue.find('x')
