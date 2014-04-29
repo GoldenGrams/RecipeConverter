@@ -14,7 +14,8 @@ from convertElement import *
 
 #cETest001 = ConvertibleElement(4 1/2, "cups")
 #cETest002 = ConvertibleElement(5, "ºf")
-cETest003 = ConvertibleElement(2, "cups", "brown sugar")
+
+cETest003 = ConvertibleElement(118.3, "ml", "Butter")
 '''
                                4.0 sm Acorn squash
                                0.0 Salt
@@ -269,6 +270,6 @@ cETest41.convertElement("Imperial", 1)
 print (str(cETest41.getValue()) + cETest41.getUnit())
 '''
 
-print (str(cETest003.getValue()) + cETest003.getUnit())
-cETest003.convertElement("Metric", 1)
-print (str(cETest003.getValue()) + cETest003.getUnit())
+print (str(cETest003.getValue()) + cETest003.getUnit() + cETest003.getIngredient())
+cETest003.convertElement("Imperial", 1)
+print (str(cETest003.getValue()) + cETest003.getUnit() + cETest003.getIngredient())
