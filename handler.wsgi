@@ -3,6 +3,7 @@ import os
 import platform
 import cgi
 import urllib.request
+import re
 
 sys.path.append(os.path.dirname(__file__))
 from controller import RecipeController
@@ -44,6 +45,17 @@ def application(environ, start_response):
 	try:
 		if( post_input['urluploadinput'].value):
 			recipeText = urllib.request.urlopen(post_input['urluploadinput'].value).read().decode("utf-8")
+			#remove all of the newlines
+			recipeText = recipeText.replace(" ","!space!")
+			recipeText = "".join(recipeText.split())
+			recipeText = recipeText.replace("!space!"," ")
+			recipeText = re.sub("^.*<\/head>","",recipeText)
+			recipeText = re.sub("<script[^>]*\/>","",recipeText)
+			recipeText = re.sub("<script.*?<\/script>","",recipeText)
+			recipeText = re.sub("</[^>]*>","\n",recipeText)
+			recipeText = re.sub("<[^>]*>","",recipeText)
+			recipeText = re.sub("^[\s]*","",recipeText,flags=re.MULTILINE)
+			recipeText = re.sub("^$","",recipeText)
 	except:
 		pass
 
@@ -58,8 +70,8 @@ def application(environ, start_response):
 
 
 
-	output  = controller.getOutput()
-	output  = output + "<!-- python-version: " + platform.python_version() + "-->"
+	output  = controller.getOutput().encode()
+	#output  = output + "<!-- python-version: " + platform.python_version() + "-->"
 
 	response_headers = [('Content-type', 'text/html'),
 		('Content-Length', str(len(output)))]
