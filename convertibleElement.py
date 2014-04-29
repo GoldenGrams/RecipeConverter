@@ -39,6 +39,7 @@ class ConvertibleElement:
         scale = float(scale)
         finalValue=initValue
         formatting=""
+        specialingredientflag=0
 
         
         if (desiredUnitsSystem.lower() == "metric"):
@@ -47,22 +48,31 @@ class ConvertibleElement:
             density=1.0
             if (self.getIngredient()=="salted butter"):
                 density = (1/0.96)
+                specialingredientflag=1
             elif (self.getIngredient()=="unsalted butter" or self.getIngredient()=="butter" or self.getIngredient()=="un salted butter"or self.getIngredient()=="un-salted butter"):
                 density = (1/0.91)
+                specialingredientflag=1
             elif (self.getIngredient()=="margarine"):
                 density = (1/1)
+                specialingredientflag=1
             elif (self.getIngredient()=="all-purpose flour" or self.getIngredient()=="all purpose flour"):
                 density = (1/0.58)
+                specialingredientflag=1
             elif (self.getIngredient()=="flour"):
                 density = (1/0.51)
+                specialingredientflag=1
             elif (self.getIngredient()=="light brown sugar"):
                 density = (1/0.81)
+                specialingredientflag=1
             elif (self.getIngredient()=="dark brown sugar"):
                 density = (1/0.81)
+                specialingredientflag=1
             elif (self.getIngredient()=="brown sugar"):
                 density = (1/0.81)
+                specialingredientflag=1
             elif (self.getIngredient()=="granulated sugar"):
                 density = (1/0.85)
+                specialingredientflag=1
 
             
             #length
@@ -94,47 +104,48 @@ class ConvertibleElement:
             #volume
                 #& (giveningredient.lower()=="butter" or giveningredient.lower()=="sugar" or giveningredient.lower()=="margarine" or giveningredient.lower()=="flour"):
 
-            elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"):
+            elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts") and (specialingredientflag==1):
                 finalValue = ((initValue*0.946353)*density)
                 formatting = "%.3f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit=="pt" or initUnit=="pint" or initUnit=="pints" or initUnit=="pts") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"):
+            elif (initUnit=="pt" or initUnit=="pint" or initUnit=="pints" or initUnit=="pts")  and (specialingredientflag==1):
                 finalValue = ((initValue*473.176)*density)
                 formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit=="cup" or initUnit=="cups") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"):
+            elif (initUnit=="cup" or initUnit=="cups")  and (specialingredientflag==1):
                 finalValue = ((initValue*236.588)*density)
                 formatting = "%.0f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit=="fl oz" or initUnit=="fluid ounces") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"):
+            elif (initUnit=="fl oz" or initUnit=="fluid ounces")  and (specialingredientflag==1):
                 finalValue = ((initValue*29.5735)*density)
                 formatting = "%.0f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"):
+            elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp")  and (specialingredientflag==1):
                 finalValue = ((initValue*14.7868)*density)
                 formatting = "%.0f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"): 
+            elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp")  and (specialingredientflag==1):
                 finalValue = ((initValue*4.92892)*density)
                 formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
+            ####
                 
             elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts"):
                 finalValue = (initValue*0.946353)
@@ -198,24 +209,34 @@ class ConvertibleElement:
             density=1.0
             if (self.getIngredient()=="salted butter"):
                 density = 0.96
+                specialingredientflag=1
             elif (self.getIngredient()=="unsalted butter" or self.getIngredient()=="butter" or self.getIngredient()=="un salted butter"or self.getIngredient()=="un-salted butter"):
                 density = 0.916
+                specialingredientflag=1
             elif (self.getIngredient()=="margarine"):
                 density = 1.0
+                specialingredientflag=1
             elif (self.getIngredient()=="all-purpose flour" or self.getIngredient()=="all purpose flour"):
                 density = 0.58
+                specialingredientflag=1
             elif (self.getIngredient()=="flour"):
                 density = 0.51
+                specialingredientflag=1
             elif (self.getIngredient()=="light brown sugar"):
                 density = 0.81
+                specialingredientflag=1
             elif (self.getIngredient()=="dark brown sugar"):
                 density = 0.81
+                specialingredientflag=1
             elif (self.getIngredient()=="brown sugar"):
                 density = 0.81
+                specialingredientflag=1
             elif (self.getIngredient()=="granulated sugar"):
                 density = 0.85
+                specialingredientflag=1
             elif (self.getIngredient()=="sugar"):
                 density = 0.85
+                specialingredientflag=1
             
             #length
             if (initUnit=="cm" or initUnit=="centimeters" or initUnit=="centimeter"):
@@ -226,14 +247,14 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             #mass
-            elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"): 
+            elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs") and (specialingredientflag==1):
                 finalValue = ((initValue*2.2046)*density)
                 formatting = "%.3f"
                 self.setValue(finalValue)
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
                 
-            elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram") & (self.getIngredient().lower()=="butter" or self.getIngredient().lower()=="unsalted butter" or self.getIngredient().lower()=="salted butter" or self.getIngredient().lower()=="margarine" or self.getIngredient().lower()=="all purpose flour" or self.getIngredient().lower()=="all-purpose flour" or self.getIngredient().lower()=="flour" or self.getIngredient().lower()=="light brown sugar" or self.getIngredient().lower()=="dark brown sugar" or self.getIngredient().lower()=="brown sugar" or self.getIngredient().lower()=="granulated sugar"): 
+            elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram") and (specialingredientflag==1):
                 finalValue = ((initValue*0.035274)*density)
                 formatting = "%.2f"
                 self.setValue(finalValue)
@@ -241,14 +262,14 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
             elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs"):
-                finalValue = (initValue*2.2046)
+                finalValue = (initValue*2.2046)*density
                 formatting = "%.3f"
                 self.setValue(finalValue)
                 finalUnit = "lbs"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram"):
-                finalValue = (initValue*0.035274)
+                finalValue = (initValue*0.035274)*density
                 formatting = "%.2f"
                 self.setValue(finalValue)
                 finalUnit = "oz"

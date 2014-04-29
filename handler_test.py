@@ -38,7 +38,7 @@ def application(post_input):
 def test():
 	system = "imperial"
 	scaling = "1"
-	recipeText = "118.3 ml  453.6 g Whole-berry cranberry sauce"
+	recipeText = "118.3 ml Honey"
 	submit = "submit"
 
 	formdata = {'recipeText':{0:recipeText}, 'system':{0:system}, 'scaling':{0:scaling}, 'submit':{0:submit}}
