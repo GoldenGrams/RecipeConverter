@@ -164,7 +164,7 @@ class ConvertibleElement:
                 finalUnit = "mL"
                 self.setUnit(finalUnit)
 
-            elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp"):
+            elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp" or initUnit.lower()=="tbs"):
                 finalValue = (initValue*14.7868)
                 formatting = "%.0f"
                 self.setValue(finalValue)
@@ -213,6 +213,8 @@ class ConvertibleElement:
             elif (self.getIngredient()=="brown sugar"):
                 density = 0.81
             elif (self.getIngredient()=="granulated sugar"):
+                density = 0.85
+            elif (self.getIngredient()=="sugar"):
                 density = 0.85
             
             #length
