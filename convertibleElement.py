@@ -99,9 +99,6 @@ class ConvertibleElement:
                 #The final value (converted quantity) is the initial unit multiplied by 2.54, since there
                 #are 2.54 cm per 1 inch.
                 finalValue = (initValue*2.54)
-                #The following lines shows the set up for formatting.
-                #x="%.3f" % x
-                formatting = "%.2f"
                 #Set the final value to the converted quantity with proper formatting.
                 self.setValue(finalValue)
                 #print (finalValue)
@@ -116,14 +113,12 @@ class ConvertibleElement:
             #Convert units of mass
             elif (initUnit=="lbs" or initUnit=="pounds" or initUnit=="lb" or initUnit=="pound"):
                 finalValue = (initValue*453.592)
-                formatting = "%.1f" 
                 self.setValue(finalValue)
                 finalUnit= "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="oz" or initUnit=="ounces" or initUnit=="ounce" or initUnit=="ozs"):
                 finalValue = (initValue*28.3495)
-                formatting = "%.1f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
@@ -131,42 +126,36 @@ class ConvertibleElement:
             #Convert measurements of special ingredients  
             elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts") and (specialingredientflag==1):
                 finalValue = ((initValue*0.946353)*density)
-                formatting = "%.3f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="pt" or initUnit=="pint" or initUnit=="pints" or initUnit=="pts")  and (specialingredientflag==1):
                 finalValue = ((initValue*473.176)*density)
-                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="cup" or initUnit=="cups")  and (specialingredientflag==1):
                 finalValue = ((initValue*236.588)*density)
-                formatting = "%.0f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="fl oz" or initUnit=="fluid ounces")  and (specialingredientflag==1):
                 finalValue = ((initValue*29.5735)*density)
-                formatting = "%.0f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp")  and (specialingredientflag==1):
                 finalValue = ((initValue*14.7868)*density)
-                formatting = "%.0f" 
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp")  and (specialingredientflag==1):
                 finalValue = ((initValue*4.92892)*density)
-                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
@@ -174,42 +163,36 @@ class ConvertibleElement:
             #Convert measures of volume for non-special volumes    
             elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts"):
                 finalValue = (initValue*0.946353)
-                formatting = "%.3f"
                 self.setValue(finalValue)
                 finalUnit = "L"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="pt" or initUnit=="pint" or initUnit=="pints" or initUnit=="pts" ):
                 finalValue = (initValue*473.176)
-                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "mL"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="cup" or initUnit=="cups"):
                 finalValue = (initValue*236.588)
-                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "mL"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="fl oz" or initUnit=="fluid ounces"):
                 finalValue = (initValue*29.5735)
-                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "mL"
                 self.setUnit(finalUnit)
 
             elif (initUnit.lower()=="tablespoons" or initUnit.lower()=="tbsp" or initUnit.lower()=="tbs"):
                 finalValue = (initValue*14.7868)
-                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
             elif (initUnit.lower()=="teaspoons" or initUnit.lower()=="tsp"):
                 finalValue = (initValue*4.92892)
-                formatting = "%.0f"
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
@@ -284,7 +267,6 @@ class ConvertibleElement:
                 #The final value (converted quantity) is the initial unit multiplied by 2.54, since there
                 #are 2.54 cm per 1 inch.
                 finalValue = (initValue*0.39)
-                formatting = "{0:.3f}"
                 #Set the final value to the converted quantity with proper formatting.
                 self.setValue(finalValue)
                 finalUnit = "in"
@@ -297,14 +279,12 @@ class ConvertibleElement:
             #Convert measures of mass for special masses  
             elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs") and (specialingredientflag==1):
                 finalValue = ((initValue*2.2046)*density)
-                formatting = "{0:.3f}"
                 self.setValue(finalValue)
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
                 
             elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram") and (specialingredientflag==1):
                 finalValue = ((initValue*0.035274)*density)
-                formatting = "{0:.2f}"
                 self.setValue(finalValue)
                 finalUnit = "Tbsp"
                 self.setUnit(finalUnit)
@@ -312,14 +292,12 @@ class ConvertibleElement:
             #Convert units of mass for non-special masses
             elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs"):
                 finalValue = (initValue*2.2046)*density
-                formatting = "{0:.3f}"
                 self.setValue(finalValue)
                 finalUnit = "lbs"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="g" or initUnit=="grams" or initUnit=="gram"):
                 finalValue = (initValue*0.035274)*density
-                formatting = "{0:.2f}"
                 self.setValue(finalValue)
                 finalUnit = "oz"
                 self.setUnit(finalUnit)
@@ -327,14 +305,12 @@ class ConvertibleElement:
             #Convert units of volume
             elif (initUnit=="l" or initUnit=="liter" or initUnit=="liters" or initUnit=="litres"):
                 finalValue = (initValue*4.22675)
-                formatting = "{0:.3f}"
                 self.setValue(finalValue)
                 finalUnit = "cups"
                 self.setUnit(finalUnit)
 
             elif (initUnit=="ml" or initUnit=="milliliter" or initUnit=="milliliters"):
                 finalValue = (initValue*0.2029)
-                formatting = "{0:.3f}"
                 self.setValue(finalValue)
                 finalUnit = "tsp"
                 self.setUnit(finalUnit)
