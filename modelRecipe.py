@@ -218,9 +218,9 @@ class ModelRecipe(object):
                 workingvalue="{0:.2f}".format(workingvalue)
                 if workingingredient=="nofbs":
                     #find marker, replace with data from appropriate CE: value+" "+units
-                    workingstring=re.sub("<"+str(counter)+">", workingvalue +" "+str(self.listCE[counter].getUnit()), workingstring)
+                    workingstring=re.sub("<"+str(counter)+">", " " + workingvalue +" "+str(self.listCE[counter].getUnit()) + " ", workingstring)
                 else:
-                    workingstring=re.sub("<"+str(counter)+">", workingvalue+" "+str(self.listCE[counter].getUnit())+" "+str(self.listCE[counter].getIngredient()), workingstring)
+                    workingstring=re.sub("<"+str(counter)+">", " " + workingvalue+" "+str(self.listCE[counter].getUnit())+" "+str(self.listCE[counter].getIngredient()) + " ", workingstring)
                                          
                 counter = counter + 1
                 
