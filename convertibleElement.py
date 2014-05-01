@@ -45,15 +45,16 @@ class ConvertibleElement:
         # desired unit system.
         
         #local variables
-        initValue = self.getValue() #working value for within method
-        initUnit = self.getUnit().lower() #working unit for within method 
+        initValue = self.getValue() #working value within method
+        initUnit = self.getUnit().lower() #working unit within method 
         self.setIngredient(self.getIngredient().lower()) #assuming ingredient name is not removed from overall string of recipe
         scale = float(scale)
-        finalValue=initValue
-        formatting=""
+        finalValue=initValue #the converted quantity
+        formatting="" #format converted values
         specialingredientflag=0 #flag to recognize special ingredients
 
         # Determine if the desired unit system is metric.
+        # If it is, check the ingredient. 
         if (desiredUnitsSystem.lower() == "metric"):
 
             # Density is assumed to be 1.0 unless the convertible element's ingredient is one of the ingredients listed below.
@@ -98,15 +99,21 @@ class ConvertibleElement:
                 #The final value (converted quantity) is the initial unit multiplied by 2.54, since there
                 #are 2.54 cm per 1 inch.
                 finalValue = (initValue*2.54)
+                #The following lines shows the set up for formatting.
                 #x="%.3f" % x
                 formatting = "%.2f"
+                #Set the final value to the converted quantity with proper formatting.
                 self.setValue(finalValue)
                 #print (finalValue)
                 finalUnit = "cm"
+                #Set the final unit to a comparable unit of measure in the desired measurement system.
                 self.setUnit(finalUnit)
                 #print(finalUnit)
 
-            #mass
+            #The prior descriptions of what is occuring in the block is applicable to all of
+            #the following blocks of code.
+
+            #Convert units of mass
             elif (initUnit=="lbs" or initUnit=="pounds" or initUnit=="lb" or initUnit=="pound"):
                 finalValue = (initValue*453.592)
                 formatting = "%.1f" 
@@ -121,9 +128,7 @@ class ConvertibleElement:
                 finalUnit = "g"
                 self.setUnit(finalUnit)
 
-            #volume
-               
-
+            #Convert measurements of special ingredients  
             elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts") and (specialingredientflag==1):
                 finalValue = ((initValue*0.946353)*density)
                 formatting = "%.3f" 
@@ -165,8 +170,8 @@ class ConvertibleElement:
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
-            ####
-                
+
+            #Convert measures of volume for non-special volumes    
             elif (initUnit=="qt" or initUnit=="quart" or initUnit=="quarts" or initUnit=="qts"):
                 finalValue = (initValue*0.946353)
                 formatting = "%.3f"
@@ -208,21 +213,19 @@ class ConvertibleElement:
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
-
+            
+            # Maintain temperature so that temperature does not get scaled
             if (initUnit=="degrees c" or initUnit=="degrees celsius" or initUnit=="c" or initUnit=="celsius" or initUnit=="ºc"):
                 self.setValue(finalValue)
+            # Scale and set value when scaled
             else:
                 finalValue=self.getValue()*scale
                 self.setValue(finalValue)
 
-            
             #finalValue=formatting.format(finalValue)
             #finalValue=formatting % finalValue
             
-
-
-            
-            #temperature
+            #Conversion of temperature
             if (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit" or initUnit=="ºf"):
                 finalValue = ((initValue-32.0)/9.0)*5.0
                 #finalValue = "%.0f" % finalValue
@@ -231,9 +234,14 @@ class ConvertibleElement:
                 self.setUnit(finalUnit)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # Determine if the desired unit system is imperial
+        # If it is, check the ingredient. 
         if (desiredUnitsSystem.lower() == "imperial"):
 
-            #density adjustments
+            # Density adjustments
+            # Density is assumed to be 1.0 unless the convertible element's ingredient is one of the ingredients listed below.
+            # Density is modified to the correct number if ingredient is "special". If not, density remains 1.0.
+            # The local variable specialingredientflag is changed to 1 when a special ingredient is detected.
             density=1.0
             if (self.getIngredient()=="salted butter"):
                 density = 1/0.96
@@ -265,16 +273,28 @@ class ConvertibleElement:
             elif (self.getIngredient()=="sugar"):
                 density = 1/0.85
                 specialingredientflag=1
+
+            # The following series of if...elif blocks check to see whether the conversion can be made.
+            # The abbreviations, singular spelling, and plural spellings of unit measures are checked.
+            # If there is a unit that can be converted, the conversion is made. 
             
-            #length
+            #Converts units of length (from centimeters to inches)
+            # Check to see if the convertible element's unit is "in", "inch" or "inches"
             if (initUnit=="cm" or initUnit=="centimeters" or initUnit=="centimeter"):
+                #The final value (converted quantity) is the initial unit multiplied by 2.54, since there
+                #are 2.54 cm per 1 inch.
                 finalValue = (initValue*0.39)
                 formatting = "{0:.3f}"
+                #Set the final value to the converted quantity with proper formatting.
                 self.setValue(finalValue)
                 finalUnit = "in"
+                #Set the final unit to a comparable unit of measure in the desired measurement system.
                 self.setUnit(finalUnit)
 
-            #mass
+            #The prior descriptions of what is occuring in the block is applicable to all of
+            #the following blocks of code.
+
+            #Convert measures of mass for special masses  
             elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs") and (specialingredientflag==1):
                 finalValue = ((initValue*2.2046)*density)
                 formatting = "{0:.3f}"
@@ -288,7 +308,8 @@ class ConvertibleElement:
                 self.setValue(finalValue)
                 finalUnit = "Tbsp"
                 self.setUnit(finalUnit)
-
+            
+            #Convert units of mass for non-special masses
             elif (initUnit=="kg" or initUnit=="kilograms" or initUnit=="kilogram" or initUnit=="kgs"):
                 finalValue = (initValue*2.2046)*density
                 formatting = "{0:.3f}"
@@ -303,7 +324,7 @@ class ConvertibleElement:
                 finalUnit = "oz"
                 self.setUnit(finalUnit)
 
-            #Volume
+            #Convert units of volume
             elif (initUnit=="l" or initUnit=="liter" or initUnit=="liters" or initUnit=="litres"):
                 finalValue = (initValue*4.22675)
                 formatting = "{0:.3f}"
@@ -318,9 +339,10 @@ class ConvertibleElement:
                 finalUnit = "tsp"
                 self.setUnit(finalUnit)
 
-
+            #Maintain temperature so that it does not get scaled
             if (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit" or initUnit=="ºf"):
                 self.setValue(finalValue)
+            #Scaling and set value after scaling
             else:
                 finalValue=self.getValue()*scale
                 self.setValue(finalValue)
@@ -328,9 +350,7 @@ class ConvertibleElement:
             #not working #finalValue=formatting.format(finalValue)
             # not working #finalValue=formatting % finalValue
             
-    
-
-            #temperature
+            #Convert the temperature
             if (initUnit=="degrees c" or initUnit=="degrees celsius" or initUnit=="c" or initUnit=="celsius" or initUnit=="ºc"):
                 finalValue = ((initValue*9.0)/5.0)+32
                 finalValue = "%.0f" % finalValue
