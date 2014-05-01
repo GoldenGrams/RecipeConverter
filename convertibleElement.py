@@ -33,24 +33,32 @@ class ConvertibleElement:
     def setIngredient (self, giveningredient):
         self.ingredient=giveningredient
 
-    #!!!!!!!!!!!!!
-    # if converting from metric to metric or imperial to imperial, scaling doesnt happen?
     def convertElement (self, desiredUnitsSystem, scale):
-        #this is andrew's method
-        #changes values inside converted element        
+        # This method takes in a desired unit system and a scale as a parameter.
+        # The method uses a convertible element (quantity, unit, and in some cases an ingredient.)
+        # The ingredient is checked against certain ingredients whose measurements are in mass in
+        # metric and volume in Imperial. If such an ingredient is of the special type, the
+        # measure of density is modified; otherwise, the density is 1.0.
+        # The unit of the convertible element is then checked a list of applicable units of measure.
+        # If the ingredient and an item on the list match, the quantity is modified, based on
+        # conversion factors. The unit is changed to an applicable unit of measure in the
+        # desired unit system.
         
+        #local variables
         initValue = self.getValue() #working value for within method
         initUnit = self.getUnit().lower() #working unit for within method 
         self.setIngredient(self.getIngredient().lower()) #assuming ingredient name is not removed from overall string of recipe
         scale = float(scale)
         finalValue=initValue
         formatting=""
-        specialingredientflag=0
+        specialingredientflag=0 #flag to recognize special ingredients
 
-        
+        # Determine if the desired unit system is metric.
         if (desiredUnitsSystem.lower() == "metric"):
 
-            #density adjustments
+            # Density is assumed to be 1.0 unless the convertible element's ingredient is one of the ingredients listed below.
+            # Density is modified to the correct number if ingredient is "special". If not, density remains 1.0.
+            # The local variable specialingredientflag is changed to 1 when a special ingredient is detected.
             density=1.0
             if (self.getIngredient()=="salted butter"):
                 density = 0.96
@@ -80,9 +88,15 @@ class ConvertibleElement:
                 density = 0.85
                 specialingredientflag=1
 
+            # The following series of if...elif blocks check to see whether the conversion can be made.
+            # The abbreviations, singular spelling, and plural spellings of unit measures are checked.
+            # If there is a unit that can be converted, the conversion is made. 
             
-            #length
+            #Converts units of length (from inches to centimeters)
+            # Check to see if the convertible element's unit is "in", "inch" or "inches"
             if (initUnit=="in" or initUnit=="inches" or initUnit=="inch"):
+                #The final value (converted quantity) is the initial unit multiplied by 2.54, since there
+                #are 2.54 cm per 1 inch.
                 finalValue = (initValue*2.54)
                 #x="%.3f" % x
                 formatting = "%.2f"
@@ -211,7 +225,7 @@ class ConvertibleElement:
             #temperature
             if (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit" or initUnit=="ºf"):
                 finalValue = ((initValue-32.0)/9.0)*5.0
-                finalValue = "%.0f" % finalValue
+                #finalValue = "%.0f" % finalValue
                 self.setValue(finalValue)
                 finalUnit = "degrees Celsius"
                 self.setUnit(finalUnit)
