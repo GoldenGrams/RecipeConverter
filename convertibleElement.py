@@ -1,6 +1,7 @@
 #ConvertibleElement.py
 
-# an instantiation of the ConvertibleElement class is the specific number, unit, and sometimes ingredient
+# an instantiation of the ConvertibleElement class is the specific
+# number, unit, and sometimes ingredient
 # that are manipulated by the program
 
 
@@ -35,8 +36,8 @@ class ConvertibleElement:
 
     def convertElement (self, desiredUnitsSystem, scale):
         # This method takes in a desired unit system and a scale as a parameter.
-        # The method uses a convertible element (quantity, unit, and in some cases an ingredient.)
-        # The ingredient is checked against certain ingredients whose measurements are in mass in
+        # The method manipulates a ConvertibleElement object (quantity, unit, and in some cases an ingredient.)
+        # The ingredient is first checked against certain ingredients whose measurements are in mass in
         # metric and volume in Imperial. If such an ingredient is of the special type, the
         # measure of density is modified; otherwise, the density is 1.0.
         # The unit of the convertible element is then checked a list of applicable units of measure.
@@ -50,11 +51,10 @@ class ConvertibleElement:
         self.setIngredient(self.getIngredient().lower()) #assuming ingredient name is not removed from overall string of recipe
         scale = float(scale)
         finalValue=initValue #the converted quantity
-        formatting="" #format converted values
         specialingredientflag=0 #flag to recognize special ingredients
 
         # Determine if the desired unit system is metric.
-        # If it is, check the ingredient. 
+        # If it is, check the ingredient here, so any imperial items are changed to metric. 
         if (desiredUnitsSystem.lower() == "metric"):
 
             # Density is assumed to be 1.0 unless the convertible element's ingredient is one of the ingredients listed below.
@@ -99,13 +99,12 @@ class ConvertibleElement:
                 #The final value (converted quantity) is the initial unit multiplied by 2.54, since there
                 #are 2.54 cm per 1 inch.
                 finalValue = (initValue*2.54)
-                #Set the final value to the converted quantity with proper formatting.
+                #Set the final value to the converted quantity
                 self.setValue(finalValue)
-                #print (finalValue)
-                finalUnit = "cm"
                 #Set the final unit to a comparable unit of measure in the desired measurement system.
+                finalUnit = "cm"
                 self.setUnit(finalUnit)
-                #print(finalUnit)
+                
 
             #The prior descriptions of what is occuring in the block is applicable to all of
             #the following blocks of code.
@@ -196,18 +195,17 @@ class ConvertibleElement:
                 self.setValue(finalValue)
                 finalUnit = "g"
                 self.setUnit(finalUnit)
-            
-            # Maintain temperature so that temperature does not get scaled
+
+            ## Apply scale
+            # Maintain temperature: temperature does not get scaled
             if (initUnit=="degrees c" or initUnit=="degrees celsius" or initUnit=="c" or initUnit=="celsius" or initUnit=="ºc"):
-                self.setValue(finalValue)
-            # Scale and set value when scaled
+                self.setValue(finalValue)            
             else:
+                # Scale and set value when scaled
                 finalValue=self.getValue()*scale
                 self.setValue(finalValue)
 
-            #finalValue=formatting.format(finalValue)
-            #finalValue=formatting % finalValue
-            
+                        
             #Conversion of temperature
             if (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit" or initUnit=="ºf"):
                 finalValue = ((initValue-32.0)/9.0)*5.0
@@ -216,9 +214,15 @@ class ConvertibleElement:
                 finalUnit = "degrees Celsius"
                 self.setUnit(finalUnit)
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#
+# Big spacing and comment separation to distinguish the block of code for imperial and the block of code for metric
+#
+
+
+
         # Determine if the desired unit system is imperial
-        # If it is, check the ingredient. 
+        # If it is, check the ingredient  
         if (desiredUnitsSystem.lower() == "imperial"):
 
             # Density adjustments
@@ -269,8 +273,8 @@ class ConvertibleElement:
                 finalValue = (initValue*0.39)
                 #Set the final value to the converted quantity with proper formatting.
                 self.setValue(finalValue)
-                finalUnit = "in"
                 #Set the final unit to a comparable unit of measure in the desired measurement system.
+                finalUnit = "in"
                 self.setUnit(finalUnit)
 
             #The prior descriptions of what is occuring in the block is applicable to all of
@@ -315,17 +319,16 @@ class ConvertibleElement:
                 finalUnit = "tsp"
                 self.setUnit(finalUnit)
 
-            #Maintain temperature so that it does not get scaled
+            ## Apply scaling:            
+            # maintain temperature so that it does not get scaled
             if (initUnit=="degrees f" or initUnit=="degrees fahrenheit" or initUnit=="f" or initUnit=="fahrenheit" or initUnit=="ºf"):
-                self.setValue(finalValue)
-            #Scaling and set value after scaling
+                self.setValue(finalValue)            
             else:
+                #Scaling and set value after scaling
                 finalValue=self.getValue()*scale
                 self.setValue(finalValue)
                 
-            #not working #finalValue=formatting.format(finalValue)
-            # not working #finalValue=formatting % finalValue
-            
+
             #Convert the temperature
             if (initUnit=="degrees c" or initUnit=="degrees celsius" or initUnit=="c" or initUnit=="celsius" or initUnit=="ºc"):
                 finalValue = ((initValue*9.0)/5.0)+32

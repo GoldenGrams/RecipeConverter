@@ -1,10 +1,13 @@
 ﻿#ModelRecipe.py
+#objects of the ModelRecipe class represent the recipe submitted by the user to the program
+#it also contains the recipe during all stages of the process, including the list of ConvertibleElements
 
 from convertibleElement import *
 
 import re
 
 class ModelRecipe(object):
+    #instance variables
     origRecipe=""
     parsedRecipe=""
     finalRecipe=""
@@ -12,7 +15,8 @@ class ModelRecipe(object):
     didParse=False
     didConvert=False
     listCE=[]
-    #constructor (set privacy?)
+    
+    #constructor
     def __init__ (self, givenrecipe):
         self.origRecipe=givenrecipe
         self.parsedRecipe
@@ -23,7 +27,7 @@ class ModelRecipe(object):
         self.listCE=[]
         
         
-    #accessor methods (privacy?)
+    #accessor methods
     def getOrigRecipe (self):
         return self.origRecipe
     def getParsedRecipe (self):
@@ -42,7 +46,7 @@ class ModelRecipe(object):
         return self.finalRecipe
 	
 
-    #mutator methods (privacy?)
+    #mutator methods
     def setOrigRecipe (self, givenstring):
         self.origRecipe=givenstring
     def setParsedRecipe (self, givenstring):
@@ -59,8 +63,8 @@ class ModelRecipe(object):
         self.listCE.append(givenCE)
 
 
-    #!!!!!!!!!!!!!!!
-    #public methods        
+    ## public methods
+    # parses the initial text submitted by user
     def parseRecipe (self):
         recipe=""
         recipe = self.getOrigRecipe()
@@ -89,57 +93,117 @@ class ModelRecipe(object):
         #regex to find specific ingredients
         ingEx = re.compile('''(?:(?:un)?\s*-?\s*salted)?\s*butter|margarine
                           |all\s*-?\s*purpose\s*-?\s*flour
-                          |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar''', re.IGNORECASE | re.VERBOSE) ##change
+                          |(?:(?:(?:light|dark)?\s*brown)?|(?:granulated)?)\s*sugar''', re.IGNORECASE | re.VERBOSE)
+        #use helper method to assemble ConvertibleElements
         self.createConEl(celist,splitEx,ingEx)
+
+        #use helper method to place tags in text
         recipe = self.addTags(celist, recipe)
                     
         self.setParsedRecipe(recipe)
         self.setParseCheck(True)
 
-            #helper methods 
+    #converts parsed recipe
+    def convertRecipe (self, desiredsystem, scaling):
+        workingCE = None #temporary ConvertibleElement for ease of manipulation
+
+        #only do converting if recipe has been parsed
+        if self.getParseCheck():
+            counter = 0
+            #for each ConvertibleElement in the list of ConvertibleElements
+            while len(self.getList()) > counter:
+                workingCE=self.getCE(counter)
+                
+                #Call convertElement() method to convert that specific element based on the goal units system and the scaling
+                #The convertElement() method was written by Andrew Cordone and can be found in the convertibleElement module
+                workingCE.convertElement(desiredsystem, scaling)
+
+                counter = counter + 1
+                
+        self.setConvertCheck(True)
+
+    #places data from within ConvertibleElements back into its appropriate places in the recipe string
+    def finalizeRecipe (self):
+        #temporary variables for ease of manipulation
+        workingstring=""
+        workingingredient=""
+        workingvalue=0.0
+        #only works if recipe is already converted
+        if self.getConvertCheck():
+            workingstring=self.getParsedRecipe()
+                        
+            counter=0
+            #for each ConvertibleElement
+            while len(self.getList()) > counter:
+                workingingredient=self.listCE[counter].getIngredient()
+                workingvalue=self.listCE[counter].getValue()
+                #truncation:
+                workingvalue="{0:.2f}".format(workingvalue)
+                #check for regular ingredients
+                if workingingredient=="nofbs":
+                    #find marker, replace with data from appropriate ConvertibleElement: value+" "+units
+                    workingstring=re.sub("<"+str(counter)+">", " " + workingvalue +" "+str(self.listCE[counter].getUnit()) + " ", workingstring)
+                else:
+                    #if special ingredient
+                    ##find marker, replace with data from appropriate ConvertibleElement: value+" "+units+" "+special ingredient
+                    workingstring=re.sub("<"+str(counter)+">", " " + workingvalue+" "+str(self.listCE[counter].getUnit())+" "+str(self.listCE[counter].getIngredient()) + " ", workingstring)
+                                         
+                counter = counter + 1
+
+            #set the created string as the finalized recipe
+            self.setFinalRecipe(workingstring)
+
+
+
+            
+
+    ##helper methods 
+
     #each string element in celist gets converted into
-    #convertible elements(calls convertible element constructor)
+    # a convertible element(calls convertible element constructor)
     #and gets modified element and places it in list    
     def createConEl(self, list, r1,r2):
         for ce in list:
             splitCe = re.search(r1,ce)#recognizes where the original string should split
             start = splitCe.start()
             end = ce.__len__()
-            strvalue = ce[0:start].strip()# takes double part of string and assigns it to value
+            strvalue = ce[0:start].strip()# takes number part of string and assigns it to value
             
-            unitingred = ce[start:end]#takes string part of the convertible strin and assigns it to unitingred                      
+            unitingred = ce[start:end]#takes string part of the convertible string and assigns it to unitingred                      
             splitStr = re.search(r2,unitingred)#finds ingredient for the purpose to split unit and ingredient
-            #if no ingredient was found, nofbs is assign to ingred
+            #if no special ingredient was found, nofbs is assign to ingred
             if(splitStr == None):
                 unit = unitingred.strip()
                 ingred = 'nofbs'
-            #if ingredient is found the original string is split
+            #if special ingredient is found the original string is split
             else:
                 begin = splitStr.start()
                 unit = unitingred[0:begin].strip()
                 ingred = unitingred[begin:end].strip()
                 
-            #pan size
+            #if a pan size is given
             xpos = strvalue.find('x')
-            #if x is found btwn two numerical values, call convertible element constructor for each value
+            #if x is found btwn two numerical values, call convertible element constructor once for the value on each side of the X
             if(xpos != -1):
                 strval1 = strvalue[0:xpos-1].strip()
                 strval2 = strvalue[xpos+1:strvalue.__len__()].strip()
+                #calls a helper method to trn strings into numbers
                 double1 = self.convertValue(strval1)
                 double2 = self.convertValue(strval2)
+                #make ConvertibleElements by calling ConvertibleElement constructor
+                #note that the 5th character (from left) in "conEl1" and "conEl2" is a lowercase "L"
                 conEl1 = ConvertibleElement(double1, unit, ingred)
                 conEl2 = ConvertibleElement(double2, unit, ingred)
+                #place newly created ConvertibleElements into the list
                 self.setCElistElement(conEl1)
                 self.setCElistElement(conEl2)
             #if no x is found, convertible element constructor is called once
             else:
+                #helper method for converting string to number
                 double1 = self.convertValue(strvalue)
+                #create ConvertibleElement
                 conEl1 = ConvertibleElement(double1, unit, ingred)
-                print("conEl1 "+ str(conEl1))
-                print(str(conEl1.getValue()) + str(conEl1.getUnit()) + str(conEl1.getIngredient()))
-                conEl1.convertElement("imperial", 1)
-                print(str(conEl1.getValue()) + str(conEl1.getUnit()) + str(conEl1.getIngredient()))
-                
+                #place ConvertibleElement in list
                 self.setCElistElement(conEl1)
                 
 
@@ -167,7 +231,7 @@ class ModelRecipe(object):
                 value = (float(fnum))+(num/den)
         return value
 
-    #Replaces each convertable element with <#>. Returns recipe with tagged elements
+    #Replaces each convertable element in the original recipe with <#>. Returns recipe with tagged elements
     def addTags(self,list,recipe): 
         num = 0
         for ce in list:
@@ -183,48 +247,10 @@ class ModelRecipe(object):
             else:        
                 recipe = recipe.replace(ce, '<'+ str(num) + '>',1)
                 num = num + 1
-        #print(recipe)
         return recipe
 
-        # pass workingString to parser (josie's method)
-        # set result of parsing to workingString
-        #self.parseTheRecipe(workingString)
 
-        
-    def convertRecipe (self, desiredsystem, scaling):
-        workingCE = None
-        if self.getParseCheck():
-            counter = 0
-            while len(self.getList()) > counter:
-                workingCE=self.getCE(counter)
-                
-                #andrew's method
-                workingCE.convertElement(desiredsystem, scaling)
-
-                counter = counter + 1
-        self.setConvertCheck(True)
-        
-    def finalizeRecipe (self):
-        workingstring=""
-        workingingredient=""
-        workingvalue=0.0
-        if self.getConvertCheck():
-            workingstring=self.getParsedRecipe()
-                        
-            counter=0
-            while len(self.getList()) > counter:
-                workingingredient=self.listCE[counter].getIngredient()
-                workingvalue=self.listCE[counter].getValue()
-                workingvalue="{0:.2f}".format(workingvalue)
-                if workingingredient=="nofbs":
-                    #find marker, replace with data from appropriate CE: value+" "+units
-                    workingstring=re.sub("<"+str(counter)+">", " " + workingvalue +" "+str(self.listCE[counter].getUnit()) + " ", workingstring)
-                else:
-                    workingstring=re.sub("<"+str(counter)+">", " " + workingvalue+" "+str(self.listCE[counter].getUnit())+" "+str(self.listCE[counter].getIngredient()) + " ", workingstring)
-                                         
-                counter = counter + 1
-                
-            self.setFinalRecipe(workingstring)
+    
                    
             
         
