@@ -1,8 +1,13 @@
 #####################
-#controller.py
-#####################
-#
-######################
+#controller.py      #    
+##############################################################################
+#Recives input from user through view, and pass it on to Model recipe if all #
+#fields are filled. Otherwise will send view an error message to display to  #
+#users.                                                                      #   
+#Calls ModelRecipe to convert the recipe and pass on the finalized recipe    #
+#to the view along with the scaling and system used.                         #   
+##############################################################################
+
 
 from view import RecipeView
 from modelRecipe import ModelRecipe
@@ -22,20 +27,18 @@ class RecipeController:
         def getOutput(self):
                 v = RecipeView()
                 convertedRecipeText = ""
+                #checks if user entered information in all fields
+                #and that the input is valid
+                #Convert the recipe if they are
                 if self.errorFlag == False:
                         convertedRecipeText = self.processRecipe()
-                        #display final recipe for user
-                        #convert scaling back to string
-                        #actually don't need to do that
-                        #before sending to user
                 elif self.submitted == True:
                         v.setErrorText(self.x)
                         errorFlag = False
                         #return error message and pull up
-                        #the view with info for user to enter again.
                         #reset errorFlag before recussion   
                       
-                
+                #display final recipe for user
                 v.setSystem(self.system)
                 v.setOriginalRecipeText(self.originalRecipeText)
                 v.setConvertedRecipeText(convertedRecipeText)
@@ -43,6 +46,7 @@ class RecipeController:
                 return v.getOutput()
 
         #Step through the process of converting the recipe
+        #Create a ModelRecipe object, and calls methods from ModelRecipe
         #Return the altered recipe
         def processRecipe(self):
                 recipeMod = ModelRecipe(self.originalRecipeText)
@@ -65,8 +69,7 @@ class RecipeController:
                         self.x = "Empty field found"
                         return 
         
-        #break down inputCheck
-        #mutators for inputs
+        #mutator for system type
         def setSystem(self, system):
                 if system.lower() in ['metric', 'imperial']:
                         self.system = system
@@ -79,6 +82,7 @@ class RecipeController:
                         self.errorOutput(1)
                         self.errorFlag = True
 
+        #mutator for scaling
         def setScaling(self, strScale):
                 self.strScale = strScale
                 try:
@@ -100,7 +104,8 @@ class RecipeController:
                                 #empty string
                                 self.errorOutput(3)
                                 self.errorFlag = True
-                        
+
+        #mutator for recipe text  
         def setRecipeText (self, recipeText):
                 if(recipeText):
                         self.originalRecipeText = recipeText
@@ -114,6 +119,6 @@ class RecipeController:
                         self.errorOutput(2)
                         self.errorFlag  = True
                 
-
+        #Listener for submit button
         def setSubmit (self, submit):
                 self.submitted = True if submit=="submit" else False                
