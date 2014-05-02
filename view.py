@@ -15,6 +15,7 @@ class RecipeView:
 		with open (template, "r") as myfile:
     			text=myfile.read()
 
+		#replace all placeholders with necessary data on page
 		text = text.replace("%measurementsystem%",self.measurementSystem)
 		text = text.replace("%originalrecipetext%",self.originalRecipeText)
 		text = text.replace("%convertedrecipetext%",self.convertedRecipeText)
@@ -31,6 +32,9 @@ class RecipeView:
 		text = text.replace("%scaling%",self.scaling)
 		return text
 
+
+	# set methods
+
 	def setSystem(self,measurementSystem):
 		self.measurementSystem = measurementSystem
 
@@ -46,6 +50,6 @@ class RecipeView:
 	def setErrorText(self,errorText):
 		self.errorText = errorText
 
-
+	#get method
 	def getOutput(self):
 		return self.getDocument()
